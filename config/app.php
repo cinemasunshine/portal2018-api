@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        LaravelDoctrine\ORM\DoctrineServiceProvider::class,
 
         /*
          * Application Service Providers...
