@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Doctrine\Entities;;
+namespace App\Doctrine\Entities;
 
 use Cinemasunshine\ORM\Entity\TheaterMeta as BaseTheaterMeta;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,4 +17,3 @@ use Doctrine\ORM\Mapping as ORM;
 class TheaterMeta extends BaseTheaterMeta
 {
 }
-
