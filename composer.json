@@ -24,6 +24,7 @@
         "fzaninotto/faker": "^1.9.1",
         "mockery/mockery": "^1.3.1",
         "nunomaduro/collision": "^4.1",
+        "php-parallel-lint/php-parallel-lint": "^1.2",
         "phpunit/phpunit": "^8.5"
     },
     "config": {
@@ -53,6 +54,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
+        "phplint": "vendor/bin/parallel-lint --no-progress --exclude vendor --exclude bootstrap/cache --exclude storage .",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
