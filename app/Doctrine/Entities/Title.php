@@ -50,7 +50,7 @@ class Title extends BaseTitle
         $univarsal = $this->getUniversal() ?? [];
         $labels = self::$universalLabels;
 
-        return array_map(function($value) use ($labels) {
+        return array_map(function ($value) use ($labels) {
             return $labels[$value];
         }, $univarsal);
     }
