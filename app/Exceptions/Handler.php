@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use Doctrine\ORM\NoResultException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -13,7 +15,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        NoResultException::class,
     ];
 
     /**
@@ -37,6 +39,20 @@ class Handler extends ExceptionHandler
     public function report(Throwable $exception)
     {
         parent::report($exception);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function prepareException(\Throwable $e)
+    {
+        $e = parent::prepareException($e);
+
+        if ($e instanceof NoResultException) {
+            $e = new NotFoundHttpException($e->getMessage(), $e);
+        }
+
+        return $e;
     }
 
     /**
