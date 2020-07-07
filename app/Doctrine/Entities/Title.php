@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(readOnly=true)
  * @ORM\Table(name="title", options={"collate"="utf8mb4_general_ci"})
  * @ORM\HasLifecycleCallbacks
+ *
+ * @method File|null getImage()
  */
 class Title extends BaseTitle
 {

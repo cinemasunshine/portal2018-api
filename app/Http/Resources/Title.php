@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Doctrine\Entities\Title as TitleEntity;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class Title extends JsonResource
 {
@@ -22,6 +23,7 @@ class Title extends JsonResource
      * @return array{
      *     id: int,
      *     name: string,
+     *     image: string|null,
      *     credit: string|null,
      *     catchcopy: string|null,
      *     introduction: string|null,
@@ -36,10 +38,12 @@ class Title extends JsonResource
     {
         /** @var TitleEntity $title */
         $title = $this->resource;
+        $image = $title->getImage();
 
         return [
             'id' => $title->getId(),
             'name' => $title->getName(),
+            'image' => $image ? $image->getUrl() : null,
             'credit' => $title->getCredit(),
             'catchcopy' => $title->getCatchcopy(),
             'introduction' => $title->getIntroduction(),

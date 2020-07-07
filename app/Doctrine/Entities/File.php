@@ -6,6 +6,7 @@ namespace App\Doctrine\Entities;
 
 use Cinemasunshine\ORM\Entity\File as BaseFile;
 use Doctrine\ORM\Mapping as ORM;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * File entity class
@@ -27,5 +28,15 @@ class File extends BaseFile
     public static function getBlobContainer(): string
     {
         return self::$blobContainer;
+    }
+
+    /**
+     * Return URL
+     *
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return Storage::disk('azure-blob-file')->url($this->getName());
     }
 }

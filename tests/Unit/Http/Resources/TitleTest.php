@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Http\Resources;
 
+use App\Doctrine\Entities\File as FileEntity;
 use App\Doctrine\Entities\Title as TitleEntity;
 use App\Http\Resources\Title;
 use Illuminate\Http\Request;
@@ -45,6 +46,14 @@ class TitleTest extends TestCase
     {
         $id = 7;
         $name = 'example name';
+
+        $image = 'https://storage.example.com/sample.jpg';
+        $imageMock = $this->createFileEntityMock();
+        $imageMock
+            ->shouldReceive('getUrl')
+            ->once()
+            ->andReturn($image);
+
         $credit = 'example credit';
         $catchcopy = 'example catchcopy';
         $introduction = 'example introduction';
@@ -59,43 +68,36 @@ class TitleTest extends TestCase
         $titleEntityMock = $this->createTitleEntityMock();
         $titleEntityMock
             ->shouldReceive('getId')
-            ->once()
             ->andReturn($id);
         $titleEntityMock
+            ->shouldReceive('getImage')
+            ->andReturn($imageMock, null);
+        $titleEntityMock
             ->shouldReceive('getName')
-            ->once()
             ->andReturn($name);
         $titleEntityMock
             ->shouldReceive('getCredit')
-            ->once()
             ->andReturn($credit);
         $titleEntityMock
             ->shouldReceive('getCatchcopy')
-            ->once()
             ->andReturn($catchcopy);
         $titleEntityMock
             ->shouldReceive('getIntroduction')
-            ->once()
             ->andReturn($introduction);
         $titleEntityMock
             ->shouldReceive('getDirector')
-            ->once()
             ->andReturn($director);
         $titleEntityMock
             ->shouldReceive('getCast')
-            ->once()
             ->andReturn($cast);
         $titleEntityMock
             ->shouldReceive('getOfficialSite')
-            ->once()
             ->andReturn($officialSite);
         $titleEntityMock
             ->shouldReceive('getRatingText')
-            ->once()
             ->andReturn($rating);
         $titleEntityMock
             ->shouldReceive('getUniversalTexts')
-            ->once()
             ->andReturn($universal);
 
         $targetMock = $this->createTargetMock();
@@ -108,6 +110,7 @@ class TitleTest extends TestCase
         $result = $targetMock->toArray(Mockery::mock(Request::class));
         $this->assertEquals($id, $result['id']);
         $this->assertEquals($name, $result['name']);
+        $this->assertEquals($image, $result['image']);
         $this->assertEquals($credit, $result['credit']);
         $this->assertEquals($catchcopy, $result['catchcopy']);
         $this->assertEquals($introduction, $result['introduction']);
@@ -116,5 +119,16 @@ class TitleTest extends TestCase
         $this->assertEquals($officialSite, $result['official_site']);
         $this->assertEquals($rating, $result['rating']);
         $this->assertEquals($universal, $result['universal']);
+
+        $result2 = $targetMock->toArray(Mockery::mock(Request::class));
+        $this->assertNull($result2['image']);
+    }
+
+    /**
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&FileEntity
+     */
+    protected function createFileEntityMock()
+    {
+        return Mockery::mock(FileEntity::class);
     }
 }
