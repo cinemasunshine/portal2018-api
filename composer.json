@@ -10,6 +10,7 @@
     },
     "require": {
         "php": "^7.3",
+        "blue32a/laravel-azure-blob-storage": "^0.2.0",
         "cinemasunshine/portal2018-orm": "^1.0",
         "doctrine/inflector": "^1.4",
         "fideloper/proxy": "^4.2",
