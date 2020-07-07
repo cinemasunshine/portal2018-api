@@ -43,4 +43,42 @@ class ScheduleRepository extends EntityRepository
 
         return $qb->getQuery()->getSingleResult();
     }
+
+    /**
+     * Find now showing
+     *
+     * @return Schedule[]
+     */
+    public function findNowShowing(): array
+    {
+        $alias = 's';
+        $qb = $this->createQueryBuilder($alias);
+
+        $this->addActiveQuery($qb, $alias);
+
+        $qb
+            ->andWhere(sprintf('%s.startDate <= CURRENT_DATE()', $alias))
+            ->orderBy(sprintf('%s.startDate', $alias), 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Find coming soon
+     *
+     * @return Schedule[]
+     */
+    public function findComingSoon(): array
+    {
+        $alias = 's';
+        $qb = $this->createQueryBuilder($alias);
+
+        $this->addActiveQuery($qb, $alias);
+
+        $qb
+            ->andWhere(sprintf('%s.startDate > CURRENT_DATE()', $alias))
+            ->orderBy(sprintf('%s.startDate', $alias), 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

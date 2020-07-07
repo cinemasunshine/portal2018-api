@@ -5,22 +5,42 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Doctrine\Entities\Schedule;
+use App\Doctrine\Repositories\ScheduleRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Schedule as ScheduleResource;
+use App\Http\Resources\ScheduleCollection as ScheduleCollectionResource;
+use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ScheduleController extends Controller
 {
+    protected const LIST_TYPE_NOW_SHOWING = 'now-showing';
+    protected const LIST_TYPE_COMING_SOON = 'coming-soon';
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param string $type
+     * @return ScheduleCollectionResource<ScheduleResource>
+     * @throws \InvalidArgumentException
      */
-    // public function index()
-    // {
-    //     //
-    // }
+    public function index(string $type, EntityManagerInterface $em)
+    {
+        /** @var ScheduleRepository $repository */
+        $repository = $em->getRepository(Schedule::class);
+        $schedules = [];
+
+        if ($type === self::LIST_TYPE_NOW_SHOWING) {
+            $schedules = $repository->findNowShowing();
+        } elseif ($type === self::LIST_TYPE_COMING_SOON) {
+            $schedules = $repository->findComingSoon();
+        } else {
+            throw new \InvalidArgumentException('Invalid "type".');
+        }
+
+        return new ScheduleCollectionResource($schedules);
+    }
 
     /**
      * Show the form for creating a new resource.

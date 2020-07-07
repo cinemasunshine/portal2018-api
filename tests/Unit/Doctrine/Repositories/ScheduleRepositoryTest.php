@@ -121,4 +121,100 @@ class ScheduleRepositoryTest extends TestCase
         $result = $targetMock->findOneActive($id);
         $this->assertEquals($schedule, $result);
     }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testFindNowShowing()
+    {
+        $alias = 's';
+        $queryBuilderMock = $this->createQueryBuilderMock();
+        $queryBuilderMock
+            ->shouldReceive('andWhere')
+            ->with($alias . '.startDate <= CURRENT_DATE()')
+            ->andReturn($queryBuilderMock);
+        $queryBuilderMock
+            ->shouldReceive('orderBy')
+            ->with($alias . '.startDate', 'DESC')
+            ->andReturn($queryBuilderMock);
+
+        $schedules = [
+            new Schedule(),
+        ];
+        $queryMock = $this->createQueryMock();
+        $queryMock
+            ->shouldReceive('getResult')
+            ->andReturn($schedules);
+
+        $queryBuilderMock
+            ->shouldReceive('getQuery')
+            ->with()
+            ->andReturn($queryMock);
+
+        $targetMock = $this->createTargetMock();
+        $targetMock
+            ->shouldAllowMockingProtectedMethods()
+            ->makePartial();
+
+        $targetMock
+            ->shouldReceive('createQueryBuilder')
+            ->with($alias)
+            ->andReturn($queryBuilderMock);
+
+        $targetMock
+            ->shouldReceive('addActiveQuery')
+            ->with($queryBuilderMock, $alias);
+
+        $result = $targetMock->findNowShowing();
+        $this->assertEquals($schedules, $result);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testFindComingSoon()
+    {
+        $alias = 's';
+        $queryBuilderMock = $this->createQueryBuilderMock();
+        $queryBuilderMock
+            ->shouldReceive('andWhere')
+            ->with($alias . '.startDate > CURRENT_DATE()')
+            ->andReturn($queryBuilderMock);
+        $queryBuilderMock
+            ->shouldReceive('orderBy')
+            ->with($alias . '.startDate', 'ASC')
+            ->andReturn($queryBuilderMock);
+
+        $schedules = [
+            new Schedule(),
+        ];
+        $queryMock = $this->createQueryMock();
+        $queryMock
+            ->shouldReceive('getResult')
+            ->andReturn($schedules);
+
+        $queryBuilderMock
+            ->shouldReceive('getQuery')
+            ->with()
+            ->andReturn($queryMock);
+
+        $targetMock = $this->createTargetMock();
+        $targetMock
+            ->shouldAllowMockingProtectedMethods()
+            ->makePartial();
+
+        $targetMock
+            ->shouldReceive('createQueryBuilder')
+            ->with($alias)
+            ->andReturn($queryBuilderMock);
+
+        $targetMock
+            ->shouldReceive('addActiveQuery')
+            ->with($queryBuilderMock, $alias);
+
+        $result = $targetMock->findComingSoon();
+        $this->assertEquals($schedules, $result);
+    }
 }
