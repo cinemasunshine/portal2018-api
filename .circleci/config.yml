@@ -147,7 +147,11 @@ workflows:
 
   deploy_development:
     jobs:
-      - build_development:
+      - build_development
+      # - build_development:
+          # filters:
+          #   branches:
+          #     ignore: master
 
       - test:
           requires:
