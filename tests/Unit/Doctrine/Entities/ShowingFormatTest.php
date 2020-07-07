@@ -7,6 +7,9 @@ use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group unit
+ */
 class ShowingFormatTest extends TestCase
 {
     use MockeryPHPUnitIntegration;

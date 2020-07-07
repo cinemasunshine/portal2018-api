@@ -11,6 +11,9 @@ use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group unit
+ */
 class ScheduleControllerTest extends TestCase
 {
     use MockeryPHPUnitIntegration;

@@ -65,7 +65,8 @@
         "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
         "phpcbf": "vendor/bin/phpcbf --standard=phpcs.xml",
         "phpstan": "vendor/bin/phpstan analyse -n --no-progress -c phpstan.neon --memory-limit=256M",
-        "phpunit": "php artisan test",
+        "test": "php artisan test",
+        "test-unit": "php artisan test --group=unit",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

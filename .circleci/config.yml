@@ -124,7 +124,7 @@ jobs:
 
       - run:
           name: PHPUnit
-          command: composer phpunit
+          command: composer test-unit
 
   deploy_to_dev:
     working_directory: ~/development

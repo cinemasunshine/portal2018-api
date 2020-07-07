@@ -9,6 +9,9 @@ use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group unit
+ */
 class FileTest extends TestCase
 {
     use MockeryPHPUnitIntegration;

@@ -9,6 +9,9 @@ use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group unit
+ */
 class ScheduleCollectionTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
