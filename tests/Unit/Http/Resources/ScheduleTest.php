@@ -6,6 +6,7 @@ use App\Doctrine\Entities\Schedule as ScheduleEntity;
 use App\Doctrine\Entities\Title as TitleEntity;
 use App\Http\Resources\Schedule;
 use App\Http\Resources\ShowingFormat;
+use App\Http\Resources\ShowingTheater;
 use App\Http\Resources\Title;
 use Doctrine\Common\Collections\ArrayCollection;
 use Illuminate\Http\Request;
@@ -59,6 +60,7 @@ class ScheduleTest extends TestCase
         $remark = 'example remark';
         $title = new TitleEntity();
         $showingFormats = new ArrayCollection();
+        $showingTheaters = new ArrayCollection();
 
         $scheduleEntityMock = $this->createScheduleEntityMock();
         $scheduleEntityMock
@@ -85,6 +87,10 @@ class ScheduleTest extends TestCase
             ->shouldReceive('getShowingFormats')
             ->once()
             ->andReturn($showingFormats);
+        $scheduleEntityMock
+            ->shouldReceive('getShowingTheaters')
+            ->once()
+            ->andReturn($showingTheaters);
 
         $formats = Mockery::mock(AnonymousResourceCollection::class);
         $showingFormatMock = $this->createShowingFormatMock();
@@ -93,6 +99,14 @@ class ScheduleTest extends TestCase
             ->once()
             ->with(Mockery::type('array'))
             ->andReturn($formats);
+
+        $theaters = Mockery::mock(AnonymousResourceCollection::class);
+        $showingTheaterMock = $this->createShowingTheaterMock();
+        $showingTheaterMock
+            ->shouldReceive('collection')
+            ->once()
+            ->with(Mockery::type('array'))
+            ->andReturn($theaters);
 
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();
@@ -108,6 +122,7 @@ class ScheduleTest extends TestCase
         $this->assertEquals($remark, $result['remark']);
         $this->assertInstanceOf(Title::class, $result['title']);
         $this->assertEquals($formats, $result['formats']);
+        $this->assertEquals($theaters, $result['theaters']);
     }
 
     /**
@@ -116,5 +131,13 @@ class ScheduleTest extends TestCase
     protected function createShowingFormatMock()
     {
         return Mockery::mock('alias:' . ShowingFormat::class);
+    }
+
+    /**
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ShowingTheater
+     */
+    protected function createShowingTheaterMock()
+    {
+        return Mockery::mock('alias:' . ShowingTheater::class);
     }
 }

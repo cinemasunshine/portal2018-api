@@ -25,7 +25,8 @@ class Schedule extends JsonResource
      *     end_date: string,
      *     remark: ?string,
      *     title: \App\Http\Resources\Title,
-     *     formats: \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     *     formats: \Illuminate\Http\Resources\Json\AnonymousResourceCollection,
+     *     theaters: \Illuminate\Http\Resources\Json\AnonymousResourceCollection,
      * }
      */
     public function toArray($request)
@@ -40,6 +41,7 @@ class Schedule extends JsonResource
             'remark' => $schedule->getRemark(),
             'title' => new Title($schedule->getTitle()),
             'formats' => ShowingFormat::collection($schedule->getShowingFormats()->toArray()),
+            'theaters' => ShowingTheater::collection($schedule->getShowingTheaters()->toArray()),
         ];
     }
 }
