@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ScheduleController;
 use App\Http\Resources\Schedule as ScheduleResource;
 use App\Http\Resources\ScheduleCollection as ScheduleCollectionResource;
 use Doctrine\ORM\EntityManager;
+use Illuminate\Http\Request;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -38,17 +39,21 @@ class ScheduleControllerTest extends TestCase
             new ScheduleEntity(),
         ];
 
+        $theater = '999';
+        $requestMock = $this->createRequestMock($theater);
+
         $repositoryMock = $this->createScheduleRepositoryMock();
         $repositoryMock
             ->shouldReceive('findNowShowing')
-            ->with()
+            ->with($theater)
             ->andReturn($schedules);
 
         $entityMangerMock = $this->createEntityManagerMock($repositoryMock);
 
         $targetMoc = $this->createTargetMock();
         $targetMoc->makePartial();
-        $result = $targetMoc->index('now-showing', $entityMangerMock);
+        $result = $targetMoc->index($requestMock, 'now-showing', $entityMangerMock);
+
         $this->assertInstanceOf(ScheduleCollectionResource::class, $result);
     }
 
@@ -64,17 +69,21 @@ class ScheduleControllerTest extends TestCase
             new ScheduleEntity(),
         ];
 
+        $theater = '999';
+        $requestMock = $this->createRequestMock($theater);
+
         $repositoryMock = $this->createScheduleRepositoryMock();
         $repositoryMock
             ->shouldReceive('findComingSoon')
-            ->with()
+            ->with($theater)
             ->andReturn($schedules);
 
         $entityMangerMock = $this->createEntityManagerMock($repositoryMock);
 
         $targetMoc = $this->createTargetMock();
         $targetMoc->makePartial();
-        $result = $targetMoc->index('coming-soon', $entityMangerMock);
+        $result = $targetMoc->index($requestMock, 'coming-soon', $entityMangerMock);
+
         $this->assertInstanceOf(ScheduleCollectionResource::class, $result);
     }
 
@@ -86,11 +95,33 @@ class ScheduleControllerTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
+        $requestMock = $this->createRequestMock('999');
         $repositoryMock = $this->createScheduleRepositoryMock();
         $entityMangerMock = $this->createEntityManagerMock($repositoryMock);
         $targetMoc = $this->createTargetMock();
         $targetMoc->makePartial();
-        $targetMoc->index('invalid', $entityMangerMock);
+
+        $targetMoc->index($requestMock, 'invalid', $entityMangerMock);
+    }
+
+    /**
+     * @param mixed $theater
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Request
+     */
+    protected function createRequestMock($theater)
+    {
+        $mock = Mockery::mock(Request::class);
+        $mock
+            ->shouldReceive('validate')
+            ->with(Mockery::on(function ($argument) {
+                return isset($argument['theater']);
+            }));
+        $mock
+            ->shouldReceive('query')
+            ->with('theater')
+            ->andReturn($theater);
+
+        return $mock;
     }
 
     /**

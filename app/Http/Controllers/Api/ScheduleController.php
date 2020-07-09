@@ -21,20 +21,29 @@ class ScheduleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param string $type
+     * @param Request $request
+     * @param string $type route parameter
+     * @param EntityManagerInterface $em
      * @return ScheduleCollectionResource<ScheduleResource>
      * @throws \InvalidArgumentException
      */
-    public function index(string $type, EntityManagerInterface $em)
+    public function index(Request $request, string $type, EntityManagerInterface $em)
     {
+        $request->validate([
+            'theater' => ['string', 'size:3'],
+        ]);
+
+        /** @var string|null $theater */
+        $theater = $request->query('theater');
+
         /** @var ScheduleRepository $repository */
         $repository = $em->getRepository(Schedule::class);
         $schedules = [];
 
         if ($type === self::LIST_TYPE_NOW_SHOWING) {
-            $schedules = $repository->findNowShowing();
+            $schedules = $repository->findNowShowing($theater);
         } elseif ($type === self::LIST_TYPE_COMING_SOON) {
-            $schedules = $repository->findComingSoon();
+            $schedules = $repository->findComingSoon($theater);
         } else {
             throw new \InvalidArgumentException('Invalid "type".');
         }

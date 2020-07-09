@@ -131,46 +131,142 @@ class ScheduleRepositoryTest extends TestCase
      */
     public function testFindNowShowing()
     {
+        $theater = null;
         $alias = 's';
-        $queryBuilderMock = $this->createQueryBuilderMock();
-        $queryBuilderMock
-            ->shouldReceive('andWhere')
-            ->with($alias . '.startDate <= CURRENT_DATE()')
-            ->andReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->shouldReceive('orderBy')
-            ->with($alias . '.startDate', 'DESC')
-            ->andReturn($queryBuilderMock);
-
         $schedules = [
             new Schedule(),
         ];
+
         $queryMock = $this->createQueryMock();
         $queryMock
             ->shouldReceive('getResult')
             ->andReturn($schedules);
 
+        $queryBuilderMock = $this->createQueryBuilderMockForFindNowShowing(
+            $alias,
+            $queryMock
+        );
+
+        $aliasShowingTheaters = 'st';
+        $aliasTheater = 't';
         $queryBuilderMock
-            ->shouldReceive('getQuery')
-            ->with()
-            ->andReturn($queryMock);
+            ->shouldReceive('innerJoin')
+            ->never()
+            ->with($alias . '.showingTheaters', $aliasShowingTheaters);
+        $queryBuilderMock
+            ->shouldReceive('innerJoin')
+            ->never()
+            ->with($aliasShowingTheaters . '.theater', $aliasTheater);
+        $queryBuilderMock
+            ->shouldReceive('andWhere')
+            ->never()
+            ->with($aliasTheater . '.masterCode = :theater');
+        $queryBuilderMock
+            ->shouldReceive('setParameter')
+            ->never()
+            ->with('theater', $theater);
 
-        $targetMock = $this->createTargetMock();
-        $targetMock
-            ->shouldAllowMockingProtectedMethods()
-            ->makePartial();
+        $targetMock = $this->createTargetMockForFindNowShowing($alias, $queryBuilderMock);
+        $targetMock->makePartial();
 
-        $targetMock
-            ->shouldReceive('createQueryBuilder')
-            ->with($alias)
+        $result = $targetMock->findNowShowing($theater);
+        $this->assertEquals($schedules, $result);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testFindNowShowingWithTheater()
+    {
+        $theater = '999';
+        $alias = 's';
+        $schedules = [
+            new Schedule(),
+        ];
+
+        $queryMock = $this->createQueryMock();
+        $queryMock
+            ->shouldReceive('getResult')
+            ->andReturn($schedules);
+
+        $queryBuilderMock = $this->createQueryBuilderMockForFindNowShowing(
+            $alias,
+            $queryMock
+        );
+
+        $aliasShowingTheaters = 'st';
+        $aliasTheater = 't';
+        $queryBuilderMock
+            ->shouldReceive('innerJoin')
+            ->with($alias . '.showingTheaters', $aliasShowingTheaters)
+            ->andReturn($queryBuilderMock);
+        $queryBuilderMock
+            ->shouldReceive('innerJoin')
+            ->with($aliasShowingTheaters . '.theater', $aliasTheater)
+            ->andReturn($queryBuilderMock);
+        $queryBuilderMock
+            ->shouldReceive('andWhere')
+            ->with($aliasTheater . '.masterCode = :theater')
+            ->andReturn($queryBuilderMock);
+        $queryBuilderMock
+            ->shouldReceive('setParameter')
+            ->with('theater', $theater)
             ->andReturn($queryBuilderMock);
 
-        $targetMock
-            ->shouldReceive('addActiveQuery')
-            ->with($queryBuilderMock, $alias);
+        $targetMock = $this->createTargetMockForFindNowShowing($alias, $queryBuilderMock);
+        $targetMock->makePartial();
 
-        $result = $targetMock->findNowShowing();
+        $result = $targetMock->findNowShowing($theater);
         $this->assertEquals($schedules, $result);
+    }
+
+    /**
+     * @param string $alias
+     * @param mixed $queryBuilder
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ScheduleRepository
+     */
+    public function createTargetMockForFindNowShowing(string $alias, $queryBuilder)
+    {
+        $mock = $this->createTargetMock();
+        $mock->shouldAllowMockingProtectedMethods();
+
+        $mock
+            ->shouldReceive('createQueryBuilder')
+            ->with($alias)
+            ->andReturn($queryBuilder);
+
+        $mock
+            ->shouldReceive('addActiveQuery')
+            ->with($queryBuilder, $alias);
+
+        return $mock;
+    }
+
+    /**
+     * @param string $alias
+     * @param mixed $query
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
+     */
+    public function createQueryBuilderMockForFindNowShowing(
+        string $alias,
+        $query
+    ) {
+        $mock = $this->createQueryBuilderMock();
+        $mock
+            ->shouldReceive('andWhere')
+            ->with($alias . '.startDate <= CURRENT_DATE()')
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('orderBy')
+            ->with($alias . '.startDate', 'DESC')
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('getQuery')
+            ->with()
+            ->andReturn($query);
+
+        return $mock;
     }
 
     /**
@@ -179,45 +275,142 @@ class ScheduleRepositoryTest extends TestCase
      */
     public function testFindComingSoon()
     {
+        $theater = null;
         $alias = 's';
-        $queryBuilderMock = $this->createQueryBuilderMock();
-        $queryBuilderMock
-            ->shouldReceive('andWhere')
-            ->with($alias . '.startDate > CURRENT_DATE()')
-            ->andReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->shouldReceive('orderBy')
-            ->with($alias . '.startDate', 'ASC')
-            ->andReturn($queryBuilderMock);
-
         $schedules = [
             new Schedule(),
         ];
+
         $queryMock = $this->createQueryMock();
         $queryMock
             ->shouldReceive('getResult')
             ->andReturn($schedules);
 
+        $queryBuilderMock = $this->createQueryBuilderMockForFindComingSoon(
+            $alias,
+            $queryMock
+        );
+
+        $aliasShowingTheaters = 'st';
+        $aliasTheater = 't';
         $queryBuilderMock
-            ->shouldReceive('getQuery')
-            ->with()
-            ->andReturn($queryMock);
+            ->shouldReceive('innerJoin')
+            ->never()
+            ->with($alias . '.showingTheaters', $aliasShowingTheaters);
+        $queryBuilderMock
+            ->shouldReceive('innerJoin')
+            ->never()
+            ->with($aliasShowingTheaters . '.theater', $aliasTheater);
+        $queryBuilderMock
+            ->shouldReceive('andWhere')
+            ->never()
+            ->with($aliasTheater . '.masterCode = :theater');
+        $queryBuilderMock
+            ->shouldReceive('setParameter')
+            ->never()
+            ->with('theater', $theater);
 
-        $targetMock = $this->createTargetMock();
-        $targetMock
-            ->shouldAllowMockingProtectedMethods()
-            ->makePartial();
+        $targetMock = $this->createTargetMockForFindComingSoon($alias, $queryBuilderMock);
+        $targetMock->makePartial();
 
-        $targetMock
-            ->shouldReceive('createQueryBuilder')
-            ->with($alias)
+        $result = $targetMock->findComingSoon($theater);
+        $this->assertEquals($schedules, $result);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testFindComingSoonWithTheater()
+    {
+        $theater = '999';
+        $alias = 's';
+        $schedules = [
+            new Schedule(),
+        ];
+
+        $queryMock = $this->createQueryMock();
+        $queryMock
+            ->shouldReceive('getResult')
+            ->andReturn($schedules);
+
+        $queryBuilderMock = $this->createQueryBuilderMockForFindComingSoon(
+            $alias,
+            $queryMock
+        );
+
+        $aliasShowingTheaters = 'st';
+        $aliasTheater = 't';
+        $queryBuilderMock
+            ->shouldReceive('innerJoin')
+            ->with($alias . '.showingTheaters', $aliasShowingTheaters)
+            ->andReturn($queryBuilderMock);
+        $queryBuilderMock
+            ->shouldReceive('innerJoin')
+            ->with($aliasShowingTheaters . '.theater', $aliasTheater)
+            ->andReturn($queryBuilderMock);
+        $queryBuilderMock
+            ->shouldReceive('andWhere')
+            ->with($aliasTheater . '.masterCode = :theater')
+            ->andReturn($queryBuilderMock);
+        $queryBuilderMock
+            ->shouldReceive('setParameter')
+            ->with('theater', $theater)
             ->andReturn($queryBuilderMock);
 
-        $targetMock
-            ->shouldReceive('addActiveQuery')
-            ->with($queryBuilderMock, $alias);
+        $targetMock = $this->createTargetMockForFindComingSoon($alias, $queryBuilderMock);
+        $targetMock->makePartial();
 
-        $result = $targetMock->findComingSoon();
+        $result = $targetMock->findComingSoon($theater);
         $this->assertEquals($schedules, $result);
+    }
+
+    /**
+     * @param string $alias
+     * @param mixed $queryBuilder
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ScheduleRepository
+     */
+    public function createTargetMockForFindComingSoon(string $alias, $queryBuilder)
+    {
+        $mock = $this->createTargetMock();
+        $mock->shouldAllowMockingProtectedMethods();
+
+        $mock
+            ->shouldReceive('createQueryBuilder')
+            ->with($alias)
+            ->andReturn($queryBuilder);
+
+        $mock
+            ->shouldReceive('addActiveQuery')
+            ->with($queryBuilder, $alias);
+
+        return $mock;
+    }
+
+    /**
+     * @param string $alias
+     * @param mixed $query
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
+     */
+    public function createQueryBuilderMockForFindComingSoon(
+        string $alias,
+        $query
+    ) {
+        $mock = $this->createQueryBuilderMock();
+
+        $mock
+            ->shouldReceive('andWhere')
+            ->with($alias . '.startDate > CURRENT_DATE()')
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('orderBy')
+            ->with($alias . '.startDate', 'ASC')
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('getQuery')
+            ->with()
+            ->andReturn($query);
+
+        return $mock;
     }
 }
