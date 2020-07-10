@@ -17,8 +17,10 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::prefix('doctrine')->group(function () {
-    Route::get('/cache/stats', 'DoctrineController@cacheStats');
-    Route::get('/cache/{target}/clear', 'DoctrineController@cacheClear')
-        ->where('target', 'query|metadata');
+Route::prefix('dev')->group(function () {
+    Route::prefix('doctrine')->group(function () {
+        Route::get('/cache/stats', 'DoctrineController@cacheStats');
+        Route::get('/cache/{target}/clear', 'DoctrineController@cacheClear')
+            ->where('target', 'query|metadata');
+    });
 });

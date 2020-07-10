@@ -16,3 +16,6 @@ indent_size = 2
 
 [*.neon]
 indent_style = tab
+
+[web.config]
+indent_size = 2
