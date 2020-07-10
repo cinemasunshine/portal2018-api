@@ -2,7 +2,7 @@
 ; https://docs.microsoft.com/ja-jp/azure/app-service/configure-language-php
 
 [Core]
-display_errors = Off
+display_errors = On
 error_reporting = E_ALL
 
 [Date]
