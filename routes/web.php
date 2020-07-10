@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+Route::prefix('doctrine')->group(function () {
+    Route::get('/cache/stats', 'DoctrineController@cacheStats');
+    Route::get('/cache/{target}/clear', 'DoctrineController@cacheClear')
+        ->where('target', 'query|metadata');
+});
