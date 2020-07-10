@@ -46,23 +46,38 @@ class ShowingFormatTest extends TestCase
      */
     public function testToArray()
     {
-        $system = 'example system';
-        $sound = 'example sound';
-        $voice = 'example voice';
+        $systemId = 2;
+        $systemName = 'example system';
+        $soundId = 3;
+        $soundName = 'example sound';
+        $voiceId = 4;
+        $voiceName = 'example voice';
 
         $showingFormatEntityMock = $this->createShowingFormatEntityMock();
         $showingFormatEntityMock
+            ->shouldReceive('getSystem')
+            ->once()
+            ->andReturn($systemId);
+        $showingFormatEntityMock
             ->shouldReceive('getSystemText')
             ->once()
-            ->andReturn($system);
+            ->andReturn($systemName);
+        $showingFormatEntityMock
+            ->shouldReceive('getSound')
+            ->once()
+            ->andReturn($soundId);
         $showingFormatEntityMock
             ->shouldReceive('getSoundText')
             ->once()
-            ->andReturn($sound);
+            ->andReturn($soundName);
+        $showingFormatEntityMock
+            ->shouldReceive('getVoice')
+            ->once()
+            ->andReturn($voiceId);
         $showingFormatEntityMock
             ->shouldReceive('getVoiceText')
             ->once()
-            ->andReturn($voice);
+            ->andReturn($voiceName);
 
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();
@@ -72,8 +87,11 @@ class ShowingFormatTest extends TestCase
         $resourceRef->setValue($targetMock, $showingFormatEntityMock);
 
         $result = $targetMock->toArray(Mockery::mock(Request::class));
-        $this->assertEquals($system, $result['system']);
-        $this->assertEquals($sound, $result['sound']);
-        $this->assertEquals($voice, $result['voice']);
+        $this->assertEquals($systemId, $result['system_id']);
+        $this->assertEquals($systemName, $result['system_name']);
+        $this->assertEquals($soundId, $result['sound_id']);
+        $this->assertEquals($soundName, $result['sound_name']);
+        $this->assertEquals($voiceId, $result['voice_id']);
+        $this->assertEquals($voiceName, $result['voice_name']);
     }
 }

@@ -20,9 +20,12 @@ class ShowingFormat extends JsonResource
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array{
-     *     system: string,
-     *     sound: string,
-     *     voice: string,
+     *     system_id: int,
+     *     system_name: string,
+     *     sound_id: int,
+     *     sound_name: string,
+     *     voice_id: int,
+     *     voice_name: string,
      * }
      */
     public function toArray($request)
@@ -31,9 +34,12 @@ class ShowingFormat extends JsonResource
         $showingFormat = $this->resource;
 
         return [
-            'system' => $showingFormat->getSystemText(),
-            'sound' => $showingFormat->getSoundText(),
-            'voice' => $showingFormat->getVoiceText(),
+            'system_id' => $showingFormat->getSystem(),
+            'system_name' => $showingFormat->getSystemText(),
+            'sound_id' => $showingFormat->getSound(),
+            'sound_name' => $showingFormat->getSoundText(),
+            'voice_id' => $showingFormat->getVoice(),
+            'voice_name' => $showingFormat->getVoiceText(),
         ];
     }
 }
