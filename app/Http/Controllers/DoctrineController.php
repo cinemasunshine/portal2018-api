@@ -51,7 +51,7 @@ class DoctrineController extends Controller
      * @param Request $request
      * @param string $target
      * @param EntityManagerInterface $em
-     * @return void
+     * @return string
      */
     public function cacheClear(Request $request, string $target, EntityManagerInterface $em)
     {
@@ -63,13 +63,21 @@ class DoctrineController extends Controller
             throw new \InvalidArgumentException('Invalid "target".');
         }
 
+        if (!$cacheDriver) {
+            throw new \InvalidArgumentException('No cache driver is configured on given EntityManager.');
+        }
+
+        if (!$cacheDriver instanceof CacheProvider) {
+            throw new \InvalidArgumentException('This cache driver does not support clear.');
+        }
+
         $flush = $request->query('flush') === 'true';
 
         return $this->doCacheClear($cacheDriver, $flush);
     }
 
     /**
-     * @param CacheProvider|null $cacheDriver
+     * @param CacheProvider $cacheDriver
      * @param boolean $flush
      * @return string
      * @throws \InvalidArgumentException
@@ -77,12 +85,8 @@ class DoctrineController extends Controller
      * @see \Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand::execute()
      * @see \Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand::execute()
      */
-    protected function doCacheClear(?CacheProvider $cacheDriver, bool $flush = false): string
+    protected function doCacheClear(CacheProvider $cacheDriver, bool $flush = false): string
     {
-        if (!$cacheDriver) {
-            throw new \InvalidArgumentException('No Query cache driver is configured on given EntityManager.');
-        }
-
         $result  = $cacheDriver->deleteAll();
         $message = ($result) ? 'Successfully deleted cache entries.' : 'No cache entries were deleted.';
 
