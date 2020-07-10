@@ -95,7 +95,7 @@ jobs:
           name: ZIP archive
           command: >-
             zip -r app_development.zip
-            app bootstrap config database public resources routes storage vendor artisan README.md version.txt
+            app bootstrap config database public resources routes storage vendor artisan .user.ini README.md version.txt
             -x public/.htaccess
 
       - store_artifacts:
