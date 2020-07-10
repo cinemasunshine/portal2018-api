@@ -13,9 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+/**
+ * アプリケーションの全ルートをキャッシュするには、コントローラベースのルート定義だけを使用してください。
+ * @see https://readouble.com/laravel/7.x/ja/deployment.html#optimizing-route-loading
+ */
+
+Route::get('/', 'HomeController');
 
 Route::prefix('dev')->group(function () {
     Route::prefix('doctrine')->group(function () {
