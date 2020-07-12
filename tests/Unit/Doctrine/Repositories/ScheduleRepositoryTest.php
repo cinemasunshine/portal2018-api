@@ -61,6 +61,23 @@ class ScheduleRepositoryTest extends TestCase
             ->shouldReceive('andWhere')
             ->with(Matchers::containsString($alias . '.isDeleted'))
             ->andReturn($queryBuilderMock);
+
+        $targetRef = $this->createTargetReflection();
+        $addActiveQueryRef = $targetRef->getMethod('addActiveQuery');
+        $addActiveQueryRef->setAccessible(true);
+
+        $targetMock = $this->createTargetMock();
+        $addActiveQueryRef->invoke($targetMock, $queryBuilderMock, $alias);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testAddPublicQuery()
+    {
+        $alias = 'test';
+        $queryBuilderMock = $this->createQueryBuilderMock();
         $queryBuilderMock
             ->shouldReceive('andWhere')
             ->with(Matchers::containsString($alias . '.publicStartDt'))
@@ -70,12 +87,17 @@ class ScheduleRepositoryTest extends TestCase
             ->with(Matchers::containsString($alias . '.publicEndDt'))
             ->andReturn($queryBuilderMock);
 
-        $targetRef = $this->createTargetReflection();
-        $addActiveQueryRef = $targetRef->getMethod('addActiveQuery');
-        $addActiveQueryRef->setAccessible(true);
-
         $targetMock = $this->createTargetMock();
-        $addActiveQueryRef->invoke($targetMock, $queryBuilderMock, $alias);
+        $targetMock->shouldAllowMockingProtectedMethods();
+        $targetMock
+            ->shouldReceive('addActiveQuery')
+            ->with($queryBuilderMock, $alias);
+
+        $targetRef = $this->createTargetReflection();
+        $addPublicQueryRef = $targetRef->getMethod('addPublicQuery');
+        $addPublicQueryRef->setAccessible(true);
+
+        $addPublicQueryRef->invoke($targetMock, $queryBuilderMock, $alias);
     }
 
     /**
@@ -118,7 +140,7 @@ class ScheduleRepositoryTest extends TestCase
             ->with(Mockery::type('string'))
             ->andReturn($queryBuilderMock);
         $targetMock
-            ->shouldReceive('addActiveQuery')
+            ->shouldReceive('addPublicQuery')
             ->with($queryBuilderMock, $alias);
 
         $result = $targetMock->findOneActive($id);
@@ -142,10 +164,7 @@ class ScheduleRepositoryTest extends TestCase
             ->shouldReceive('getResult')
             ->andReturn($schedules);
 
-        $queryBuilderMock = $this->createQueryBuilderMockForFindNowShowing(
-            $alias,
-            $queryMock
-        );
+        $queryBuilderMock = $this->createQueryBuilderMockForFindNowShowing($queryMock);
 
         $aliasShowingTheaters = 'st';
         $aliasTheater = 't';
@@ -190,10 +209,7 @@ class ScheduleRepositoryTest extends TestCase
             ->shouldReceive('getResult')
             ->andReturn($schedules);
 
-        $queryBuilderMock = $this->createQueryBuilderMockForFindNowShowing(
-            $alias,
-            $queryMock
-        );
+        $queryBuilderMock = $this->createQueryBuilderMockForFindNowShowing($queryMock);
 
         $aliasShowingTheaters = 'st';
         $aliasTheater = 't';
@@ -237,36 +253,55 @@ class ScheduleRepositoryTest extends TestCase
             ->andReturn($queryBuilder);
 
         $mock
-            ->shouldReceive('addActiveQuery')
+            ->shouldReceive('addNowShowingQuery')
             ->with($queryBuilder, $alias);
 
         return $mock;
     }
 
     /**
-     * @param string $alias
      * @param mixed $query
      * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
      */
-    public function createQueryBuilderMockForFindNowShowing(
-        string $alias,
-        $query
-    ) {
+    public function createQueryBuilderMockForFindNowShowing($query)
+    {
         $mock = $this->createQueryBuilderMock();
-        $mock
-            ->shouldReceive('andWhere')
-            ->with($alias . '.startDate <= CURRENT_DATE()')
-            ->andReturn($mock);
-        $mock
-            ->shouldReceive('orderBy')
-            ->with($alias . '.startDate', 'DESC')
-            ->andReturn($mock);
         $mock
             ->shouldReceive('getQuery')
             ->with()
             ->andReturn($query);
 
         return $mock;
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testAddNowShowingQuery()
+    {
+        $alias = 'test';
+        $queryBuilderMock = $this->createQueryBuilderMock();
+        $queryBuilderMock
+            ->shouldReceive('andWhere')
+            ->with($alias . '.startDate <= CURRENT_DATE()')
+            ->andReturn($queryBuilderMock);
+        $queryBuilderMock
+            ->shouldReceive('orderBy')
+            ->with($alias . '.startDate', 'DESC')
+            ->andReturn($queryBuilderMock);
+
+        $targetMock = $this->createTargetMock();
+        $targetMock->shouldAllowMockingProtectedMethods();
+        $targetMock
+            ->shouldReceive('addPublicQuery')
+            ->with($queryBuilderMock, $alias);
+
+        $targetRef = $this->createTargetReflection();
+        $addNowShowingQueryRef = $targetRef->getMethod('addNowShowingQuery');
+        $addNowShowingQueryRef->setAccessible(true);
+
+        $addNowShowingQueryRef->invoke($targetMock, $queryBuilderMock, $alias);
     }
 
     /**
@@ -286,10 +321,7 @@ class ScheduleRepositoryTest extends TestCase
             ->shouldReceive('getResult')
             ->andReturn($schedules);
 
-        $queryBuilderMock = $this->createQueryBuilderMockForFindComingSoon(
-            $alias,
-            $queryMock
-        );
+        $queryBuilderMock = $this->createQueryBuilderMockForFindComingSoon($queryMock);
 
         $aliasShowingTheaters = 'st';
         $aliasTheater = 't';
@@ -334,10 +366,7 @@ class ScheduleRepositoryTest extends TestCase
             ->shouldReceive('getResult')
             ->andReturn($schedules);
 
-        $queryBuilderMock = $this->createQueryBuilderMockForFindComingSoon(
-            $alias,
-            $queryMock
-        );
+        $queryBuilderMock = $this->createQueryBuilderMockForFindComingSoon($queryMock);
 
         $aliasShowingTheaters = 'st';
         $aliasTheater = 't';
@@ -381,36 +410,54 @@ class ScheduleRepositoryTest extends TestCase
             ->andReturn($queryBuilder);
 
         $mock
-            ->shouldReceive('addActiveQuery')
+            ->shouldReceive('addComingSoonQuery')
             ->with($queryBuilder, $alias);
 
         return $mock;
     }
 
     /**
-     * @param string $alias
      * @param mixed $query
      * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
      */
-    public function createQueryBuilderMockForFindComingSoon(
-        string $alias,
-        $query
-    ) {
+    public function createQueryBuilderMockForFindComingSoon($query)
+    {
         $mock = $this->createQueryBuilderMock();
-
-        $mock
-            ->shouldReceive('andWhere')
-            ->with($alias . '.startDate > CURRENT_DATE()')
-            ->andReturn($mock);
-        $mock
-            ->shouldReceive('orderBy')
-            ->with($alias . '.startDate', 'ASC')
-            ->andReturn($mock);
         $mock
             ->shouldReceive('getQuery')
             ->with()
             ->andReturn($query);
 
         return $mock;
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testAddComingSoonQuery()
+    {
+        $alias = 'test';
+        $queryBuilderMock = $this->createQueryBuilderMock();
+        $queryBuilderMock
+            ->shouldReceive('andWhere')
+            ->with($alias . '.startDate > CURRENT_DATE()')
+            ->andReturn($queryBuilderMock);
+        $queryBuilderMock
+            ->shouldReceive('orderBy')
+            ->with($alias . '.startDate', 'ASC')
+            ->andReturn($queryBuilderMock);
+
+        $targetMock = $this->createTargetMock();
+        $targetMock->shouldAllowMockingProtectedMethods();
+        $targetMock
+            ->shouldReceive('addPublicQuery')
+            ->with($queryBuilderMock, $alias);
+
+        $targetRef = $this->createTargetReflection();
+        $addComingSoonQueryRef = $targetRef->getMethod('addComingSoonQuery');
+        $addComingSoonQueryRef->setAccessible(true);
+
+        $addComingSoonQueryRef->invoke($targetMock, $queryBuilderMock, $alias);
     }
 }

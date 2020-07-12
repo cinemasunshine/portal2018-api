@@ -19,8 +19,21 @@ class ScheduleRepository extends EntityRepository
      */
     protected function addActiveQuery(QueryBuilder $qb, string $alias)
     {
+        $qb->andWhere(sprintf('%s.isDeleted = false', $alias));
+    }
+
+    /**
+     * Add public query
+     *
+     * @param QueryBuilder $qb
+     * @param string $alias
+     * @return void
+     */
+    protected function addPublicQuery(QueryBuilder $qb, string $alias)
+    {
+        $this->addActiveQuery($qb, $alias);
+
         $qb
-            ->andWhere(sprintf('%s.isDeleted = false', $alias))
             ->andWhere(sprintf('%s.publicStartDt <= CURRENT_TIMESTAMP()', $alias))
             ->andWhere(sprintf('%s.publicEndDt > CURRENT_TIMESTAMP()', $alias));
     }
@@ -35,11 +48,12 @@ class ScheduleRepository extends EntityRepository
     {
         $alias = 's';
         $qb = $this->createQueryBuilder($alias);
+
+        $this->addPublicQuery($qb, $alias);
+
         $qb
             ->where(sprintf('%s.id = :id', $alias))
             ->setParameter('id', $id);
-
-        $this->addActiveQuery($qb, $alias);
 
         return $qb->getQuery()->getSingleResult();
     }
@@ -55,11 +69,7 @@ class ScheduleRepository extends EntityRepository
         $alias = 's';
         $qb = $this->createQueryBuilder($alias);
 
-        $this->addActiveQuery($qb, $alias);
-
-        $qb
-            ->andWhere(sprintf('%s.startDate <= CURRENT_DATE()', $alias))
-            ->orderBy(sprintf('%s.startDate', $alias), 'DESC');
+        $this->addNowShowingQuery($qb, $alias);
 
         if ($theater) {
             $aliasShowingTheaters = 'st';
@@ -75,6 +85,22 @@ class ScheduleRepository extends EntityRepository
     }
 
     /**
+     * Add now showing query
+     *
+     * @param QueryBuilder $qb
+     * @param string $alias
+     * @return void
+     */
+    protected function addNowShowingQuery(QueryBuilder $qb, string $alias)
+    {
+        $this->addPublicQuery($qb, $alias);
+
+        $qb
+            ->andWhere(sprintf('%s.startDate <= CURRENT_DATE()', $alias))
+            ->orderBy(sprintf('%s.startDate', $alias), 'DESC');
+    }
+
+    /**
      * Find coming soon
      *
      * @param string|null $theater
@@ -85,11 +111,7 @@ class ScheduleRepository extends EntityRepository
         $alias = 's';
         $qb = $this->createQueryBuilder($alias);
 
-        $this->addActiveQuery($qb, $alias);
-
-        $qb
-            ->andWhere(sprintf('%s.startDate > CURRENT_DATE()', $alias))
-            ->orderBy(sprintf('%s.startDate', $alias), 'ASC');
+        $this->addComingSoonQuery($qb, $alias);
 
         if ($theater) {
             $qb
@@ -100,5 +122,21 @@ class ScheduleRepository extends EntityRepository
         }
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Add coming soon query
+     *
+     * @param QueryBuilder $qb
+     * @param string $alias
+     * @return void
+     */
+    protected function addComingSoonQuery(QueryBuilder $qb, string $alias)
+    {
+        $this->addPublicQuery($qb, $alias);
+
+        $qb
+            ->andWhere(sprintf('%s.startDate > CURRENT_DATE()', $alias))
+            ->orderBy(sprintf('%s.startDate', $alias), 'ASC');
     }
 }
