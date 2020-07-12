@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Doctrine\Repositories;
 
 use App\Doctrine\Entities\Schedule;
+use App\Doctrine\Entities\ShowingTheater;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 
 class ScheduleRepository extends EntityRepository
@@ -49,13 +51,34 @@ class ScheduleRepository extends EntityRepository
         $alias = 's';
         $qb = $this->createQueryBuilder($alias);
 
+        $aliasTitle = 't';
+        $aliasTitleImage = 'ti';
+        $qb
+            ->addSelect($aliasTitle)
+            ->innerJoin(sprintf('%s.title', $alias), $aliasTitle)
+            ->addSelect($aliasTitleImage)
+            ->innerJoin(sprintf('%s.image', $aliasTitle), $aliasTitleImage);
+
+        $aliasShowingFormats = 'sf';
+        $qb
+            ->addSelect($aliasShowingFormats)
+            ->innerJoin(sprintf('%s.showingFormats', $alias), $aliasShowingFormats);
+
+        $aliasShowingTheaters = 'st';
+        $qb
+            ->addSelect($aliasShowingTheaters)
+            ->innerJoin(sprintf('%s.showingTheaters', $alias), $aliasShowingTheaters);
+
         $this->addPublicQuery($qb, $alias);
 
         $qb
             ->where(sprintf('%s.id = :id', $alias))
             ->setParameter('id', $id);
 
-        return $qb->getQuery()->getSingleResult();
+        $query = $qb->getQuery();
+        $query->setFetchMode(ShowingTheater::class, 'theater', ClassMetadata::FETCH_EAGER);
+
+        return $query->getSingleResult();
     }
 
     /**

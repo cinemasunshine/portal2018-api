@@ -3,7 +3,9 @@
 namespace Tests\Unit\Doctrine\Entities;
 
 use App\Doctrine\Entities\Schedule;
+use App\Doctrine\Entities\ShowingTheater;
 use App\Doctrine\Repositories\ScheduleRepository;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 use Hamcrest\Matchers;
 use Mockery;
@@ -109,18 +111,13 @@ class ScheduleRepositoryTest extends TestCase
         $id = 12;
         $alias = 's';
 
-        $queryBuilderMock = $this->createQueryBuilderMock();
-        $queryBuilderMock
-            ->shouldReceive('where')
-            ->with($alias . '.id = :id')
-            ->andReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->shouldReceive('setParameter')
-            ->with('id', $id)
-            ->andReturn($queryBuilderMock);
+        $queryBuilderMock = $this->createQueryBuilderMockForFindOneActive($alias, $id);
 
         $schedule = new Schedule();
         $queryMock = $this->createQueryMock();
+        $queryMock
+            ->shouldReceive('setFetchMode')
+            ->with(ShowingTheater::class, 'theater', ClassMetadata::FETCH_EAGER);
         $queryMock
             ->shouldReceive('getSingleResult')
             ->andReturn($schedule);
@@ -145,6 +142,66 @@ class ScheduleRepositoryTest extends TestCase
 
         $result = $targetMock->findOneActive($id);
         $this->assertEquals($schedule, $result);
+    }
+
+    /**
+     * @param string $alias
+     * @param mixed $id
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
+     */
+    protected function createQueryBuilderMockForFindOneActive(string $alias, $id)
+    {
+        $mock = $this->createQueryBuilderMock();
+
+        $aliasTitle = 't';
+        $aliasTitleImage = 'ti';
+        $mock
+            ->shouldReceive('addSelect')
+            ->with($aliasTitle)
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('innerJoin')
+            ->with($alias . '.title', $aliasTitle)
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('addSelect')
+            ->with($aliasTitleImage)
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('innerJoin')
+            ->with($aliasTitle . '.image', $aliasTitleImage)
+            ->andReturn($mock);
+
+        $aliasShowingFormats = 'sf';
+        $mock
+            ->shouldReceive('addSelect')
+            ->with($aliasShowingFormats)
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('innerJoin')
+            ->with($alias . '.showingFormats', $aliasShowingFormats)
+            ->andReturn($mock);
+
+        $aliasShowingTheaters = 'st';
+        $mock
+            ->shouldReceive('addSelect')
+            ->with($aliasShowingTheaters)
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('innerJoin')
+            ->with($alias . '.showingTheaters', $aliasShowingTheaters)
+            ->andReturn($mock);
+
+        $mock
+            ->shouldReceive('where')
+            ->with($alias . '.id = :id')
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('setParameter')
+            ->with('id', $id)
+            ->andReturn($mock);
+
+        return $mock;
     }
 
     /**
