@@ -12,6 +12,9 @@ use Doctrine\ORM\QueryBuilder;
 
 class ScheduleRepository extends EntityRepository
 {
+    public const PUBLIC_TYPE_NOW_SHOWING = 'now-showing';
+    public const PUBLIC_TYPE_COMING_SOON = 'coming-soon';
+
     /**
      * Add active query
      *
@@ -82,29 +85,60 @@ class ScheduleRepository extends EntityRepository
     }
 
     /**
-     * Find now showing
-     *
+     * @param string $type
      * @param string|null $theater
      * @return Schedule[]
      */
-    public function findNowShowing(?string $theater = null): array
+    public function findPublic(string $type, ?string $theater = null): array
     {
+        if (
+            !in_array($type, [
+                self::PUBLIC_TYPE_NOW_SHOWING,
+                self::PUBLIC_TYPE_COMING_SOON,
+            ])
+        ) {
+            throw new \InvalidArgumentException('Invalid "type".');
+        }
+
         $alias = 's';
         $qb = $this->createQueryBuilder($alias);
 
-        $this->addNowShowingQuery($qb, $alias);
+        $aliasTitle = 't';
+        $aliasTitleImage = 'ti';
+        $qb
+            ->addSelect($aliasTitle)
+            ->innerJoin(sprintf('%s.title', $alias), $aliasTitle)
+            ->addSelect($aliasTitleImage)
+            ->innerJoin(sprintf('%s.image', $aliasTitle), $aliasTitleImage);
+
+        $aliasShowingFormats = 'sf';
+        $qb
+            ->addSelect($aliasShowingFormats)
+            ->innerJoin(sprintf('%s.showingFormats', $alias), $aliasShowingFormats);
+
+        $aliasShowingTheaters = 'st';
+        $qb
+            ->addSelect($aliasShowingTheaters)
+            ->innerJoin(sprintf('%s.showingTheaters', $alias), $aliasShowingTheaters);
+
+        if ($type === self::PUBLIC_TYPE_NOW_SHOWING) {
+            $this->addNowShowingQuery($qb, $alias);
+        } elseif ($type === self::PUBLIC_TYPE_COMING_SOON) {
+            $this->addComingSoonQuery($qb, $alias);
+        }
 
         if ($theater) {
-            $aliasShowingTheaters = 'st';
             $aliasTheater = 't';
             $qb
-                ->innerJoin(sprintf('%s.showingTheaters', $alias), $aliasShowingTheaters)
                 ->innerJoin(sprintf('%s.theater', $aliasShowingTheaters), $aliasTheater)
                 ->andWhere(sprintf('%s.masterCode = :theater', $aliasTheater))
                 ->setParameter('theater', $theater);
         }
 
-        return $qb->getQuery()->getResult();
+        $query = $qb->getQuery();
+        $query->setFetchMode(ShowingTheater::class, 'theater', ClassMetadata::FETCH_EAGER);
+
+        return $query->getResult();
     }
 
     /**
@@ -121,30 +155,6 @@ class ScheduleRepository extends EntityRepository
         $qb
             ->andWhere(sprintf('%s.startDate <= CURRENT_DATE()', $alias))
             ->orderBy(sprintf('%s.startDate', $alias), 'DESC');
-    }
-
-    /**
-     * Find coming soon
-     *
-     * @param string|null $theater
-     * @return Schedule[]
-     */
-    public function findComingSoon(?string $theater = null): array
-    {
-        $alias = 's';
-        $qb = $this->createQueryBuilder($alias);
-
-        $this->addComingSoonQuery($qb, $alias);
-
-        if ($theater) {
-            $qb
-                ->innerJoin(sprintf('%s.showingTheaters', $alias), 'st')
-                ->innerJoin(sprintf('%s.theater', 'st'), 't')
-                ->andWhere(sprintf('%s.masterCode = :theater', 't'))
-                ->setParameter('theater', $theater);
-        }
-
-        return $qb->getQuery()->getResult();
     }
 
     /**

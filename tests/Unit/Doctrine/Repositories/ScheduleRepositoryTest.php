@@ -208,44 +208,20 @@ class ScheduleRepositoryTest extends TestCase
      * @test
      * @return void
      */
-    public function testFindNowShowing()
+    public function testFindPublicNowShowing()
     {
-        $theater = null;
         $alias = 's';
+        $type = ScheduleRepository::PUBLIC_TYPE_NOW_SHOWING;
+        $theater = null;
         $schedules = [
             new Schedule(),
         ];
 
-        $queryMock = $this->createQueryMock();
-        $queryMock
-            ->shouldReceive('getResult')
-            ->andReturn($schedules);
+        $queryMock = $this->createQueryMockForFindPublic($schedules);
+        $queryBuilderMock = $this->createQueryBuilderMockForFindPublic($alias, $theater, $queryMock);
+        $targetMock = $this->createTargetMockForFindPublic($alias, $queryBuilderMock, $type);
 
-        $queryBuilderMock = $this->createQueryBuilderMockForFindNowShowing($queryMock);
-
-        $aliasShowingTheaters = 'st';
-        $aliasTheater = 't';
-        $queryBuilderMock
-            ->shouldReceive('innerJoin')
-            ->never()
-            ->with($alias . '.showingTheaters', $aliasShowingTheaters);
-        $queryBuilderMock
-            ->shouldReceive('innerJoin')
-            ->never()
-            ->with($aliasShowingTheaters . '.theater', $aliasTheater);
-        $queryBuilderMock
-            ->shouldReceive('andWhere')
-            ->never()
-            ->with($aliasTheater . '.masterCode = :theater');
-        $queryBuilderMock
-            ->shouldReceive('setParameter')
-            ->never()
-            ->with('theater', $theater);
-
-        $targetMock = $this->createTargetMockForFindNowShowing($alias, $queryBuilderMock);
-        $targetMock->makePartial();
-
-        $result = $targetMock->findNowShowing($theater);
+        $result = $targetMock->findPublic($type, $theater);
         $this->assertEquals($schedules, $result);
     }
 
@@ -253,56 +229,70 @@ class ScheduleRepositoryTest extends TestCase
      * @test
      * @return void
      */
-    public function testFindNowShowingWithTheater()
+    public function testFindPublicCommingSoon()
     {
-        $theater = '999';
         $alias = 's';
+        $type = ScheduleRepository::PUBLIC_TYPE_COMING_SOON;
+        $theater = null;
         $schedules = [
             new Schedule(),
         ];
 
-        $queryMock = $this->createQueryMock();
-        $queryMock
-            ->shouldReceive('getResult')
-            ->andReturn($schedules);
+        $queryMock = $this->createQueryMockForFindPublic($schedules);
+        $queryBuilderMock = $this->createQueryBuilderMockForFindPublic($alias, $theater, $queryMock);
+        $targetMock = $this->createTargetMockForFindPublic($alias, $queryBuilderMock, $type);
 
-        $queryBuilderMock = $this->createQueryBuilderMockForFindNowShowing($queryMock);
-
-        $aliasShowingTheaters = 'st';
-        $aliasTheater = 't';
-        $queryBuilderMock
-            ->shouldReceive('innerJoin')
-            ->with($alias . '.showingTheaters', $aliasShowingTheaters)
-            ->andReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->shouldReceive('innerJoin')
-            ->with($aliasShowingTheaters . '.theater', $aliasTheater)
-            ->andReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->shouldReceive('andWhere')
-            ->with($aliasTheater . '.masterCode = :theater')
-            ->andReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->shouldReceive('setParameter')
-            ->with('theater', $theater)
-            ->andReturn($queryBuilderMock);
-
-        $targetMock = $this->createTargetMockForFindNowShowing($alias, $queryBuilderMock);
-        $targetMock->makePartial();
-
-        $result = $targetMock->findNowShowing($theater);
+        $result = $targetMock->findPublic($type, $theater);
         $this->assertEquals($schedules, $result);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testFindPublicWithTheater()
+    {
+        $alias = 's';
+        $type = ScheduleRepository::PUBLIC_TYPE_NOW_SHOWING;
+        $theater = '999';
+        $schedules = [
+            new Schedule(),
+        ];
+
+        $queryMock = $this->createQueryMockForFindPublic($schedules);
+        $queryBuilderMock = $this->createQueryBuilderMockForFindPublic($alias, $theater, $queryMock);
+        $targetMock = $this->createTargetMockForFindPublic($alias, $queryBuilderMock, $type);
+
+        $result = $targetMock->findPublic($type, $theater);
+        $this->assertEquals($schedules, $result);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testFindPublicInvalidType()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $type = 'invalid';
+
+        $targetMock = $this->createTargetMock();
+        $targetMock->makePartial();
+        $targetMock->findPublic($type);
     }
 
     /**
      * @param string $alias
      * @param mixed $queryBuilder
+     * @param string $type
      * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ScheduleRepository
      */
-    public function createTargetMockForFindNowShowing(string $alias, $queryBuilder)
+    protected function createTargetMockForFindPublic(string $alias, $queryBuilder, string $type)
     {
         $mock = $this->createTargetMock();
-        $mock->shouldAllowMockingProtectedMethods();
+        $mock
+            ->shouldAllowMockingProtectedMethods()
+            ->makePartial();
 
         $mock
             ->shouldReceive('createQueryBuilder')
@@ -311,210 +301,106 @@ class ScheduleRepositoryTest extends TestCase
 
         $mock
             ->shouldReceive('addNowShowingQuery')
+            ->times($type === ScheduleRepository::PUBLIC_TYPE_NOW_SHOWING ? 1 : 0)
+            ->with($queryBuilder, $alias);
+
+        $mock
+            ->shouldReceive('addComingSoonQuery')
+            ->times($type === ScheduleRepository::PUBLIC_TYPE_COMING_SOON ? 1 : 0)
             ->with($queryBuilder, $alias);
 
         return $mock;
     }
 
     /**
-     * @param mixed $query
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
+     * @param mixed $result
+     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface
      */
-    public function createQueryBuilderMockForFindNowShowing($query)
+    protected function createQueryMockForFindPublic($result)
     {
-        $mock = $this->createQueryBuilderMock();
+        $mock = $this->createQueryMock();
         $mock
-            ->shouldReceive('getQuery')
-            ->with()
-            ->andReturn($query);
+            ->shouldReceive('setFetchMode')
+            ->with(ShowingTheater::class, 'theater', ClassMetadata::FETCH_EAGER);
+        $mock
+            ->shouldReceive('getResult')
+            ->andReturn($result);
 
         return $mock;
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function testAddNowShowingQuery()
-    {
-        $alias = 'test';
-        $queryBuilderMock = $this->createQueryBuilderMock();
-        $queryBuilderMock
-            ->shouldReceive('andWhere')
-            ->with($alias . '.startDate <= CURRENT_DATE()')
-            ->andReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->shouldReceive('orderBy')
-            ->with($alias . '.startDate', 'DESC')
-            ->andReturn($queryBuilderMock);
-
-        $targetMock = $this->createTargetMock();
-        $targetMock->shouldAllowMockingProtectedMethods();
-        $targetMock
-            ->shouldReceive('addPublicQuery')
-            ->with($queryBuilderMock, $alias);
-
-        $targetRef = $this->createTargetReflection();
-        $addNowShowingQueryRef = $targetRef->getMethod('addNowShowingQuery');
-        $addNowShowingQueryRef->setAccessible(true);
-
-        $addNowShowingQueryRef->invoke($targetMock, $queryBuilderMock, $alias);
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function testFindComingSoon()
-    {
-        $theater = null;
-        $alias = 's';
-        $schedules = [
-            new Schedule(),
-        ];
-
-        $queryMock = $this->createQueryMock();
-        $queryMock
-            ->shouldReceive('getResult')
-            ->andReturn($schedules);
-
-        $queryBuilderMock = $this->createQueryBuilderMockForFindComingSoon($queryMock);
-
-        $aliasShowingTheaters = 'st';
-        $aliasTheater = 't';
-        $queryBuilderMock
-            ->shouldReceive('innerJoin')
-            ->never()
-            ->with($alias . '.showingTheaters', $aliasShowingTheaters);
-        $queryBuilderMock
-            ->shouldReceive('innerJoin')
-            ->never()
-            ->with($aliasShowingTheaters . '.theater', $aliasTheater);
-        $queryBuilderMock
-            ->shouldReceive('andWhere')
-            ->never()
-            ->with($aliasTheater . '.masterCode = :theater');
-        $queryBuilderMock
-            ->shouldReceive('setParameter')
-            ->never()
-            ->with('theater', $theater);
-
-        $targetMock = $this->createTargetMockForFindComingSoon($alias, $queryBuilderMock);
-        $targetMock->makePartial();
-
-        $result = $targetMock->findComingSoon($theater);
-        $this->assertEquals($schedules, $result);
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function testFindComingSoonWithTheater()
-    {
-        $theater = '999';
-        $alias = 's';
-        $schedules = [
-            new Schedule(),
-        ];
-
-        $queryMock = $this->createQueryMock();
-        $queryMock
-            ->shouldReceive('getResult')
-            ->andReturn($schedules);
-
-        $queryBuilderMock = $this->createQueryBuilderMockForFindComingSoon($queryMock);
-
-        $aliasShowingTheaters = 'st';
-        $aliasTheater = 't';
-        $queryBuilderMock
-            ->shouldReceive('innerJoin')
-            ->with($alias . '.showingTheaters', $aliasShowingTheaters)
-            ->andReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->shouldReceive('innerJoin')
-            ->with($aliasShowingTheaters . '.theater', $aliasTheater)
-            ->andReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->shouldReceive('andWhere')
-            ->with($aliasTheater . '.masterCode = :theater')
-            ->andReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->shouldReceive('setParameter')
-            ->with('theater', $theater)
-            ->andReturn($queryBuilderMock);
-
-        $targetMock = $this->createTargetMockForFindComingSoon($alias, $queryBuilderMock);
-        $targetMock->makePartial();
-
-        $result = $targetMock->findComingSoon($theater);
-        $this->assertEquals($schedules, $result);
     }
 
     /**
      * @param string $alias
-     * @param mixed $queryBuilder
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ScheduleRepository
-     */
-    public function createTargetMockForFindComingSoon(string $alias, $queryBuilder)
-    {
-        $mock = $this->createTargetMock();
-        $mock->shouldAllowMockingProtectedMethods();
-
-        $mock
-            ->shouldReceive('createQueryBuilder')
-            ->with($alias)
-            ->andReturn($queryBuilder);
-
-        $mock
-            ->shouldReceive('addComingSoonQuery')
-            ->with($queryBuilder, $alias);
-
-        return $mock;
-    }
-
-    /**
+     * @param string|null $theater
      * @param mixed $query
      * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
      */
-    public function createQueryBuilderMockForFindComingSoon($query)
+    protected function createQueryBuilderMockForFindPublic(string $alias, ?string $theater, $query)
     {
         $mock = $this->createQueryBuilderMock();
+
+        $aliasTitle = 't';
+        $aliasTitleImage = 'ti';
+        $mock
+            ->shouldReceive('addSelect')
+            ->with($aliasTitle)
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('innerJoin')
+            ->with($alias . '.title', $aliasTitle)
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('addSelect')
+            ->with($aliasTitleImage)
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('innerJoin')
+            ->with($aliasTitle . '.image', $aliasTitleImage)
+            ->andReturn($mock);
+
+        $aliasShowingFormats = 'sf';
+        $mock
+            ->shouldReceive('addSelect')
+            ->with($aliasShowingFormats)
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('innerJoin')
+            ->with($alias . '.showingFormats', $aliasShowingFormats)
+            ->andReturn($mock);
+
+        $aliasShowingTheaters = 'st';
+        $mock
+            ->shouldReceive('addSelect')
+            ->with($aliasShowingTheaters)
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('innerJoin')
+            ->with($alias . '.showingTheaters', $aliasShowingTheaters)
+            ->andReturn($mock);
+
+        $aliasTheater = 't';
+
+        $mock
+            ->shouldReceive('innerJoin')
+            ->times($theater ? 1 : 0)
+            ->with($aliasShowingTheaters . '.theater', $aliasTheater)
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('andWhere')
+            ->times($theater ? 1 : 0)
+            ->with($aliasTheater . '.masterCode = :theater')
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('setParameter')
+            ->times($theater ? 1 : 0)
+            ->with('theater', $theater)
+            ->andReturn($mock);
+
         $mock
             ->shouldReceive('getQuery')
             ->with()
             ->andReturn($query);
 
         return $mock;
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function testAddComingSoonQuery()
-    {
-        $alias = 'test';
-        $queryBuilderMock = $this->createQueryBuilderMock();
-        $queryBuilderMock
-            ->shouldReceive('andWhere')
-            ->with($alias . '.startDate > CURRENT_DATE()')
-            ->andReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->shouldReceive('orderBy')
-            ->with($alias . '.startDate', 'ASC')
-            ->andReturn($queryBuilderMock);
-
-        $targetMock = $this->createTargetMock();
-        $targetMock->shouldAllowMockingProtectedMethods();
-        $targetMock
-            ->shouldReceive('addPublicQuery')
-            ->with($queryBuilderMock, $alias);
-
-        $targetRef = $this->createTargetReflection();
-        $addComingSoonQueryRef = $targetRef->getMethod('addComingSoonQuery');
-        $addComingSoonQueryRef->setAccessible(true);
-
-        $addComingSoonQueryRef->invoke($targetMock, $queryBuilderMock, $alias);
     }
 }

@@ -15,9 +15,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ScheduleController extends Controller
 {
-    protected const LIST_TYPE_NOW_SHOWING = 'now-showing';
-    protected const LIST_TYPE_COMING_SOON = 'coming-soon';
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +22,6 @@ class ScheduleController extends Controller
      * @param string $type route parameter
      * @param EntityManagerInterface $em
      * @return ScheduleCollectionResource<ScheduleResource>
-     * @throws \InvalidArgumentException
      */
     public function index(Request $request, string $type, EntityManagerInterface $em)
     {
@@ -38,15 +34,7 @@ class ScheduleController extends Controller
 
         /** @var ScheduleRepository $repository */
         $repository = $em->getRepository(Schedule::class);
-        $schedules = [];
-
-        if ($type === self::LIST_TYPE_NOW_SHOWING) {
-            $schedules = $repository->findNowShowing($theater);
-        } elseif ($type === self::LIST_TYPE_COMING_SOON) {
-            $schedules = $repository->findComingSoon($theater);
-        } else {
-            throw new \InvalidArgumentException('Invalid "type".');
-        }
+        $schedules = $repository->findPublic($type, $theater);
 
         return new ScheduleCollectionResource($schedules);
     }
