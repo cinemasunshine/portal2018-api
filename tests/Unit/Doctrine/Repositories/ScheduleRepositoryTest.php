@@ -378,7 +378,7 @@ class ScheduleRepositoryTest extends TestCase
             ->with($alias . '.showingTheaters', $aliasShowingTheaters)
             ->andReturn($mock);
 
-        $aliasTheater = 't';
+        $aliasTheater = 'th';
 
         $mock
             ->shouldReceive('innerJoin')

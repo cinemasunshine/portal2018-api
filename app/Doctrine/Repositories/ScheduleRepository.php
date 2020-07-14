@@ -128,7 +128,7 @@ class ScheduleRepository extends EntityRepository
         }
 
         if ($theater) {
-            $aliasTheater = 't';
+            $aliasTheater = 'th';
             $qb
                 ->innerJoin(sprintf('%s.theater', $aliasShowingTheaters), $aliasTheater)
                 ->andWhere(sprintf('%s.masterCode = :theater', $aliasTheater))
