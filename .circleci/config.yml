@@ -255,6 +255,6 @@ workflows:
           requires:
             - build_production
 
-      - deploy_to_prod_release:
+      - deploy_to_prod:
           requires:
             - deploy_approval
