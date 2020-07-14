@@ -106,6 +106,54 @@ jobs:
           paths:
             - .
 
+  build_production:
+    working_directory: ~/production
+    executor: build
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - composer-{{ checksum "composer.lock" }}
+            - composer-
+
+      - run:
+          name: Composer install
+          command: composer install  -n --prefer-dist --optimize-autoloader
+
+      - save_cache:
+          key: composer-{{ checksum "composer.lock" }}
+          paths:
+            - ./vendor
+
+      - run:
+          name: Generate Doctrine Proxies
+          command: php artisan doctrine:generate:proxies
+
+      - run:
+          name: Create .user.ini file
+          command: cp .user.ini.production .user.ini
+
+      - run:
+          name: Create version file
+          command: echo "${CIRCLE_SHA1}.${CIRCLE_BUILD_NUM}" | tee version.txt
+
+      - run:
+          name: ZIP archive
+          command: >-
+            zip -r app.zip
+            app azure bootstrap config database public resources routes storage vendor artisan .user.ini README.md version.txt
+            -x public/.htaccess
+
+      - store_artifacts:
+          path: ./app.zip
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
   test:
     working_directory: ~/development
     executor: build
@@ -146,6 +194,23 @@ jobs:
           password: $DEV_AAS_PASSWORD
           zip: app_development.zip
 
+  deploy_to_prod:
+    working_directory: ~/production
+    executor: deployment
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - file_exists:
+          file: app.zip
+
+      - azure_zip_deploy:
+          app: ssk-portal2018-api-win-prod
+          user: $PROD_AAS_USER
+          password: $PROD_AAS_PASSWORD
+          zip: app.zip
+
 workflows:
   version: 2
 
@@ -167,5 +232,29 @@ workflows:
             - test
 
       - deploy_to_dev:
+          requires:
+            - deploy_approval
+
+  deploy_production:
+    jobs:
+      - build_development:
+          filters:
+            branches:
+              only: master
+
+      - test:
+          requires:
+            - build_development
+
+      - build_production:
+          requires:
+            - test
+
+      - deploy_approval:
+          type: approval
+          requires:
+            - build_production
+
+      - deploy_to_prod_release:
           requires:
             - deploy_approval
