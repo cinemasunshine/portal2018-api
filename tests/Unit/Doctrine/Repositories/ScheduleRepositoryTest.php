@@ -168,7 +168,7 @@ class ScheduleRepositoryTest extends TestCase
             ->with($aliasTitleImage)
             ->andReturn($mock);
         $mock
-            ->shouldReceive('innerJoin')
+            ->shouldReceive('leftJoin')
             ->with($aliasTitle . '.image', $aliasTitleImage)
             ->andReturn($mock);
 
@@ -354,7 +354,7 @@ class ScheduleRepositoryTest extends TestCase
             ->with($aliasTitleImage)
             ->andReturn($mock);
         $mock
-            ->shouldReceive('innerJoin')
+            ->shouldReceive('leftJoin')
             ->with($aliasTitle . '.image', $aliasTitleImage)
             ->andReturn($mock);
 

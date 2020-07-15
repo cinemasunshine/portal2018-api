@@ -60,7 +60,7 @@ class ScheduleRepository extends EntityRepository
             ->addSelect($aliasTitle)
             ->innerJoin(sprintf('%s.title', $alias), $aliasTitle)
             ->addSelect($aliasTitleImage)
-            ->innerJoin(sprintf('%s.image', $aliasTitle), $aliasTitleImage);
+            ->leftJoin(sprintf('%s.image', $aliasTitle), $aliasTitleImage);
 
         $aliasShowingFormats = 'sf';
         $qb
@@ -109,7 +109,7 @@ class ScheduleRepository extends EntityRepository
             ->addSelect($aliasTitle)
             ->innerJoin(sprintf('%s.title', $alias), $aliasTitle)
             ->addSelect($aliasTitleImage)
-            ->innerJoin(sprintf('%s.image', $aliasTitle), $aliasTitleImage);
+            ->leftJoin(sprintf('%s.image', $aliasTitle), $aliasTitleImage);
 
         $aliasShowingFormats = 'sf';
         $qb
