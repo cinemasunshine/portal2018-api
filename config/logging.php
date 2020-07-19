@@ -49,7 +49,7 @@ return [
 
         'production_stack' => [
             'driver' => 'stack',
-            'channels' => ['daily', 'azure'],
+            'channels' => ['daily_error', 'azure'],
             'ignore_exceptions' => true,
         ],
 
@@ -63,6 +63,13 @@ return [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
+            'days' => 14,
+        ],
+
+        'daily_error' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/laravel.log'),
+            'level' => 'error',
             'days' => 14,
         ],
 
