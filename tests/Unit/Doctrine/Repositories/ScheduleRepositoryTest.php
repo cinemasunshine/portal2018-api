@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Doctrine\Entities;
+namespace Tests\Unit\Doctrine\Repositories;
 
 use App\Doctrine\Entities\Schedule;
 use App\Doctrine\Entities\ShowingTheater;
