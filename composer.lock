@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7b31a9b956758aa572435b99ffff1a1",
+    "content-hash": "66698e5a06f2e618772e69f01d9345a6",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -148,6 +148,49 @@
             ],
             "description": "Laravel Filesystem using Azure Blob Storage.",
             "time": "2020-07-06T15:47:48+00:00"
+        },
+        {
+            "name": "blue32a/monolog-azure-blob",
+            "version": "v0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/blue32a/monolog-azure-blob.git",
+                "reference": "ad5dfae8a42d360af4e662af98389ee6e0b98a82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/blue32a/monolog-azure-blob/zipball/ad5dfae8a42d360af4e662af98389ee6e0b98a82",
+                "reference": "ad5dfae8a42d360af4e662af98389ee6e0b98a82",
+                "shasum": ""
+            },
+            "require": {
+                "microsoft/azure-storage-blob": "^1.5",
+                "monolog/monolog": ">=1.24 <=2.1",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3",
+                "phpunit/phpunit": "^8.5",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Blue32a\\Monolog\\Handler\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "blue32a",
+                    "email": "blue32a.jp@gmail.com"
+                }
+            ],
+            "description": "Azure Blob Storage Handler for Monolog",
+            "time": "2020-06-01T10:00:01+00:00"
         },
         {
             "name": "brick/math",

@@ -41,6 +41,18 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        'development_stack' => [
+            'driver' => 'stack',
+            'channels' => ['daily', 'azure'],
+            'ignore_exceptions' => false,
+        ],
+
+        'production_stack' => [
+            'driver' => 'stack',
+            'channels' => ['daily', 'azure'],
+            'ignore_exceptions' => true,
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
@@ -94,6 +106,18 @@ return [
         'null' => [
             'driver' => 'monolog',
             'handler' => NullHandler::class,
+        ],
+
+        'azure' => [
+            'driver' => 'monolog',
+            'handler' => App\Logging\Handler\AzureBlobStorageHandler::class,
+            'level' => 'error',
+            'with' => [
+                'name' => env('AZULE_STORAGE_NAME'),
+                'key' => env('AZULE_STORAGE_KEY'),
+                'container' => 'api-log',
+                'blob' => date('Ymd') . '.log',
+            ],
         ],
 
         'emergency' => [
