@@ -37,7 +37,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single', 'azure'],
             'ignore_exceptions' => false,
         ],
 
@@ -120,8 +120,10 @@ return [
             'handler' => App\Logging\Handler\AzureBlobStorageHandler::class,
             'level' => 'error',
             'with' => [
+                'secure' => env('AZULE_STORAGE_SECURE', true),
                 'name' => env('AZULE_STORAGE_NAME'),
                 'key' => env('AZULE_STORAGE_KEY'),
+                'endpoint' => env('AZULE_STORAGE_BLOB_ENDPOINT'),
                 'container' => 'api-log',
                 'blob' => date('Ymd') . '.log',
             ],

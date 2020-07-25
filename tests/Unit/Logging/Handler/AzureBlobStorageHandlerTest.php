@@ -40,72 +40,46 @@ class AzureBlobStorageHandlerTest extends TestCase
 
     /**
      * @test
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      * @return void
      */
     public function testConstruct()
     {
+        $secure = true;
         $name = 'storage';
         $key = 'aaabbbccc';
+        $endpoint = null;
         $container = 'container';
         $blob = 'blob';
-
-        $blobRestProxyMock = $this->createBlobRestProxyMock();
 
         $targetMock = $this->createTargetMock();
         $targetMock
             ->shouldAllowMockingProtectedMethods()
             ->makePartial();
+
+        $connectionStr = 'example_connection_string';
         $targetMock
-            ->shouldReceive('createClient')
+            ->shouldReceive('createConnectionString')
             ->once()
-            ->with($name, $key)
+            ->with($secure, $name, $key, $endpoint)
+            ->andReturn($connectionStr);
+
+        $blobRestProxyMock = $this->createBlobRestProxyAliasMock();
+        $blobRestProxyMock
+            ->shouldReceive('createBlobService')
+            ->with($connectionStr)
             ->andReturn($blobRestProxyMock);
 
         $targetRef = $this->createTargetReflection();
 
         /** @var \ReflectionMethod $targetConstructorRef */
         $targetConstructorRef = $targetRef->getConstructor();
-        $targetConstructorRef->invoke($targetMock, $name, $key, $container, $blob);
+        $targetConstructorRef->invoke($targetMock, $secure, $name, $key, $endpoint, $container, $blob);
 
         $clientRef = $targetRef->getProperty('client');
         $clientRef->setAccessible(true);
         $this->assertEquals($blobRestProxyMock, $clientRef->getValue($targetMock));
-    }
-
-    /**
-     * @test
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     * @return void
-     */
-    public function testCreateClient()
-    {
-        $name = 'storage';
-        $key = 'aaabbbccc';
-
-        $blobRestProxyMock = $this->createBlobRestProxyAliasMock();
-        $blobRestProxyMock
-            ->shouldReceive('createBlobService')
-            ->with(Mockery::on(function ($argument) use ($name, $key) {
-                if (!strpos($argument, 'AccountName=' . $name)) {
-                    return false;
-                }
-
-                if (!strpos($argument, 'AccountKey=' . $key)) {
-                    return false;
-                }
-
-                return true;
-            }))
-            ->andReturn($blobRestProxyMock);
-
-        $targetRef = $this->createTargetReflection();
-        $createClientRef = $targetRef->getMethod('createClient');
-        $createClientRef->setAccessible(true);
-
-        $targetMock = $this->createTargetMock();
-        $result = $createClientRef->invoke($targetMock, $name, $key);
-        $this->assertEquals($blobRestProxyMock, $result);
     }
 
     /**
@@ -114,6 +88,50 @@ class AzureBlobStorageHandlerTest extends TestCase
     protected function createBlobRestProxyAliasMock()
     {
         return Mockery::mock('alias:' . BlobRestProxy::class);
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testCreateConnectionString()
+    {
+        $targetRef = $this->createTargetReflection();
+        $createConnectionStringRef = $targetRef->getMethod('createConnectionString');
+        $createConnectionStringRef->setAccessible(true);
+
+        $targetMock = $this->createTargetMock();
+
+        $secure = true;
+        $name = 'example_name';
+        $key = 'example_key';
+        $endpoint = null;
+
+        $resulFirst = $createConnectionStringRef->invoke(
+            $targetMock,
+            $secure,
+            $name,
+            $key,
+            $endpoint
+        );
+
+        $this->assertStringContainsString('DefaultEndpointsProtocol=https;', $resulFirst);
+        $this->assertStringContainsString(sprintf('AccountName=%s;', $name), $resulFirst);
+        $this->assertStringContainsString(sprintf('AccountKey=%s;', $key), $resulFirst);
+        $this->assertStringNotContainsString('BlobEndpoint', $resulFirst);
+
+        $secure = false;
+        $endpoint = 'https://blob.example.com';
+
+        $resulSecond = $createConnectionStringRef->invoke(
+            $targetMock,
+            $secure,
+            $name,
+            $key,
+            $endpoint
+        );
+        $this->assertStringContainsString('DefaultEndpointsProtocol=http;', $resulSecond);
+        $this->assertStringContainsString(sprintf('BlobEndpoint=%s;', $endpoint), $resulSecond);
     }
 
     /**

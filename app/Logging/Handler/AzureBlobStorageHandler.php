@@ -15,6 +15,7 @@ class AzureBlobStorageHandler extends BaseHelper
     protected $isBlobCreated = false;
 
     /**
+     * @param boolean $secure
      * @param string $name
      * @param string $key
      * @param string $container
@@ -23,32 +24,46 @@ class AzureBlobStorageHandler extends BaseHelper
      * @param boolean $bubble
      */
     public function __construct(
+        bool $secure,
         string $name,
         string $key,
+        ?string $endpoint,
         string $container,
         string $blob,
         $level = Logger::DEBUG,
         $bubble = true
     ) {
-        $client = $this->createClient($name, $key);
+        $connectionStr = $this->createConnectionString($secure, $name, $key, $endpoint);
+        $client = BlobRestProxy::createBlobService($connectionStr);
 
         parent::__construct($client, $container, $blob, $level, $bubble);
     }
 
     /**
+     * @param boolean $secure
      * @param string $name
      * @param string $key
-     * @return BlobRestProxy
+     * @param string|null $endpoint
+     * @return string
      */
-    protected function createClient(string $name, string $key): BlobRestProxy
-    {
-        $connection = sprintf(
-            'DefaultEndpointsProtocol=https;AccountName=%s;AccountKey=%s',
+    protected function createConnectionString(
+        bool $secure,
+        string $name,
+        string $key,
+        ?string $endpoint
+    ): string {
+        $connectionStr = sprintf(
+            'DefaultEndpointsProtocol=%s;AccountName=%s;AccountKey=%s;',
+            $secure ? 'https' : 'http',
             $name,
             $key
         );
 
-        return BlobRestProxy::createBlobService($connection);
+        if ($endpoint) {
+            $connectionStr .= sprintf('BlobEndpoint=%s;', $endpoint);
+        }
+
+        return $connectionStr;
     }
 
     /**
