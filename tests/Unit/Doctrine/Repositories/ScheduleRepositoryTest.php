@@ -55,57 +55,6 @@ class ScheduleRepositoryTest extends TestCase
      * @test
      * @return void
      */
-    public function testAddActiveQuery()
-    {
-        $alias = 'test';
-        $queryBuilderMock = $this->createQueryBuilderMock();
-        $queryBuilderMock
-            ->shouldReceive('andWhere')
-            ->with(Matchers::containsString($alias . '.isDeleted'))
-            ->andReturn($queryBuilderMock);
-
-        $targetRef = $this->createTargetReflection();
-        $addActiveQueryRef = $targetRef->getMethod('addActiveQuery');
-        $addActiveQueryRef->setAccessible(true);
-
-        $targetMock = $this->createTargetMock();
-        $addActiveQueryRef->invoke($targetMock, $queryBuilderMock, $alias);
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function testAddPublicQuery()
-    {
-        $alias = 'test';
-        $queryBuilderMock = $this->createQueryBuilderMock();
-        $queryBuilderMock
-            ->shouldReceive('andWhere')
-            ->with(Matchers::containsString($alias . '.publicStartDt'))
-            ->andReturn($queryBuilderMock);
-        $queryBuilderMock
-            ->shouldReceive('andWhere')
-            ->with(Matchers::containsString($alias . '.publicEndDt'))
-            ->andReturn($queryBuilderMock);
-
-        $targetMock = $this->createTargetMock();
-        $targetMock->shouldAllowMockingProtectedMethods();
-        $targetMock
-            ->shouldReceive('addActiveQuery')
-            ->with($queryBuilderMock, $alias);
-
-        $targetRef = $this->createTargetReflection();
-        $addPublicQueryRef = $targetRef->getMethod('addPublicQuery');
-        $addPublicQueryRef->setAccessible(true);
-
-        $addPublicQueryRef->invoke($targetMock, $queryBuilderMock, $alias);
-    }
-
-    /**
-     * @test
-     * @return void
-     */
     public function testFindOneActive()
     {
         $id = 12;

@@ -6,42 +6,13 @@ namespace App\Doctrine\Repositories;
 
 use App\Doctrine\Entities\Schedule;
 use App\Doctrine\Entities\ShowingTheater;
-use Doctrine\ORM\EntityRepository;
+use Cinemasunshine\ORM\Repositories\ScheduleRepository as BaseRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\QueryBuilder;
 
-class ScheduleRepository extends EntityRepository
+class ScheduleRepository extends BaseRepository
 {
     public const PUBLIC_TYPE_NOW_SHOWING = 'now-showing';
     public const PUBLIC_TYPE_COMING_SOON = 'coming-soon';
-
-    /**
-     * Add active query
-     *
-     * @param QueryBuilder $qb
-     * @param string $alias
-     * @return void
-     */
-    protected function addActiveQuery(QueryBuilder $qb, string $alias)
-    {
-        $qb->andWhere(sprintf('%s.isDeleted = false', $alias));
-    }
-
-    /**
-     * Add public query
-     *
-     * @param QueryBuilder $qb
-     * @param string $alias
-     * @return void
-     */
-    protected function addPublicQuery(QueryBuilder $qb, string $alias)
-    {
-        $this->addActiveQuery($qb, $alias);
-
-        $qb
-            ->andWhere(sprintf('%s.publicStartDt <= CURRENT_TIMESTAMP()', $alias))
-            ->andWhere(sprintf('%s.publicEndDt > CURRENT_TIMESTAMP()', $alias));
-    }
 
     /**
      * Find one active schedule
@@ -139,37 +110,5 @@ class ScheduleRepository extends EntityRepository
         $query->setFetchMode(ShowingTheater::class, 'theater', ClassMetadata::FETCH_EAGER);
 
         return $query->getResult();
-    }
-
-    /**
-     * Add now showing query
-     *
-     * @param QueryBuilder $qb
-     * @param string $alias
-     * @return void
-     */
-    protected function addNowShowingQuery(QueryBuilder $qb, string $alias)
-    {
-        $this->addPublicQuery($qb, $alias);
-
-        $qb
-            ->andWhere(sprintf('%s.startDate <= CURRENT_DATE()', $alias))
-            ->orderBy(sprintf('%s.startDate', $alias), 'DESC');
-    }
-
-    /**
-     * Add coming soon query
-     *
-     * @param QueryBuilder $qb
-     * @param string $alias
-     * @return void
-     */
-    protected function addComingSoonQuery(QueryBuilder $qb, string $alias)
-    {
-        $this->addPublicQuery($qb, $alias);
-
-        $qb
-            ->andWhere(sprintf('%s.startDate > CURRENT_DATE()', $alias))
-            ->orderBy(sprintf('%s.startDate', $alias), 'ASC');
     }
 }

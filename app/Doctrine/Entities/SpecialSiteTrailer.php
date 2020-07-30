@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Entities;
 
-use Cinemasunshine\ORM\Entity\SpecialSiteTrailer as BaseSpecialSiteTrailer;
+use Cinemasunshine\ORM\Entities\SpecialSiteTrailer as BaseSpecialSiteTrailer;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

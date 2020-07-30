@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Entities;
 
-use Cinemasunshine\ORM\Entity\OyakoCinemaTitle as BaseOyakoCinemaTitle;
+use Cinemasunshine\ORM\Entities\OyakoCinemaTitle as BaseOyakoCinemaTitle;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

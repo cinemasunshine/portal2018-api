@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Entities;
 
-use Cinemasunshine\ORM\Entity\AdvanceTicket as BaseAdvanceTicket;
+use Cinemasunshine\ORM\Entities\AdvanceTicket as BaseAdvanceTicket;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

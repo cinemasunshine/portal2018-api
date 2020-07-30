@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Entities;
 
-use Cinemasunshine\ORM\Entity\AdvanceSale as BaseAdvanceSale;
+use Cinemasunshine\ORM\Entities\AdvanceSale as BaseAdvanceSale;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
