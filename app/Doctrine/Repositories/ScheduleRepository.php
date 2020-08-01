@@ -43,11 +43,11 @@ class ScheduleRepository extends BaseRepository
             ->addSelect($aliasShowingTheaters)
             ->innerJoin(sprintf('%s.showingTheaters', $alias), $aliasShowingTheaters);
 
-        $this->addPublicQuery($qb, $alias);
-
         $qb
             ->where(sprintf('%s.id = :id', $alias))
             ->setParameter('id', $id);
+
+        $this->addPublicQuery($qb, $alias);
 
         $query = $qb->getQuery();
         $query->setFetchMode(ShowingTheater::class, 'theater', ClassMetadata::FETCH_EAGER);
