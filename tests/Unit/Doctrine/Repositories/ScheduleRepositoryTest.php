@@ -317,22 +317,28 @@ class ScheduleRepositoryTest extends TestCase
             ->with($alias . '.showingFormats', $aliasShowingFormats)
             ->andReturn($mock);
 
-        $aliasShowingTheaters = 'st';
+        $aliasShowingTheaters1 = 'st1';
         $mock
             ->shouldReceive('addSelect')
-            ->with($aliasShowingTheaters)
+            ->with($aliasShowingTheaters1)
             ->andReturn($mock);
         $mock
             ->shouldReceive('innerJoin')
-            ->with($alias . '.showingTheaters', $aliasShowingTheaters)
+            ->with($alias . '.showingTheaters', $aliasShowingTheaters1)
             ->andReturn($mock);
 
+        $aliasShowingTheaters2 = 'st2';
         $aliasTheater = 'th';
 
         $mock
             ->shouldReceive('innerJoin')
             ->times($theater ? 1 : 0)
-            ->with($aliasShowingTheaters . '.theater', $aliasTheater)
+            ->with($alias . '.showingTheaters', $aliasShowingTheaters2)
+            ->andReturn($mock);
+        $mock
+            ->shouldReceive('innerJoin')
+            ->times($theater ? 1 : 0)
+            ->with($aliasShowingTheaters2 . '.theater', $aliasTheater)
             ->andReturn($mock);
         $mock
             ->shouldReceive('andWhere')

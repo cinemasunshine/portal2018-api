@@ -87,10 +87,10 @@ class ScheduleRepository extends BaseRepository
             ->addSelect($aliasShowingFormats)
             ->innerJoin(sprintf('%s.showingFormats', $alias), $aliasShowingFormats);
 
-        $aliasShowingTheaters = 'st';
+        $aliasShowingTheaters1 = 'st1';
         $qb
-            ->addSelect($aliasShowingTheaters)
-            ->innerJoin(sprintf('%s.showingTheaters', $alias), $aliasShowingTheaters);
+            ->addSelect($aliasShowingTheaters1)
+            ->innerJoin(sprintf('%s.showingTheaters', $alias), $aliasShowingTheaters1);
 
         if ($type === self::PUBLIC_TYPE_NOW_SHOWING) {
             $this->addNowShowingQuery($qb, $alias);
@@ -99,9 +99,11 @@ class ScheduleRepository extends BaseRepository
         }
 
         if ($theater) {
+            $aliasShowingTheaters2 = 'st2';
             $aliasTheater = 'th';
             $qb
-                ->innerJoin(sprintf('%s.theater', $aliasShowingTheaters), $aliasTheater)
+                ->innerJoin(sprintf('%s.showingTheaters', $alias), $aliasShowingTheaters2)
+                ->innerJoin(sprintf('%s.theater', $aliasShowingTheaters2), $aliasTheater)
                 ->andWhere(sprintf('%s.masterCode = :theater', $aliasTheater))
                 ->setParameter('theater', $theater);
         }
