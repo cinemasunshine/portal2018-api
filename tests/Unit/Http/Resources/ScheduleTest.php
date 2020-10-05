@@ -54,12 +54,12 @@ class ScheduleTest extends TestCase
      */
     public function testToArray()
     {
-        $id = 5;
-        $startDate = '2020-07-10';
-        $endDate = '2020-07-31';
-        $remark = 'example remark';
-        $title = new TitleEntity();
-        $showingFormats = new ArrayCollection();
+        $id              = 5;
+        $startDate       = '2020-07-10';
+        $endDate         = '2020-07-31';
+        $remark          = 'example remark';
+        $title           = new TitleEntity();
+        $showingFormats  = new ArrayCollection();
         $showingTheaters = new ArrayCollection();
 
         $scheduleEntityMock = $this->createScheduleEntityMock();
@@ -92,7 +92,7 @@ class ScheduleTest extends TestCase
             ->once()
             ->andReturn($showingTheaters);
 
-        $formats = Mockery::mock(AnonymousResourceCollection::class);
+        $formats           = Mockery::mock(AnonymousResourceCollection::class);
         $showingFormatMock = $this->createShowingFormatMock();
         $showingFormatMock
             ->shouldReceive('collection')
@@ -100,7 +100,7 @@ class ScheduleTest extends TestCase
             ->with(Mockery::type('array'))
             ->andReturn($formats);
 
-        $theaters = Mockery::mock(AnonymousResourceCollection::class);
+        $theaters           = Mockery::mock(AnonymousResourceCollection::class);
         $showingTheaterMock = $this->createShowingTheaterMock();
         $showingTheaterMock
             ->shouldReceive('collection')
@@ -110,7 +110,7 @@ class ScheduleTest extends TestCase
 
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();
-        $targetRef = $this->createTargetReflection();
+        $targetRef   = $this->createTargetReflection();
         $resourceRef = $targetRef->getProperty('resource');
         $resourceRef->setAccessible(true);
         $resourceRef->setValue($targetMock, $scheduleEntityMock);

@@ -18,7 +18,7 @@ class ShowingTheater extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array{
      *     id: int,
      *     name: string,
@@ -30,7 +30,7 @@ class ShowingTheater extends JsonResource
     {
         /** @var ShowingTheaterEntity $showingTheater */
         $showingTheater = $this->resource;
-        $theater = $showingTheater->getTheater();
+        $theater        = $showingTheater->getTheater();
 
         return [
             'id' => $theater->getId(),

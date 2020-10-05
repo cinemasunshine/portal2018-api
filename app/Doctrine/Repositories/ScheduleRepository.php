@@ -23,9 +23,9 @@ class ScheduleRepository extends BaseRepository
     public function findOneActive($id)
     {
         $alias = 's';
-        $qb = $this->createQueryBuilder($alias);
+        $qb    = $this->createQueryBuilder($alias);
 
-        $aliasTitle = 't';
+        $aliasTitle      = 't';
         $aliasTitleImage = 'ti';
         $qb
             ->addSelect($aliasTitle)
@@ -56,14 +56,14 @@ class ScheduleRepository extends BaseRepository
     }
 
     /**
-     * @param string $type
+     * @param string      $type
      * @param string|null $theater
      * @return Schedule[]
      */
     public function findPublic(string $type, ?string $theater = null): array
     {
         if (
-            !in_array($type, [
+            ! in_array($type, [
                 self::PUBLIC_TYPE_NOW_SHOWING,
                 self::PUBLIC_TYPE_COMING_SOON,
             ])
@@ -72,9 +72,9 @@ class ScheduleRepository extends BaseRepository
         }
 
         $alias = 's';
-        $qb = $this->createQueryBuilder($alias);
+        $qb    = $this->createQueryBuilder($alias);
 
-        $aliasTitle = 't';
+        $aliasTitle      = 't';
         $aliasTitleImage = 'ti';
         $qb
             ->addSelect($aliasTitle)
@@ -100,7 +100,7 @@ class ScheduleRepository extends BaseRepository
 
         if ($theater) {
             $aliasShowingTheaters2 = 'st2';
-            $aliasTheater = 'th';
+            $aliasTheater          = 'th';
             $qb
                 ->innerJoin(sprintf('%s.showingTheaters', $alias), $aliasShowingTheaters2)
                 ->innerJoin(sprintf('%s.theater', $aliasShowingTheaters2), $aliasTheater)

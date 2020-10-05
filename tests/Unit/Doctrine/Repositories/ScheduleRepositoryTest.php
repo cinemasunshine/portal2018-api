@@ -57,12 +57,12 @@ class ScheduleRepositoryTest extends TestCase
      */
     public function testFindOneActive()
     {
-        $id = 12;
+        $id    = 12;
         $alias = 's';
 
         $queryBuilderMock = $this->createQueryBuilderMockForFindOneActive($alias, $id);
 
-        $schedule = new Schedule();
+        $schedule  = new Schedule();
         $queryMock = $this->createQueryMock();
         $queryMock
             ->shouldReceive('setFetchMode')
@@ -95,14 +95,14 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @param string $alias
-     * @param mixed $id
+     * @param mixed  $id
      * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
      */
     protected function createQueryBuilderMockForFindOneActive(string $alias, $id)
     {
         $mock = $this->createQueryBuilderMock();
 
-        $aliasTitle = 't';
+        $aliasTitle      = 't';
         $aliasTitleImage = 'ti';
         $mock
             ->shouldReceive('addSelect')
@@ -159,16 +159,16 @@ class ScheduleRepositoryTest extends TestCase
      */
     public function testFindPublicNowShowing()
     {
-        $alias = 's';
-        $type = ScheduleRepository::PUBLIC_TYPE_NOW_SHOWING;
-        $theater = null;
+        $alias     = 's';
+        $type      = ScheduleRepository::PUBLIC_TYPE_NOW_SHOWING;
+        $theater   = null;
         $schedules = [
             new Schedule(),
         ];
 
-        $queryMock = $this->createQueryMockForFindPublic($schedules);
+        $queryMock        = $this->createQueryMockForFindPublic($schedules);
         $queryBuilderMock = $this->createQueryBuilderMockForFindPublic($alias, $theater, $queryMock);
-        $targetMock = $this->createTargetMockForFindPublic($alias, $queryBuilderMock, $type);
+        $targetMock       = $this->createTargetMockForFindPublic($alias, $queryBuilderMock, $type);
 
         $result = $targetMock->findPublic($type, $theater);
         $this->assertEquals($schedules, $result);
@@ -180,16 +180,16 @@ class ScheduleRepositoryTest extends TestCase
      */
     public function testFindPublicCommingSoon()
     {
-        $alias = 's';
-        $type = ScheduleRepository::PUBLIC_TYPE_COMING_SOON;
-        $theater = null;
+        $alias     = 's';
+        $type      = ScheduleRepository::PUBLIC_TYPE_COMING_SOON;
+        $theater   = null;
         $schedules = [
             new Schedule(),
         ];
 
-        $queryMock = $this->createQueryMockForFindPublic($schedules);
+        $queryMock        = $this->createQueryMockForFindPublic($schedules);
         $queryBuilderMock = $this->createQueryBuilderMockForFindPublic($alias, $theater, $queryMock);
-        $targetMock = $this->createTargetMockForFindPublic($alias, $queryBuilderMock, $type);
+        $targetMock       = $this->createTargetMockForFindPublic($alias, $queryBuilderMock, $type);
 
         $result = $targetMock->findPublic($type, $theater);
         $this->assertEquals($schedules, $result);
@@ -201,16 +201,16 @@ class ScheduleRepositoryTest extends TestCase
      */
     public function testFindPublicWithTheater()
     {
-        $alias = 's';
-        $type = ScheduleRepository::PUBLIC_TYPE_NOW_SHOWING;
-        $theater = '999';
+        $alias     = 's';
+        $type      = ScheduleRepository::PUBLIC_TYPE_NOW_SHOWING;
+        $theater   = '999';
         $schedules = [
             new Schedule(),
         ];
 
-        $queryMock = $this->createQueryMockForFindPublic($schedules);
+        $queryMock        = $this->createQueryMockForFindPublic($schedules);
         $queryBuilderMock = $this->createQueryBuilderMockForFindPublic($alias, $theater, $queryMock);
-        $targetMock = $this->createTargetMockForFindPublic($alias, $queryBuilderMock, $type);
+        $targetMock       = $this->createTargetMockForFindPublic($alias, $queryBuilderMock, $type);
 
         $result = $targetMock->findPublic($type, $theater);
         $this->assertEquals($schedules, $result);
@@ -232,7 +232,7 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @param string $alias
-     * @param mixed $queryBuilder
+     * @param mixed  $queryBuilder
      * @param string $type
      * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ScheduleRepository
      */
@@ -279,16 +279,16 @@ class ScheduleRepositoryTest extends TestCase
     }
 
     /**
-     * @param string $alias
+     * @param string      $alias
      * @param string|null $theater
-     * @param mixed $query
+     * @param mixed       $query
      * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
      */
     protected function createQueryBuilderMockForFindPublic(string $alias, ?string $theater, $query)
     {
         $mock = $this->createQueryBuilderMock();
 
-        $aliasTitle = 't';
+        $aliasTitle      = 't';
         $aliasTitleImage = 'ti';
         $mock
             ->shouldReceive('addSelect')
@@ -328,7 +328,7 @@ class ScheduleRepositoryTest extends TestCase
             ->andReturn($mock);
 
         $aliasShowingTheaters2 = 'st2';
-        $aliasTheater = 'th';
+        $aliasTheater          = 'th';
 
         $mock
             ->shouldReceive('innerJoin')

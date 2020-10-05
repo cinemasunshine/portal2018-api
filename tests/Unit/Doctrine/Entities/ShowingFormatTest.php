@@ -45,7 +45,7 @@ class ShowingFormatTest extends TestCase
             ->with()
             ->andReturn($system);
 
-        $targetRef = $this->createTargetReflection();
+        $targetRef       = $this->createTargetReflection();
         $systemLablesRef = $targetRef->getProperty('systemLables');
         $systemLablesRef->setAccessible(true);
         $systemLables = $systemLablesRef->getValue($targetMock);
@@ -68,7 +68,7 @@ class ShowingFormatTest extends TestCase
             ->with()
             ->andReturn($sound);
 
-        $targetRef = $this->createTargetReflection();
+        $targetRef      = $this->createTargetReflection();
         $soundLabelsRef = $targetRef->getProperty('soundLabels');
         $soundLabelsRef->setAccessible(true);
         $soundLabels = $soundLabelsRef->getValue($targetMock);
@@ -91,7 +91,7 @@ class ShowingFormatTest extends TestCase
             ->with()
             ->andReturn($voice);
 
-        $targetRef = $this->createTargetReflection();
+        $targetRef      = $this->createTargetReflection();
         $voiceLabelsRef = $targetRef->getProperty('voiceLabels');
         $voiceLabelsRef->setAccessible(true);
         $voiceLabels = $voiceLabelsRef->getValue($targetMock);

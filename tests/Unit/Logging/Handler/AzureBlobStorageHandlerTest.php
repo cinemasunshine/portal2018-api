@@ -46,12 +46,12 @@ class AzureBlobStorageHandlerTest extends TestCase
      */
     public function testConstruct()
     {
-        $secure = true;
-        $name = 'storage';
-        $key = 'aaabbbccc';
-        $endpoint = null;
+        $secure    = true;
+        $name      = 'storage';
+        $key       = 'aaabbbccc';
+        $endpoint  = null;
         $container = 'container';
-        $blob = 'blob';
+        $blob      = 'blob';
 
         $targetMock = $this->createTargetMock();
         $targetMock
@@ -96,15 +96,15 @@ class AzureBlobStorageHandlerTest extends TestCase
      */
     public function testCreateConnectionString()
     {
-        $targetRef = $this->createTargetReflection();
+        $targetRef                 = $this->createTargetReflection();
         $createConnectionStringRef = $targetRef->getMethod('createConnectionString');
         $createConnectionStringRef->setAccessible(true);
 
         $targetMock = $this->createTargetMock();
 
-        $secure = true;
-        $name = 'example_name';
-        $key = 'example_key';
+        $secure   = true;
+        $name     = 'example_name';
+        $key      = 'example_key';
         $endpoint = null;
 
         $resulFirst = $createConnectionStringRef->invoke(
@@ -120,7 +120,7 @@ class AzureBlobStorageHandlerTest extends TestCase
         $this->assertStringContainsString(sprintf('AccountKey=%s;', $key), $resulFirst);
         $this->assertStringNotContainsString('BlobEndpoint', $resulFirst);
 
-        $secure = false;
+        $secure   = false;
         $endpoint = 'https://blob.example.com';
 
         $resulSecond = $createConnectionStringRef->invoke(
@@ -141,9 +141,7 @@ class AzureBlobStorageHandlerTest extends TestCase
     public function testWrite()
     {
         $isBlobCreated = false;
-        $record = [
-            'formatted' => 'test',
-        ];
+        $record        = ['formatted' => 'test'];
 
         $targetMock = $this->createTargetMock();
         $targetMock->shouldAllowMockingProtectedMethods();
@@ -178,9 +176,7 @@ class AzureBlobStorageHandlerTest extends TestCase
     public function testWriteIsBlobCreated()
     {
         $isBlobCreated = true;
-        $record = [
-            'formatted' => 'test',
-        ];
+        $record        = ['formatted' => 'test'];
 
         $targetMock = $this->createTargetMock();
         $targetMock->shouldAllowMockingProtectedMethods();
@@ -225,7 +221,7 @@ class AzureBlobStorageHandlerTest extends TestCase
     public function testCreateBlobExisting()
     {
         $container = 'example';
-        $blob = 'test.log';
+        $blob      = 'test.log';
 
         $blobRestProxyMock = $this->createBlobRestProxyMock();
         $blobRestProxyMock
@@ -238,7 +234,7 @@ class AzureBlobStorageHandlerTest extends TestCase
             ->never();
 
         $targetMock = $this->createTargetMock();
-        $targetRef = $this->createTargetReflection();
+        $targetRef  = $this->createTargetReflection();
 
         $clientRef = $targetRef->getProperty('client');
         $clientRef->setAccessible(true);
@@ -265,7 +261,7 @@ class AzureBlobStorageHandlerTest extends TestCase
     public function testCreateBlobNotFound()
     {
         $container = 'example';
-        $blob = 'test.log';
+        $blob      = 'test.log';
 
         $exception = $this->createServiceException(404);
 
@@ -281,7 +277,7 @@ class AzureBlobStorageHandlerTest extends TestCase
             ->once();
 
         $targetMock = $this->createTargetMock();
-        $targetRef = $this->createTargetReflection();
+        $targetRef  = $this->createTargetReflection();
 
         $clientRef = $targetRef->getProperty('client');
         $clientRef->setAccessible(true);
@@ -307,7 +303,7 @@ class AzureBlobStorageHandlerTest extends TestCase
     public function testCreateBlobServiceError()
     {
         $container = 'example';
-        $blob = 'test.log';
+        $blob      = 'test.log';
 
         $exception = $this->createServiceException(500);
 
@@ -323,7 +319,7 @@ class AzureBlobStorageHandlerTest extends TestCase
             ->never();
 
         $targetMock = $this->createTargetMock();
-        $targetRef = $this->createTargetReflection();
+        $targetRef  = $this->createTargetReflection();
 
         $clientRef = $targetRef->getProperty('client');
         $clientRef->setAccessible(true);

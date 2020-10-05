@@ -45,7 +45,7 @@ class TitleTest extends TestCase
             ->with()
             ->andReturn($rating, null);
 
-        $targetRef = $this->createTargetReflection();
+        $targetRef       = $this->createTargetReflection();
         $ratingLabelsRef = $targetRef->getProperty('ratingLabels');
         $ratingLabelsRef->setAccessible(true);
         $ratingLabels = $ratingLabelsRef->getValue($targetMock);
@@ -69,7 +69,7 @@ class TitleTest extends TestCase
             ->with()
             ->andReturn($universal, null);
 
-        $targetRef = $this->createTargetReflection();
+        $targetRef          = $this->createTargetReflection();
         $universalLabelsRef = $targetRef->getProperty('universalLabels');
         $universalLabelsRef->setAccessible(true);
         $universalLabels = $universalLabelsRef->getValue($targetMock);

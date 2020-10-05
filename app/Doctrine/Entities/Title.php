@@ -50,7 +50,7 @@ class Title extends BaseTitle
     public function getUniversalTexts(): array
     {
         $univarsal = $this->getUniversal() ?? [];
-        $labels = self::$universalLabels;
+        $labels    = self::$universalLabels;
 
         return array_map(function ($value) use ($labels) {
             return $labels[$value];

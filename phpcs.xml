@@ -5,13 +5,24 @@
     <file>./app</file>
     <file>./tests</file>
 
-    <exclude-pattern>/app/Console/Kernel.php</exclude-pattern>
-    <exclude-pattern>/tests/CreatesApplication.php</exclude-pattern>
-
     <arg name="report-full"/>
     <arg value="sp"/>
 
     <!-- Base rule -->
     <rule ref="Motionpicture"/>
+
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod.Found">
+        <!-- `report()` and `render()` -->
+        <exclude-pattern>app/Exceptions/Handler.php</exclude-pattern>
+
+        <!-- `__construct()` -->
+        <exclude-pattern>app/Http/Resources/Schedule.php</exclude-pattern>
+        <exclude-pattern>app/Http/Resources/ShowingFormat.php</exclude-pattern>
+        <exclude-pattern>app/Http/Resources/ShowingTheater.php</exclude-pattern>
+        <exclude-pattern>app/Http/Resources/Title.php</exclude-pattern>
+
+        <!-- `boot()` -->
+        <exclude-pattern>app/Providers/EventServiceProvider.php</exclude-pattern>
+    </rule>
 
 </ruleset>

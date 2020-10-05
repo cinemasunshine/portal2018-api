@@ -52,9 +52,9 @@ class ShowingTheaterTest extends TestCase
      */
     public function testToArray()
     {
-        $id = 6;
-        $name = 'example_name';
-        $nameJa = '仮劇場';
+        $id      = 6;
+        $name    = 'example_name';
+        $nameJa  = '仮劇場';
         $coaCode = '999';
 
         $theaterEntityMock = $this->createTheaterEntityMock();

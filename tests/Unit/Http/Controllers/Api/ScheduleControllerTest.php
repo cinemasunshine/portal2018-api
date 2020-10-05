@@ -40,8 +40,8 @@ class ScheduleControllerTest extends TestCase
             new ScheduleEntity(),
         ];
 
-        $type = ScheduleRepository::PUBLIC_TYPE_NOW_SHOWING;
-        $theater = '999';
+        $type        = ScheduleRepository::PUBLIC_TYPE_NOW_SHOWING;
+        $theater     = '999';
         $requestMock = $this->createRequestMock($theater);
 
         $repositoryMock = $this->createScheduleRepositoryMock();
@@ -71,8 +71,8 @@ class ScheduleControllerTest extends TestCase
             new ScheduleEntity(),
         ];
 
-        $type = ScheduleRepository::PUBLIC_TYPE_COMING_SOON;
-        $theater = '999';
+        $type        = ScheduleRepository::PUBLIC_TYPE_COMING_SOON;
+        $theater     = '999';
         $requestMock = $this->createRequestMock($theater);
 
         $repositoryMock = $this->createScheduleRepositoryMock();
@@ -143,7 +143,7 @@ class ScheduleControllerTest extends TestCase
         $targetMoc->makePartial();
 
         $schedule = new ScheduleEntity();
-        $result = $targetMoc->show($schedule);
+        $result   = $targetMoc->show($schedule);
         $this->assertInstanceOf(ScheduleResource::class, $result);
     }
 }

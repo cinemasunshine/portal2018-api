@@ -15,13 +15,13 @@ class AzureBlobStorageHandler extends BaseHelper
     protected $isBlobCreated = false;
 
     /**
-     * @param boolean $secure
-     * @param string $name
-     * @param string $key
-     * @param string $container
-     * @param string $blob
+     * @param boolean    $secure
+     * @param string     $name
+     * @param string     $key
+     * @param string     $container
+     * @param string     $blob
      * @param int|string $level
-     * @param boolean $bubble
+     * @param boolean    $bubble
      */
     public function __construct(
         bool $secure,
@@ -34,15 +34,15 @@ class AzureBlobStorageHandler extends BaseHelper
         $bubble = true
     ) {
         $connectionStr = $this->createConnectionString($secure, $name, $key, $endpoint);
-        $client = BlobRestProxy::createBlobService($connectionStr);
+        $client        = BlobRestProxy::createBlobService($connectionStr);
 
         parent::__construct($client, $container, $blob, $level, $bubble);
     }
 
     /**
-     * @param boolean $secure
-     * @param string $name
-     * @param string $key
+     * @param boolean     $secure
+     * @param string      $name
+     * @param string      $key
      * @param string|null $endpoint
      * @return string
      */
@@ -71,7 +71,7 @@ class AzureBlobStorageHandler extends BaseHelper
      */
     protected function write(array $record): void
     {
-        if (!$this->isBlobCreated) {
+        if (! $this->isBlobCreated) {
             $this->createBlob();
             $this->isBlobCreated = true;
         }

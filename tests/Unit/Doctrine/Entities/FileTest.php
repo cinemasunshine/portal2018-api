@@ -38,7 +38,7 @@ class FileTest extends TestCase
      */
     public function testGetBlobContainer()
     {
-        $targetRef = $this->createTargetReflection();
+        $targetRef        = $this->createTargetReflection();
         $blobContainerRef = $targetRef->getProperty('blobContainer');
         $blobContainerRef->setAccessible(true);
         $blobContainer = $blobContainerRef->getValue(new File());
@@ -58,7 +58,7 @@ class FileTest extends TestCase
             ->shouldReceive('getName')
             ->andReturn('sample.txt');
 
-        $url = 'https://storage.example.com/sample.txt';
+        $url            = 'https://storage.example.com/sample.txt';
         $filesystemMock = $this->createFilesystemMock();
         $filesystemMock
             ->shouldReceive('url')
