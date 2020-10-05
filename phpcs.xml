@@ -11,6 +11,7 @@
     <arg name="report-full"/>
     <arg value="sp"/>
 
-    <rule ref="PSR12"/>
+    <!-- Base rule -->
+    <rule ref="Motionpicture"/>
 
 </ruleset>
