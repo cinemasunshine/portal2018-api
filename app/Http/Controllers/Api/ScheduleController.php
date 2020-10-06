@@ -18,8 +18,8 @@ class ScheduleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
-     * @param string $type route parameter
+     * @param Request                $request
+     * @param string                 $type    route parameter
      * @param EntityManagerInterface $em
      * @return ScheduleCollectionResource<ScheduleResource>
      */
@@ -34,7 +34,7 @@ class ScheduleController extends Controller
 
         /** @var ScheduleRepository $repository */
         $repository = $em->getRepository(Schedule::class);
-        $schedules = $repository->findPublic($type, $theater);
+        $schedules  = $repository->findPublic($type, $theater);
 
         return new ScheduleCollectionResource($schedules);
     }
@@ -63,7 +63,7 @@ class ScheduleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Schedule  $schedule
+     * @param  Schedule $schedule
      * @return JsonResource
      */
     public function show(Schedule $schedule)

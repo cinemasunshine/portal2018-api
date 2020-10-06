@@ -41,7 +41,7 @@ class ScheduleCollectionTest extends TestCase
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();
 
-        $collectionMock = Mockery::mock(Collection::class);
+        $collectionMock         = Mockery::mock(Collection::class);
         $targetMock->collection = $collectionMock;
 
         $result = $targetMock->toArray(Mockery::mock(Request::class));

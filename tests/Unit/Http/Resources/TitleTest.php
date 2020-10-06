@@ -47,26 +47,24 @@ class TitleTest extends TestCase
      */
     public function testToArray()
     {
-        $id = 7;
+        $id   = 7;
         $name = 'example name';
 
-        $image = 'https://storage.example.com/sample.jpg';
+        $image     = 'https://storage.example.com/sample.jpg';
         $imageMock = $this->createFileEntityMock();
         $imageMock
             ->shouldReceive('getUrl')
             ->once()
             ->andReturn($image);
 
-        $credit = 'example credit';
-        $catchcopy = 'example catchcopy';
+        $credit       = 'example credit';
+        $catchcopy    = 'example catchcopy';
         $introduction = 'example introduction';
-        $director = 'example director';
-        $cast = 'example cast';
+        $director     = 'example director';
+        $cast         = 'example cast';
         $officialSite = 'https://example.com/official-site';
-        $rating = 'example rating';
-        $universal = [
-            'example universal',
-        ];
+        $rating       = 'example rating';
+        $universal    = ['example universal'];
 
         $titleEntityMock = $this->createTitleEntityMock();
         $titleEntityMock
@@ -105,7 +103,7 @@ class TitleTest extends TestCase
 
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();
-        $targetRef = $this->createTargetReflection();
+        $targetRef   = $this->createTargetReflection();
         $resourceRef = $targetRef->getProperty('resource');
         $resourceRef->setAccessible(true);
         $resourceRef->setValue($targetMock, $titleEntityMock);

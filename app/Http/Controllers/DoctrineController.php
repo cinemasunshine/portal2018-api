@@ -29,7 +29,7 @@ class DoctrineController extends Controller
     }
 
     /**
-     * @param Cache $cacheDriver
+     * @param Cache  $cacheDriver
      * @param string $target
      * @return void
      */
@@ -48,8 +48,8 @@ class DoctrineController extends Controller
      * Azure(Windows)で使用するWinCacheはWebとCLIが別になっていて、コンソールからはクリアできないらしい。
      * よってその代替として実装。
      *
-     * @param Request $request
-     * @param string $target
+     * @param Request                $request
+     * @param string                 $target
      * @param EntityManagerInterface $em
      * @return string
      */
@@ -63,11 +63,11 @@ class DoctrineController extends Controller
             throw new \InvalidArgumentException('Invalid "target".');
         }
 
-        if (!$cacheDriver) {
+        if (! $cacheDriver) {
             throw new \InvalidArgumentException('No cache driver is configured on given EntityManager.');
         }
 
-        if (!$cacheDriver instanceof CacheProvider) {
+        if (! $cacheDriver instanceof CacheProvider) {
             throw new \InvalidArgumentException('This cache driver does not support clear.');
         }
 
@@ -78,7 +78,7 @@ class DoctrineController extends Controller
 
     /**
      * @param CacheProvider $cacheDriver
-     * @param boolean $flush
+     * @param boolean       $flush
      * @return string
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
@@ -95,7 +95,7 @@ class DoctrineController extends Controller
             $message = ($result) ? 'Successfully flushed cache entries.' : $message;
         }
 
-        if (!$result) {
+        if (! $result) {
             throw new \RuntimeException($message);
         }
 

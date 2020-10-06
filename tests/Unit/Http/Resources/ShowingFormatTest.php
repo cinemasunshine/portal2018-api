@@ -46,12 +46,12 @@ class ShowingFormatTest extends TestCase
      */
     public function testToArray()
     {
-        $systemId = 2;
+        $systemId   = 2;
         $systemName = 'example system';
-        $soundId = 3;
-        $soundName = 'example sound';
-        $voiceId = 4;
-        $voiceName = 'example voice';
+        $soundId    = 3;
+        $soundName  = 'example sound';
+        $voiceId    = 4;
+        $voiceName  = 'example voice';
 
         $showingFormatEntityMock = $this->createShowingFormatEntityMock();
         $showingFormatEntityMock
@@ -81,7 +81,7 @@ class ShowingFormatTest extends TestCase
 
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();
-        $targetRef = $this->createTargetReflection();
+        $targetRef   = $this->createTargetReflection();
         $resourceRef = $targetRef->getProperty('resource');
         $resourceRef->setAccessible(true);
         $resourceRef->setValue($targetMock, $showingFormatEntityMock);
