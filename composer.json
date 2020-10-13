@@ -67,6 +67,10 @@
         "phpstan": "vendor/bin/phpstan analyse -n --no-progress -c phpstan.neon --memory-limit=256M",
         "test": "php artisan test",
         "test-unit": "php artisan test --group=unit",
+        "test-feature": "php artisan test --group=feature",
+        "schema-create:testing": "php artisan doctrine:schema:create --env=testing --ansi",
+        "schema-drop:testing": "php artisan doctrine:schema:drop --env=testing --force --ansi",
+        "db-seed:testing": "php artisan db:seed --env=testing --ansi",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
