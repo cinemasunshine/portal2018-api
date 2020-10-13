@@ -18,6 +18,16 @@ parameters:
 			message: "#\\:\\:write\\(\\) has parameter \\$record with no value type specified in iterable type array\\.$#"
 			path: app/Logging/Handler/AzureBlobStorageHandler.php
 
+		# https://github.com/phpstan/phpstan/issues/1881#issuecomment-704883275
+		-
+			message: "#^Function entity invoked with [0-9]+ parameters?, 0 required\\.$#"
+			path: tests/Feature/Api/SchedulesTest.php
+
+		# Laravelで元々利用されているコードなのでいったん無視する
+		-
+			message: "#^Parameter \\#1 \\$artisan of method Illuminate\\\\Foundation\\\\Console\\\\Kernel\\:\\:setArtisan\\(\\) expects Illuminate\\\\Console\\\\Application, null given\\.$#"
+			path: tests/Feature/Api/SchedulesTest.php
+
 		# baseline
 		-
 			message: "#^Property App\\\\Console\\\\Kernel\\:\\:\\$commands type has no value type specified in iterable type array\\.$#"

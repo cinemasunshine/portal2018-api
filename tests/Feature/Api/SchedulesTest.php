@@ -96,7 +96,7 @@ class SchedulesTest extends TestCase
     }
 
     /**
-     * @param array $params
+     * @param array<string, mixed> $params
      * @return \Illuminate\Testing\TestResponse
      */
     private function getNowShowingJson(array $params = [])
