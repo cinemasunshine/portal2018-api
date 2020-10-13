@@ -242,6 +242,10 @@ jobs:
     executor: test
 
     steps:
+      - run:
+          name: Install PHP Extension
+          command: sudo docker-php-ext-install pdo_mysql
+
       - attach_workspace:
           at: .
 
