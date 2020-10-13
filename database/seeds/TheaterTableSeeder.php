@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 class TheaterTableSeeder extends Seeder
 {
     private const TABLE = 'theater';
+
     private const TABLE_META = 'theater_meta';
 
     /**
