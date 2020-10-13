@@ -126,6 +126,16 @@ executors:
     docker:
       - image: circleci/php:7.3
 
+  test:
+    docker:
+      - image: circleci/php:7.3
+
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_DATABASE: test_db
+          MYSQL_ROOT_PASSWORD: qwer4321
+          TZ: "Asia/Tokyo"
+
   deployment:
     docker:
       - image: cimg/base:stable
@@ -229,7 +239,7 @@ jobs:
 
   test:
     working_directory: ~/development
-    executor: build
+    executor: test
 
     steps:
       - attach_workspace:
@@ -249,7 +259,7 @@ jobs:
 
       - run:
           name: PHPUnit
-          command: composer test-unit
+          command: composer test
 
   deploy_to_dev:
     working_directory: ~/development
