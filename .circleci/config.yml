@@ -130,6 +130,11 @@ executors:
     docker:
       - image: circleci/php:7.3
 
+        # 基本は.env.testingなどで設定する
+        # 差分が大きくなるようなら専用の.envファイルを作成するなど
+        environment:
+          DB_HOST: "127.0.0.1"
+
       - image: circleci/mysql:5.7
         environment:
           MYSQL_DATABASE: test_db
