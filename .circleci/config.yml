@@ -126,6 +126,21 @@ executors:
     docker:
       - image: circleci/php:7.3
 
+  test:
+    docker:
+      - image: circleci/php:7.3
+
+        # 基本は.env.testingなどで設定する
+        # 差分が大きくなるようなら専用の.envファイルを作成するなど
+        environment:
+          DB_HOST: "127.0.0.1"
+
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_DATABASE: test_db
+          MYSQL_ROOT_PASSWORD: qwer4321
+          TZ: "Asia/Tokyo"
+
   deployment:
     docker:
       - image: cimg/base:stable
@@ -229,9 +244,13 @@ jobs:
 
   test:
     working_directory: ~/development
-    executor: build
+    executor: test
 
     steps:
+      - run:
+          name: Install PHP Extension
+          command: sudo docker-php-ext-install pdo_mysql
+
       - attach_workspace:
           at: .
 
@@ -249,7 +268,7 @@ jobs:
 
       - run:
           name: PHPUnit
-          command: composer test-unit
+          command: composer test
 
   deploy_to_dev:
     working_directory: ~/development

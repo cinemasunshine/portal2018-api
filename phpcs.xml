@@ -3,6 +3,7 @@
     <description>A custom coding standard</description>
 
     <file>./app</file>
+    <file>./database</file>
     <file>./tests</file>
 
     <arg name="report-full"/>
@@ -23,6 +24,11 @@
 
         <!-- `boot()` -->
         <exclude-pattern>app/Providers/EventServiceProvider.php</exclude-pattern>
+    </rule>
+
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <!-- Follow Laravel rules -->
+        <exclude-pattern>database/seeds/*.php</exclude-pattern>
     </rule>
 
 </ruleset>
