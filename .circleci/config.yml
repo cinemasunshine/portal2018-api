@@ -161,6 +161,7 @@ executors:
   deployment:
     docker:
       - image: cimg/base:stable
+        <<: *docker_hub_authentication
 
 jobs:
   build_development:
