@@ -123,7 +123,7 @@ $factory->afterCreating(Schedule::class, function (Schedule $schedule, Faker $fa
         if ($entities instanceof \Illuminate\Support\Collection) {
             $entities = $entities->all();
         } else {
-            $entities = [ $entities ];
+            $entities = [$entities];
         }
 
         return $entities;
