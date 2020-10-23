@@ -32,7 +32,8 @@
         "phpstan/phpstan-doctrine": "^0.12.20",
         "phpstan/phpstan-mockery": "^0.12.7",
         "phpstan/phpstan-phpunit": "^0.12.16",
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^8.5",
+        "slevomat/coding-standard": "^6.4"
     },
     "config": {
         "optimize-autoloader": true,
