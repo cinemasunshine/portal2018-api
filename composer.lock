@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c817769aeb29f4b7c1dcaadfc4851a71",
+    "content-hash": "2ce402933a05be1256c34e40f9df676a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6859,27 +6859,28 @@
         },
         {
             "name": "mp-okui/php-coding-standard",
-            "version": "v0.1.0-alpha",
+            "version": "v0.2.0-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MP-okui/php-coding-standard.git",
-                "reference": "65bd8c3bc553e8c54f8de91c02d176559b6c64ad"
+                "reference": "3fac9bf9234fcad40e5b8eff1c18aee079e08ae1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/65bd8c3bc553e8c54f8de91c02d176559b6c64ad",
-                "reference": "65bd8c3bc553e8c54f8de91c02d176559b6c64ad",
+                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/3fac9bf9234fcad40e5b8eff1c18aee079e08ae1",
+                "reference": "3fac9bf9234fcad40e5b8eff1c18aee079e08ae1",
                 "shasum": ""
             },
             "require": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
                 "php": "^7.2",
+                "slevomat/coding-standard": "^6.4",
                 "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "phpcodesniffer-standard",
             "notification-url": "https://packagist.org/downloads/",
-            "description": "The coding standard of the Motionpicture project.",
-            "time": "2020-10-02T07:00:30+00:00"
+            "description": "The PHP coding standard of the Motionpicture projects. (temporary)",
+            "time": "2020-10-28T04:29:46+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -8955,16 +8956,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.5.7",
+            "version": "3.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "4dbf1d59cd3f155c6f906f018a8574bc53b5be30"
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/4dbf1d59cd3f155c6f906f018a8574bc53b5be30",
-                "reference": "4dbf1d59cd3f155c6f906f018a8574bc53b5be30",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9d583721a7157ee997f235f327de038e7ea6dac4",
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4",
                 "shasum": ""
             },
             "require": {
@@ -9002,7 +9003,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2020-10-22T21:09:11+00:00"
+            "time": "2020-10-23T02:01:07+00:00"
         },
         {
             "name": "symfony/filesystem",
