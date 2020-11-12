@@ -14,6 +14,7 @@
         "blue32a/monolog-azure-blob": "^0.2.0",
         "cinemasunshine/portal2018-orm": "^1.1",
         "doctrine/inflector": "^1.4",
+        "doctrine/orm": "^2.7.4",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
