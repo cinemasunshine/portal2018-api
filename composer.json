@@ -2,6 +2,7 @@
     "name": "cinemasunshine/portal2018-api",
     "type": "project",
     "description": "Cinemasunshine Portal2018 API",
+    "license": "proprietary",
     "repositories": {
         "cinemasunshine/portal2018-orm": {
             "type": "vcs",
