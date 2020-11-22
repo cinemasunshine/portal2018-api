@@ -31,7 +31,8 @@
         "nunomaduro/collision": "^4.1",
         "nunomaduro/larastan": "^0.6.9",
         "php-parallel-lint/php-parallel-lint": "^1.2",
-        "phpstan/phpstan-doctrine": "^0.12.20",
+        "phpstan/phpstan": "^0.12.57",
+        "phpstan/phpstan-doctrine": "^0.12.22",
         "phpstan/phpstan-mockery": "^0.12.7",
         "phpstan/phpstan-phpunit": "^0.12.16",
         "phpunit/phpunit": "^8.5"
