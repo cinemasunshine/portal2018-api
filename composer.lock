@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a60b85e7384341d42f7e2a75cc0d5b15",
+    "content-hash": "15273f48a3e34b60d60ba9b416cda973",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7037,16 +7037,16 @@
         },
         {
             "name": "nunomaduro/larastan",
-            "version": "v0.6.7",
+            "version": "v0.6.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/larastan.git",
-                "reference": "4649da8e2e3bd179ba46aac9c8e4d76c87ae47c0"
+                "reference": "cc6a0802d4e744771583487a68181d13ca2c8306"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/larastan/zipball/4649da8e2e3bd179ba46aac9c8e4d76c87ae47c0",
-                "reference": "4649da8e2e3bd179ba46aac9c8e4d76c87ae47c0",
+                "url": "https://api.github.com/repos/nunomaduro/larastan/zipball/cc6a0802d4e744771583487a68181d13ca2c8306",
+                "reference": "cc6a0802d4e744771583487a68181d13ca2c8306",
                 "shasum": ""
             },
             "require": {
@@ -7060,13 +7060,13 @@
                 "illuminate/pipeline": "^6.0 || ^7.0 || ^8.0",
                 "illuminate/support": "^6.0 || ^7.0 || ^8.0",
                 "mockery/mockery": "^0.9 || ^1.0",
-                "php": "^7.2",
+                "php": "^7.2 || ^8.0",
                 "phpstan/phpstan": "^0.12.34",
                 "symfony/process": "^4.3 || ^5.0"
             },
             "require-dev": {
                 "orchestra/testbench": "^4.0 || ^5.0 || ^6.0",
-                "phpunit/phpunit": "^7.3 || ^8.2"
+                "phpunit/phpunit": "^7.3 || ^8.2 || ^9.3"
             },
             "suggest": {
                 "orchestra/testbench": "^4.0 || ^5.0"
@@ -7108,6 +7108,10 @@
                 "php",
                 "static analysis"
             ],
+            "support": {
+                "issues": "https://github.com/nunomaduro/larastan/issues",
+                "source": "https://github.com/nunomaduro/larastan/tree/v0.6.9"
+            },
             "funding": [
                 {
                     "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L",
@@ -7126,7 +7130,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2020-10-21T07:54:14+00:00"
+            "time": "2020-10-30T11:55:57+00:00"
         },
         {
             "name": "phar-io/manifest",
