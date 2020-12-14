@@ -34,6 +34,7 @@ class FileTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testGetBlobContainer()
@@ -48,6 +49,7 @@ class FileTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testGetUrl()

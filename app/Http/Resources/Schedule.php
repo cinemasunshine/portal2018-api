@@ -7,9 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class Schedule extends JsonResource
 {
-    /**
-     * @param ScheduleEntity $schedule
-     */
     public function __construct(ScheduleEntity $schedule)
     {
         parent::__construct($schedule);

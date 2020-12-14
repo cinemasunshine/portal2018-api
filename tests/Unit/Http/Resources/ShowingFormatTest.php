@@ -42,6 +42,7 @@ class ShowingFormatTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testToArray()

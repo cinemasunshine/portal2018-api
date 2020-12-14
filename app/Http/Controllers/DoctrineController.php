@@ -77,13 +77,15 @@ class DoctrineController extends Controller
     }
 
     /**
+     * @see \Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand::execute()
+     * @see \Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand::execute()
+     *
      * @param CacheProvider $cacheDriver
      * @param boolean       $flush
      * @return string
+     *
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
-     * @see \Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand::execute()
-     * @see \Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand::execute()
      */
     protected function doCacheClear(CacheProvider $cacheDriver, bool $flush = false): string
     {

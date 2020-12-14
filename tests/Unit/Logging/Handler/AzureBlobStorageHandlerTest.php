@@ -39,9 +39,10 @@ class AzureBlobStorageHandlerTest extends TestCase
     }
 
     /**
-     * @test
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @test
+     *
      * @return void
      */
     public function testConstruct()
@@ -92,6 +93,7 @@ class AzureBlobStorageHandlerTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testCreateConnectionString()
@@ -136,6 +138,7 @@ class AzureBlobStorageHandlerTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testWrite()
@@ -170,8 +173,10 @@ class AzureBlobStorageHandlerTest extends TestCase
 
     /**
      * @test
-     * @doesNotPerformAssertions
+     *
      * @return void
+     *
+     * @doesNotPerformAssertions
      */
     public function testWriteIsBlobCreated()
     {
@@ -215,8 +220,10 @@ class AzureBlobStorageHandlerTest extends TestCase
 
     /**
      * @test
-     * @doesNotPerformAssertions
+     *
      * @return void
+     *
+     * @doesNotPerformAssertions
      */
     public function testCreateBlobExisting()
     {
@@ -255,8 +262,10 @@ class AzureBlobStorageHandlerTest extends TestCase
 
     /**
      * @test
-     * @doesNotPerformAssertions
+     *
      * @return void
+     *
+     * @doesNotPerformAssertions
      */
     public function testCreateBlobNotFound()
     {
@@ -298,6 +307,7 @@ class AzureBlobStorageHandlerTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testCreateBlobServiceError()

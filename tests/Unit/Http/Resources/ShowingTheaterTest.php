@@ -48,6 +48,7 @@ class ShowingTheaterTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testToArray()

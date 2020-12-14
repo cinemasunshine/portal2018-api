@@ -39,13 +39,6 @@ class AzureBlobStorageHandler extends BaseHelper
         parent::__construct($client, $container, $blob, $level, $bubble);
     }
 
-    /**
-     * @param boolean     $secure
-     * @param string      $name
-     * @param string      $key
-     * @param string|null $endpoint
-     * @return string
-     */
     protected function createConnectionString(
         bool $secure,
         string $name,

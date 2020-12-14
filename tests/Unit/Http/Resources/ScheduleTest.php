@@ -47,9 +47,10 @@ class ScheduleTest extends TestCase
     }
 
     /**
-     * @test
      * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @test
+     *
      * @return void
      */
     public function testToArray()

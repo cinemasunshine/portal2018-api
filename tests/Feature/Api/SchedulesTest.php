@@ -30,6 +30,7 @@ class SchedulesTest extends TestCase
      * - それぞれの値
      *
      * @test
+     *
      * @return void
      */
     public function testShow()
@@ -49,6 +50,7 @@ class SchedulesTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testShowBeforePublicationStart()
@@ -65,6 +67,7 @@ class SchedulesTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testShowAfterPublicationEnd()
@@ -81,6 +84,7 @@ class SchedulesTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testShowDeleted()
@@ -112,6 +116,7 @@ class SchedulesTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testListInvalidTheater()
@@ -138,6 +143,7 @@ class SchedulesTest extends TestCase
      * - 並び順
      *
      * @test
+     *
      * @return void
      */
     public function testListNowShowing()
@@ -163,6 +169,7 @@ class SchedulesTest extends TestCase
      * - 並び順
      *
      * @test
+     *
      * @return void
      */
     public function testListComingSoon()
