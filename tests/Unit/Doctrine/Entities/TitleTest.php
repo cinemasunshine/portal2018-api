@@ -32,6 +32,7 @@ class TitleTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testGetRatingText()
@@ -56,6 +57,7 @@ class TitleTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testGetUniversalTexts()

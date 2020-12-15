@@ -7,9 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ShowingFormat extends JsonResource
 {
-    /**
-     * @param ShowingFormatEntity $showingFormat
-     */
     public function __construct(ShowingFormatEntity $showingFormat)
     {
         parent::__construct($showingFormat);

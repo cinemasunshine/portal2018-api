@@ -39,6 +39,7 @@ trait RefreshDatabase
 
             /**
              * setUp()などで実行するとロールバックされない？
+             *
              * @link https://github.com/laravel-doctrine/orm/issues/460
              */
             $this->seed();

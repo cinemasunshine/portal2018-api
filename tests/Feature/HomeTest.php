@@ -11,6 +11,7 @@ class HomeTest extends TestCase
 {
     /**
      * @test
+     *
      * @return void
      */
     public function testHome()

@@ -15,7 +15,6 @@ class DoctrineServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**

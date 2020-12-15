@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Storage;
 
 class Title extends JsonResource
 {
-    /**
-     * @param TitleEntity $title
-     */
     public function __construct(TitleEntity $title)
     {
         parent::__construct($title);

@@ -43,6 +43,7 @@ class TitleTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testToArray()

@@ -34,6 +34,7 @@ class ScheduleCollectionTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testToArray()

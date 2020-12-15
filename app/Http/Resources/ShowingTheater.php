@@ -7,9 +7,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ShowingTheater extends JsonResource
 {
-    /**
-     * @param ShowingTheaterEntity $showingTheater
-     */
     public function __construct(ShowingTheaterEntity $showingTheater)
     {
         parent::__construct($showingTheater);

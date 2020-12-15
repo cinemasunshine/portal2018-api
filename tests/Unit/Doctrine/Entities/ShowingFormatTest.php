@@ -32,6 +32,7 @@ class ShowingFormatTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testGetSystemText()
@@ -55,6 +56,7 @@ class ShowingFormatTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testGetSoundText()
@@ -78,6 +80,7 @@ class ShowingFormatTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testGetVoiceText()

@@ -53,6 +53,7 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testFindOneActive()
@@ -155,6 +156,7 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testFindPublicNowShowing()
@@ -176,6 +178,7 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testFindPublicCommingSoon()
@@ -197,6 +200,7 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testFindPublicWithTheater()
@@ -218,6 +222,7 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @test
+     *
      * @return void
      */
     public function testFindPublicInvalidType()
