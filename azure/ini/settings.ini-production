@@ -1,8 +1,5 @@
-; Azure App Service .user.ini
-; https://docs.microsoft.com/ja-jp/azure/app-service/configure-language-php
-
 [Core]
-display_errors = On
+display_errors = Off
 error_reporting = E_ALL
 
 [Date]
