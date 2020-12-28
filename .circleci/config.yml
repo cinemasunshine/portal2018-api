@@ -202,8 +202,8 @@ jobs:
           command: php artisan doctrine:generate:proxies
 
       - run:
-          name: Create .user.ini file
-          command: cp .user.ini.development .user.ini
+          name: Create PHP configuration file (for Azure)
+          command: cp ./azure/ini/settings.ini-development ./azure/ini/settings.ini
 
       - run:
           name: Create version file
@@ -213,7 +213,7 @@ jobs:
           name: ZIP archive
           command: >-
             zip -r app_development.zip
-            app azure bootstrap config database public resources routes storage vendor artisan .user.ini README.md version.txt
+            app azure bootstrap config database public resources routes storage vendor artisan README.md version.txt
             -x public/.htaccess
 
       - store_artifacts:
@@ -252,8 +252,8 @@ jobs:
           command: php artisan doctrine:generate:proxies
 
       - run:
-          name: Create .user.ini file
-          command: cp .user.ini.production .user.ini
+          name: Create PHP configuration file (for Azure)
+          command: cp ./azure/ini/settings.ini-production ./azure/ini/settings.ini
 
       - run:
           name: Create version file
@@ -263,7 +263,7 @@ jobs:
           name: ZIP archive
           command: >-
             zip -r app.zip
-            app azure bootstrap config database public resources routes storage vendor artisan .user.ini README.md version.txt
+            app azure bootstrap config database public resources routes storage vendor artisan README.md version.txt
             -x public/.htaccess
 
       - store_artifacts:
