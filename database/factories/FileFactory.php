@@ -13,6 +13,7 @@ $factory->define(File::class, function (Faker $faker) {
 
 $factory->state(File::class, 'image', function (Faker $faker) {
     $extension = 'jpg';
+
     return [
         'name' => $faker->unique()->md5 . '.' . $extension,
         'originalName' => 'example.' . $extension,

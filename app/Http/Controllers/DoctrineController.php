@@ -23,9 +23,11 @@ class DoctrineController extends Controller
 
         $metadataCacheDriver = $em->getConfiguration()->getMetadataCacheImpl();
 
-        if ($metadataCacheDriver) {
-            $this->dumpCacheStats($metadataCacheDriver, 'Metadata');
+        if (! $metadataCacheDriver) {
+            return;
         }
+
+        $this->dumpCacheStats($metadataCacheDriver, 'Metadata');
     }
 
     /**
