@@ -5,13 +5,13 @@
 use App\Doctrine\Entities\File;
 use Faker\Generator as Faker;
 
-$factory->define(File::class, function (Faker $faker) {
+$factory->define(File::class, static function (Faker $faker) {
     return [
         'size' => $faker->numberBetween(10000, 1000000),
     ];
 });
 
-$factory->state(File::class, 'image', function (Faker $faker) {
+$factory->state(File::class, 'image', static function (Faker $faker) {
     $extension = 'jpg';
 
     return [

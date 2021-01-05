@@ -5,7 +5,7 @@
 use App\Doctrine\Entities\ShowingFormat;
 use Faker\Generator as Faker;
 
-$factory->define(ShowingFormat::class, function (Faker $faker) {
+$factory->define(ShowingFormat::class, static function (Faker $faker) {
     $systems = [
         ShowingFormat::SYSTEM_2D,
         ShowingFormat::SYSTEM_3D,

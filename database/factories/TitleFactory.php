@@ -6,7 +6,7 @@ use App\Doctrine\Entities\Title;
 use App\Doctrine\Entities\File;
 use Faker\Generator as Faker;
 
-$factory->define(Title::class, function (Faker $faker) {
+$factory->define(Title::class, static function (Faker $faker) {
     $casts = [];
 
     for ($i = rand(0, 5); $i > 0; $i--) {
@@ -34,9 +34,9 @@ $factory->define(Title::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(Title::class, 'has_image', function (Faker $faker) {
+$factory->state(Title::class, 'has_image', static function (Faker $faker) {
     return [
-        'image' => function () {
+        'image' => static function () {
             return entity(File::class)->states(['image'])->make();
         },
     ];

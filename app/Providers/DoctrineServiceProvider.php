@@ -24,7 +24,7 @@ class DoctrineServiceProvider extends ServiceProvider
      */
     public function boot(CacheManager $cacheManager)
     {
-        $cacheManager->extend('wincache', function () {
+        $cacheManager->extend('wincache', static function () {
             return new WinCacheCache();
         });
     }

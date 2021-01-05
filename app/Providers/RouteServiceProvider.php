@@ -34,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Route::bind('schedule', function ($value) {
+        Route::bind('schedule', static function ($value) {
             /** @var \App\Doctrine\Repositories\ScheduleRepository $repository */
             $repository = EntityManager::getRepository(Schedule::class);
 
