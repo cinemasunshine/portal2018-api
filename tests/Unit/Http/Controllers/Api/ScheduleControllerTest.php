@@ -101,7 +101,7 @@ class ScheduleControllerTest extends TestCase
         $mock = Mockery::mock(Request::class);
         $mock
             ->shouldReceive('validate')
-            ->with(Mockery::on(function ($argument) {
+            ->with(Mockery::on(static function ($argument) {
                 return isset($argument['theater']);
             }));
         $mock

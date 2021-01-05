@@ -63,7 +63,7 @@ trait RefreshDatabase
         $connection->beginTransaction();
         Log::debug('run beginTransaction()');
 
-        $this->beforeApplicationDestroyed(function () use ($connection) {
+        $this->beforeApplicationDestroyed(static function () use ($connection) {
             $connection->rollBack();
             Log::debug('run rollBack()');
         });

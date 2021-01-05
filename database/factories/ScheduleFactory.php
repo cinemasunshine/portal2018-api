@@ -9,7 +9,7 @@ use App\Doctrine\Entities\Theater;
 use App\Doctrine\Entities\Title;
 use Faker\Generator as Faker;
 
-$factory->define(Schedule::class, function (Faker $faker) {
+$factory->define(Schedule::class, static function (Faker $faker) {
     $startDate = $faker->dateTimeBetween('-2 months', '+2 months');
 
     $term    = $faker->numberBetween(10, 30);
@@ -23,7 +23,7 @@ $factory->define(Schedule::class, function (Faker $faker) {
     $publicEndDt = clone $endDate;
 
     return [
-        'title' => function () {
+        'title' => static function () {
             return entity(Title::class)->states(['has_image'])->make();
         },
         'startDate' => $startDate,
@@ -34,7 +34,7 @@ $factory->define(Schedule::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(Schedule::class, 'before_publication_start', function (Faker $faker) {
+$factory->state(Schedule::class, 'before_publication_start', static function (Faker $faker) {
     $publicStartDt = $faker->dateTimeBetween('+1 minutes', '+7 days');
 
     $afterPublicStart = $faker->numberBetween(3, 7);
@@ -55,7 +55,7 @@ $factory->state(Schedule::class, 'before_publication_start', function (Faker $fa
     ];
 });
 
-$factory->state(Schedule::class, 'after_publication_end', function (Faker $faker) {
+$factory->state(Schedule::class, 'after_publication_end', static function (Faker $faker) {
     $publicEndDt = $faker->dateTimeBetween('-7 days', '-1 minutes');
 
     $term      = $faker->numberBetween(10, 30);
@@ -76,7 +76,7 @@ $factory->state(Schedule::class, 'after_publication_end', function (Faker $faker
     ];
 });
 
-$factory->state(Schedule::class, 'before_start', function (Faker $faker) {
+$factory->state(Schedule::class, 'before_start', static function (Faker $faker) {
     $startDate = $faker->dateTimeBetween('+1 days', '+7 days');
 
     $term    = $faker->numberBetween(10, 30);
@@ -95,7 +95,7 @@ $factory->state(Schedule::class, 'before_start', function (Faker $faker) {
     ];
 });
 
-$factory->state(Schedule::class, 'after_start', function (Faker $faker) {
+$factory->state(Schedule::class, 'after_start', static function (Faker $faker) {
     $startDate = $faker->dateTimeBetween('-7 days', 'now');
 
     $term    = $faker->numberBetween(10, 30);
@@ -116,8 +116,8 @@ $factory->state(Schedule::class, 'after_start', function (Faker $faker) {
     ];
 });
 
-$factory->afterCreating(Schedule::class, function (Schedule $schedule, Faker $faker) {
-    $createShowingFormats = function (Schedule $schedule, $count) {
+$factory->afterCreating(Schedule::class, static function (Schedule $schedule, Faker $faker) {
+    $createShowingFormats = static function (Schedule $schedule, $count) {
         $entities = entity(ShowingFormat::class, $count)->create(['schedule' => $schedule]);
 
         if ($entities instanceof \Illuminate\Support\Collection) {
@@ -135,7 +135,7 @@ $factory->afterCreating(Schedule::class, function (Schedule $schedule, Faker $fa
         $schedule->getShowingFormats()->add($showingFormat);
     }
 
-    $createShowingTheaters = function (Schedule $schedule) use ($faker) {
+    $createShowingTheaters = static function (Schedule $schedule) use ($faker) {
         $em = app('em');
 
         $allTheaters = $em->getRepository(Theater::class)->findAll();
