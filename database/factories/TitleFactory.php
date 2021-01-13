@@ -2,8 +2,8 @@
 
 /** @var LaravelDoctrine\ORM\Testing\Factory $factory */
 
-use App\Doctrine\Entities\Title;
 use App\Doctrine\Entities\File;
+use App\Doctrine\Entities\Title;
 use Faker\Generator as Faker;
 
 $factory->define(Title::class, static function (Faker $faker) {

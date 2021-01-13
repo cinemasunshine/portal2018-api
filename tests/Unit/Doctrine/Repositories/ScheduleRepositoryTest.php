@@ -7,7 +7,6 @@ use App\Doctrine\Entities\ShowingTheater;
 use App\Doctrine\Repositories\ScheduleRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
-use Hamcrest\Matchers;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
