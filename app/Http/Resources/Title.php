@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use App\Doctrine\Entities\Title as TitleEntity;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
 class Title extends JsonResource
 {
