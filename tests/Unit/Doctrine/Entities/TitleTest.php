@@ -5,7 +5,10 @@ namespace Tests\Unit\Doctrine\Entities;
 use App\Doctrine\Entities\Title;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * @group unit
@@ -15,7 +18,7 @@ class TitleTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Title
+     * @return MockInterface&LegacyMockInterface&Title
      */
     protected function createTargetMock()
     {
@@ -23,11 +26,11 @@ class TitleTest extends TestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(Title::class);
+        return new ReflectionClass(Title::class);
     }
 
     /**

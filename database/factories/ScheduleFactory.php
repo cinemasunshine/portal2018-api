@@ -1,13 +1,15 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-
 use App\Doctrine\Entities\Schedule;
 use App\Doctrine\Entities\ShowingFormat;
 use App\Doctrine\Entities\ShowingTheater;
 use App\Doctrine\Entities\Theater;
 use App\Doctrine\Entities\Title;
 use Faker\Generator as Faker;
+use Illuminate\Support\Collection;
+use LaravelDoctrine\ORM\Testing\Factory;
+
+/** @var Factory $factory */
 
 $factory->define(Schedule::class, static function (Faker $faker) {
     $startDate = $faker->dateTimeBetween('-2 months', '+2 months');
@@ -120,7 +122,7 @@ $factory->afterCreating(Schedule::class, static function (Schedule $schedule, Fa
     $createShowingFormats = static function (Schedule $schedule, $count) {
         $entities = entity(ShowingFormat::class, $count)->create(['schedule' => $schedule]);
 
-        if ($entities instanceof \Illuminate\Support\Collection) {
+        if ($entities instanceof Collection) {
             $entities = $entities->all();
         } else {
             $entities = [$entities];

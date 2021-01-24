@@ -5,7 +5,10 @@ namespace Tests\Unit\Doctrine\Entities;
 use App\Doctrine\Entities\ShowingFormat;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * @group unit
@@ -15,7 +18,7 @@ class ShowingFormatTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ShowingFormat
+     * @return MockInterface&LegacyMockInterface&ShowingFormat
      */
     protected function createTargetMock()
     {
@@ -23,11 +26,11 @@ class ShowingFormatTest extends TestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(ShowingFormat::class);
+        return new ReflectionClass(ShowingFormat::class);
     }
 
     /**

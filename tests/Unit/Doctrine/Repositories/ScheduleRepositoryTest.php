@@ -7,9 +7,13 @@ use App\Doctrine\Entities\ShowingTheater;
 use App\Doctrine\Repositories\ScheduleRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
+use InvalidArgumentException;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * @group unit
@@ -19,7 +23,7 @@ class ScheduleRepositoryTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ScheduleRepository
+     * @return MockInterface&LegacyMockInterface&ScheduleRepository
      */
     protected function createTargetMock()
     {
@@ -27,15 +31,15 @@ class ScheduleRepositoryTest extends TestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(ScheduleRepository::class);
+        return new ReflectionClass(ScheduleRepository::class);
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
+     * @return MockInterface&LegacyMockInterface&QueryBuilder
      */
     protected function createQueryBuilderMock()
     {
@@ -43,7 +47,7 @@ class ScheduleRepositoryTest extends TestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface
+     * @return MockInterface&LegacyMockInterface
      */
     protected function createQueryMock()
     {
@@ -96,7 +100,7 @@ class ScheduleRepositoryTest extends TestCase
     /**
      * @param string $alias
      * @param mixed  $id
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
+     * @return MockInterface&LegacyMockInterface&QueryBuilder
      */
     protected function createQueryBuilderMockForFindOneActive(string $alias, $id)
     {
@@ -226,7 +230,7 @@ class ScheduleRepositoryTest extends TestCase
      */
     public function testFindPublicInvalidType()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $type = 'invalid';
 
         $targetMock = $this->createTargetMock();
@@ -238,7 +242,7 @@ class ScheduleRepositoryTest extends TestCase
      * @param string $alias
      * @param mixed  $queryBuilder
      * @param string $type
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ScheduleRepository
+     * @return MockInterface&LegacyMockInterface&ScheduleRepository
      */
     protected function createTargetMockForFindPublic(string $alias, $queryBuilder, string $type)
     {
@@ -267,7 +271,7 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @param mixed $result
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface
+     * @return MockInterface&LegacyMockInterface
      */
     protected function createQueryMockForFindPublic($result)
     {
@@ -286,7 +290,7 @@ class ScheduleRepositoryTest extends TestCase
      * @param string      $alias
      * @param string|null $theater
      * @param mixed       $query
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&QueryBuilder
+     * @return MockInterface&LegacyMockInterface&QueryBuilder
      */
     protected function createQueryBuilderMockForFindPublic(string $alias, ?string $theater, $query)
     {

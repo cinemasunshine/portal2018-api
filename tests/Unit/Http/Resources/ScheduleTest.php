@@ -8,12 +8,16 @@ use App\Http\Resources\Schedule;
 use App\Http\Resources\ShowingFormat;
 use App\Http\Resources\ShowingTheater;
 use App\Http\Resources\Title;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * @group unit
@@ -23,7 +27,7 @@ class ScheduleTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Schedule
+     * @return MockInterface&LegacyMockInterface&Schedule
      */
     protected function createTargetMock()
     {
@@ -31,15 +35,15 @@ class ScheduleTest extends TestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(Schedule::class);
+        return new ReflectionClass(Schedule::class);
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ScheduleEntity
+     * @return MockInterface&LegacyMockInterface&ScheduleEntity
      */
     protected function createScheduleEntityMock()
     {
@@ -71,11 +75,11 @@ class ScheduleTest extends TestCase
         $scheduleEntityMock
             ->shouldReceive('getStartDate')
             ->once()
-            ->andReturn(new \DateTime($startDate));
+            ->andReturn(new DateTime($startDate));
         $scheduleEntityMock
             ->shouldReceive('getEndDate')
             ->once()
-            ->andReturn(new \DateTime($endDate));
+            ->andReturn(new DateTime($endDate));
         $scheduleEntityMock
             ->shouldReceive('getRemark')
             ->once()
@@ -127,7 +131,7 @@ class ScheduleTest extends TestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ShowingFormat
+     * @return MockInterface&LegacyMockInterface&ShowingFormat
      */
     protected function createShowingFormatMock()
     {
@@ -135,7 +139,7 @@ class ScheduleTest extends TestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ShowingTheater
+     * @return MockInterface&LegacyMockInterface&ShowingTheater
      */
     protected function createShowingTheaterMock()
     {

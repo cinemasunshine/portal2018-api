@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+
 class HomeController extends Controller
 {
     /**
      * Handle the incoming request.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function __invoke()
     {

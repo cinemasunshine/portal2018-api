@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Doctrine\Entities\ShowingTheater as ShowingTheaterEntity;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ShowingTheater extends JsonResource
@@ -15,7 +16,7 @@ class ShowingTheater extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $request
      * @return array{
      *     id: int,
      *     name: string,

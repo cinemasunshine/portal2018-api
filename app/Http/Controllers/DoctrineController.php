@@ -6,6 +6,8 @@ use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\CacheProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Http\Request;
+use InvalidArgumentException;
+use RuntimeException;
 
 class DoctrineController extends Controller
 {
@@ -62,15 +64,15 @@ class DoctrineController extends Controller
         } elseif ($target === 'metadata') {
             $cacheDriver = $em->getConfiguration()->getMetadataCacheImpl();
         } else {
-            throw new \InvalidArgumentException('Invalid "target".');
+            throw new InvalidArgumentException('Invalid "target".');
         }
 
         if (! $cacheDriver) {
-            throw new \InvalidArgumentException('No cache driver is configured on given EntityManager.');
+            throw new InvalidArgumentException('No cache driver is configured on given EntityManager.');
         }
 
         if (! $cacheDriver instanceof CacheProvider) {
-            throw new \InvalidArgumentException('This cache driver does not support clear.');
+            throw new InvalidArgumentException('This cache driver does not support clear.');
         }
 
         $flush = $request->query('flush') === 'true';
@@ -86,8 +88,8 @@ class DoctrineController extends Controller
      * @param boolean       $flush
      * @return string
      *
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     protected function doCacheClear(CacheProvider $cacheDriver, bool $flush = false): string
     {
@@ -100,7 +102,7 @@ class DoctrineController extends Controller
         }
 
         if (! $result) {
-            throw new \RuntimeException($message);
+            throw new RuntimeException($message);
         }
 
         return $message;

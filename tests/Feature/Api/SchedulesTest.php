@@ -3,6 +3,8 @@
 namespace Tests\Feature\Api;
 
 use App\Doctrine\Entities\Schedule;
+use Illuminate\Support\Collection;
+use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 use Tests\Traits\RefreshDatabase;
 
@@ -15,7 +17,7 @@ class SchedulesTest extends TestCase
 
     /**
      * @param Schedule $schedule
-     * @return \Illuminate\Testing\TestResponse
+     * @return TestResponse
      */
     private function getShowJson(Schedule $schedule)
     {
@@ -101,7 +103,7 @@ class SchedulesTest extends TestCase
 
     /**
      * @param array<string, mixed> $params
-     * @return \Illuminate\Testing\TestResponse
+     * @return TestResponse
      */
     private function getNowShowingJson(array $params = [])
     {
@@ -148,7 +150,7 @@ class SchedulesTest extends TestCase
      */
     public function testListNowShowing()
     {
-        /** @var \Illuminate\Support\Collection $schedules */
+        /** @var Collection $schedules */
         $schedules = entity(Schedule::class, 5)
             ->states(['after_start'])
             ->create();
@@ -174,7 +176,7 @@ class SchedulesTest extends TestCase
      */
     public function testListComingSoon()
     {
-        /** @var \Illuminate\Support\Collection $schedules */
+        /** @var Collection $schedules */
         $schedules = entity(Schedule::class, 5)->states(['before_start'])->create();
 
         $response = $this->getJson('/schedules/coming-soon');

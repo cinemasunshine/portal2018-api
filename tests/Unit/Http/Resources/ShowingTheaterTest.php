@@ -8,14 +8,17 @@ use App\Http\Resources\ShowingTheater;
 use Illuminate\Http\Request;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 class ShowingTheaterTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ShowingTheater
+     * @return MockInterface&LegacyMockInterface&ShowingTheater
      */
     protected function createTargetMock()
     {
@@ -23,15 +26,15 @@ class ShowingTheaterTest extends TestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(ShowingTheater::class);
+        return new ReflectionClass(ShowingTheater::class);
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ShowingTheaterEntity
+     * @return MockInterface&LegacyMockInterface&ShowingTheaterEntity
      */
     protected function createShowingTheaterEntityMock()
     {
@@ -39,7 +42,7 @@ class ShowingTheaterTest extends TestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&TheaterEntity
+     * @return MockInterface&LegacyMockInterface&TheaterEntity
      */
     protected function createTheaterEntityMock()
     {

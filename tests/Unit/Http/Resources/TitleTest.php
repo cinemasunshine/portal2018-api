@@ -8,7 +8,10 @@ use App\Http\Resources\Title;
 use Illuminate\Http\Request;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * @group unit
@@ -18,7 +21,7 @@ class TitleTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Title
+     * @return MockInterface&LegacyMockInterface&Title
      */
     protected function createTargetMock()
     {
@@ -26,15 +29,15 @@ class TitleTest extends TestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(Title::class);
+        return new ReflectionClass(Title::class);
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&TitleEntity
+     * @return MockInterface&LegacyMockInterface&TitleEntity
      */
     protected function createTitleEntityMock()
     {
@@ -127,7 +130,7 @@ class TitleTest extends TestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&FileEntity
+     * @return MockInterface&LegacyMockInterface&FileEntity
      */
     protected function createFileEntityMock()
     {

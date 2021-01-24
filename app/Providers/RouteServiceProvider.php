@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Doctrine\Entities\Schedule;
+use App\Doctrine\Repositories\ScheduleRepository;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use LaravelDoctrine\ORM\Facades\EntityManager;
@@ -35,7 +36,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot();
 
         Route::bind('schedule', static function ($value) {
-            /** @var \App\Doctrine\Repositories\ScheduleRepository $repository */
+            /** @var ScheduleRepository $repository */
             $repository = EntityManager::getRepository(Schedule::class);
 
             return $repository->findOneActive($value);

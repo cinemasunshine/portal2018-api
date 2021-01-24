@@ -11,6 +11,8 @@ use Doctrine\ORM\EntityManager;
 use Illuminate\Http\Request;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,7 +23,7 @@ class ScheduleControllerTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ScheduleController
+     * @return MockInterface&LegacyMockInterface&ScheduleController
      */
     protected function createTargetMock()
     {
@@ -94,7 +96,7 @@ class ScheduleControllerTest extends TestCase
 
     /**
      * @param mixed $theater
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Request
+     * @return MockInterface&LegacyMockInterface&Request
      */
     protected function createRequestMock($theater)
     {
@@ -114,7 +116,7 @@ class ScheduleControllerTest extends TestCase
 
     /**
      * @param mixed $repository
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&EntityManager
+     * @return MockInterface&LegacyMockInterface&EntityManager
      */
     protected function createEntityManagerMock($repository)
     {
@@ -128,7 +130,7 @@ class ScheduleControllerTest extends TestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ScheduleRepository
+     * @return MockInterface&LegacyMockInterface&ScheduleRepository
      */
     protected function createScheduleRepositoryMock()
     {

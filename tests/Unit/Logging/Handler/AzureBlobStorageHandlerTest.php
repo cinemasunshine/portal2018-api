@@ -6,8 +6,12 @@ use App\Logging\Handler\AzureBlobStorageHandler;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use Mockery;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
+use ReflectionClass;
+use ReflectionMethod;
 
 /**
  * @group unit
@@ -15,7 +19,7 @@ use Psr\Http\Message\ResponseInterface;
 class AzureBlobStorageHandlerTest extends TestCase
 {
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&AzureBlobStorageHandler
+     * @return MockInterface&LegacyMockInterface&AzureBlobStorageHandler
      */
     protected function createTargetMock()
     {
@@ -23,15 +27,15 @@ class AzureBlobStorageHandlerTest extends TestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(AzureBlobStorageHandler::class);
+        return new ReflectionClass(AzureBlobStorageHandler::class);
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&BlobRestProxy
+     * @return MockInterface&LegacyMockInterface&BlobRestProxy
      */
     protected function createBlobRestProxyMock()
     {
@@ -74,7 +78,7 @@ class AzureBlobStorageHandlerTest extends TestCase
 
         $targetRef = $this->createTargetReflection();
 
-        /** @var \ReflectionMethod $targetConstructorRef */
+        /** @var ReflectionMethod $targetConstructorRef */
         $targetConstructorRef = $targetRef->getConstructor();
         $targetConstructorRef->invoke($targetMock, $secure, $name, $key, $endpoint, $container, $blob);
 
@@ -84,7 +88,7 @@ class AzureBlobStorageHandlerTest extends TestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&BlobRestProxy
+     * @return MockInterface&LegacyMockInterface&BlobRestProxy
      */
     protected function createBlobRestProxyAliasMock()
     {
@@ -206,7 +210,7 @@ class AzureBlobStorageHandlerTest extends TestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&BlobRestProxy
+     * @return MockInterface&LegacyMockInterface&BlobRestProxy
      */
     protected function createBlobRestProxyMockForWrite()
     {
@@ -371,7 +375,7 @@ class AzureBlobStorageHandlerTest extends TestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ResponseInterface
+     * @return MockInterface&LegacyMockInterface&ResponseInterface
      */
     protected function createResponceMock()
     {

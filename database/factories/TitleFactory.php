@@ -1,10 +1,11 @@
 <?php
 
-/** @var LaravelDoctrine\ORM\Testing\Factory $factory */
-
 use App\Doctrine\Entities\File;
 use App\Doctrine\Entities\Title;
 use Faker\Generator as Faker;
+use LaravelDoctrine\ORM\Testing\Factory;
+
+/** @var Factory $factory */
 
 $factory->define(Title::class, static function (Faker $faker) {
     $casts = [];

@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * @group unit
@@ -17,7 +20,7 @@ class ScheduleCollectionTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&ScheduleCollection<mixed>
+     * @return MockInterface&LegacyMockInterface&ScheduleCollection<mixed>
      */
     protected function createTargetMock()
     {
@@ -25,11 +28,11 @@ class ScheduleCollectionTest extends TestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(ScheduleCollection::class);
+        return new ReflectionClass(ScheduleCollection::class);
     }
 
     /**
