@@ -8,6 +8,7 @@ use App\Doctrine\Entities\Schedule;
 use App\Doctrine\Entities\ShowingTheater;
 use Cinemasunshine\ORM\Repositories\ScheduleRepository as BaseRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use InvalidArgumentException;
 
 class ScheduleRepository extends BaseRepository
 {
@@ -68,7 +69,7 @@ class ScheduleRepository extends BaseRepository
                 self::PUBLIC_TYPE_COMING_SOON,
             ])
         ) {
-            throw new \InvalidArgumentException('Invalid "type".');
+            throw new InvalidArgumentException('Invalid "type".');
         }
 
         $alias = 's';

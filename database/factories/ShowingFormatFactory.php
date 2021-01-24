@@ -1,9 +1,10 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-
 use App\Doctrine\Entities\ShowingFormat;
 use Faker\Generator as Faker;
+use LaravelDoctrine\ORM\Testing\Factory;
+
+/** @var Factory $factory */
 
 $factory->define(ShowingFormat::class, static function (Faker $faker) {
     $systems = [

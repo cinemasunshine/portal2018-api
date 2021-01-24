@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use App\Doctrine\Entities\Schedule as ScheduleEntity;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Schedule extends JsonResource
@@ -15,15 +17,15 @@ class Schedule extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $request
      * @return array{
      *     id: int,
      *     start_date: string,
      *     end_date: string,
      *     remark: ?string,
-     *     title: \App\Http\Resources\Title,
-     *     formats: \Illuminate\Http\Resources\Json\AnonymousResourceCollection,
-     *     theaters: \Illuminate\Http\Resources\Json\AnonymousResourceCollection,
+     *     title: Title,
+     *     formats: AnonymousResourceCollection,
+     *     theaters: AnonymousResourceCollection,
      * }
      */
     public function toArray($request)

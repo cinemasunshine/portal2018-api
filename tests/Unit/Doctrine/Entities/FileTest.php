@@ -7,7 +7,10 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * @group unit
@@ -17,7 +20,7 @@ class FileTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&File
+     * @return MockInterface&LegacyMockInterface&File
      */
     protected function createTargetMock()
     {
@@ -25,11 +28,11 @@ class FileTest extends TestCase
     }
 
     /**
-     * @return \ReflectionClass
+     * @return ReflectionClass
      */
     protected function createTargetReflection()
     {
-        return new \ReflectionClass(File::class);
+        return new ReflectionClass(File::class);
     }
 
     /**
@@ -74,7 +77,7 @@ class FileTest extends TestCase
     }
 
     /**
-     * @return \Mockery\MockInterface&\Mockery\LegacyMockInterface&Filesystem
+     * @return MockInterface&LegacyMockInterface&Filesystem
      */
     protected function createFilesystemMock()
     {

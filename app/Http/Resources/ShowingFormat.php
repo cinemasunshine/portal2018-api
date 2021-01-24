@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Doctrine\Entities\ShowingFormat as ShowingFormatEntity;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ShowingFormat extends JsonResource
@@ -15,7 +16,7 @@ class ShowingFormat extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $request
      * @return array{
      *     system_id: int,
      *     system_name: string,
