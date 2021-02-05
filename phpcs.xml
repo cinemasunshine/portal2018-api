@@ -10,10 +10,7 @@
     <arg value="sp"/>
 
     <!-- Base rule -->
-    <rule ref="Motionpicture">
-        <!-- checked by SlevomatCodingStandard.Operators.SpreadOperatorSpacing -->
-        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterVariadic"/>
-    </rule>
+    <rule ref="Motionpicture"/>
 
     <rule ref="Generic.CodeAnalysis.UselessOverridingMethod.Found">
         <!-- `report()` and `render()` -->
@@ -76,24 +73,4 @@
         <!-- Follow Laravel rules -->
         <exclude-pattern>app/Http/Kernel.php</exclude-pattern>
     </rule>
-
-    <!-- Forbid weak comparisons -->
-    <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>
-    <!-- Forbid spacing before the negative operator `-` -->
-    <rule ref="SlevomatCodingStandard.Operators.NegationOperatorSpacing"/>
-    <!-- Require the usage of assignment operators, eg `+=`, `.=` when possible -->
-    <rule ref="SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator"/>
-    <!-- Require no spacing after spread operator -->
-    <rule ref="SlevomatCodingStandard.Operators.SpreadOperatorSpacing"/>
-
-    <!-- Forbid argument unpacking for functions specialized by PHP VM -->
-    <rule ref="SlevomatCodingStandard.PHP.OptimizedFunctionsWithoutUnpacking"/>
-    <!-- Forbid `list(...)` syntax -->
-    <rule ref="SlevomatCodingStandard.PHP.ShortList"/>
-    <!-- Forbid use of longhand cast operators -->
-    <rule ref="SlevomatCodingStandard.PHP.TypeCast"/>
-    <!-- Forbid useless parentheses -->
-    <rule ref="SlevomatCodingStandard.PHP.UselessParentheses"/>
-    <!-- Forbid useless semicolon `;` -->
-    <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
 </ruleset>

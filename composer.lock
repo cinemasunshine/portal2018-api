@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90983b22453183f376bdfc12fa7163c8",
+    "content-hash": "3fc02ed40680012cf386060854f988f9",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7008,16 +7008,16 @@
         },
         {
             "name": "mp-okui/php-coding-standard",
-            "version": "v0.7.0-alpha",
+            "version": "v0.8.0-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MP-okui/php-coding-standard.git",
-                "reference": "b27e00f2abed093abce7018c03e458ada1368253"
+                "reference": "2c8effdae24b55a6732c0794b2ed1765e48d0c1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/b27e00f2abed093abce7018c03e458ada1368253",
-                "reference": "b27e00f2abed093abce7018c03e458ada1368253",
+                "url": "https://api.github.com/repos/MP-okui/php-coding-standard/zipball/2c8effdae24b55a6732c0794b2ed1765e48d0c1a",
+                "reference": "2c8effdae24b55a6732c0794b2ed1765e48d0c1a",
                 "shasum": ""
             },
             "require": {
@@ -7034,9 +7034,9 @@
             "description": "The PHP coding standard of the Motionpicture projects. (temporary)",
             "support": {
                 "issues": "https://github.com/MP-okui/php-coding-standard/issues",
-                "source": "https://github.com/MP-okui/php-coding-standard/tree/v0.7.0-alpha"
+                "source": "https://github.com/MP-okui/php-coding-standard/tree/v0.8.0-alpha"
             },
-            "time": "2021-01-27T02:16:31+00:00"
+            "time": "2021-02-05T07:09:01+00:00"
         },
         {
             "name": "myclabs/deep-copy",
