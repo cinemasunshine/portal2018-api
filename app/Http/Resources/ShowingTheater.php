@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources;
 
 use App\Doctrine\Entities\ShowingTheater as ShowingTheaterEntity;
@@ -23,8 +25,10 @@ class ShowingTheater extends JsonResource
      *     name_ja: string,
      *     coa_code: string|null,
      * }
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         /** @var ShowingTheaterEntity $showingTheater */
         $showingTheater = $this->resource;

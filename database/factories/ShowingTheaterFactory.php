@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Doctrine\Entities\ShowingTheater;
 use Faker\Generator as Faker;
 use LaravelDoctrine\ORM\Testing\Factory;

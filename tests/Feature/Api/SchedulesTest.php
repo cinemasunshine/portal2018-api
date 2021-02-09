@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Api;
 
 use App\Doctrine\Entities\Schedule;
@@ -15,11 +17,7 @@ class SchedulesTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @param Schedule $schedule
-     * @return TestResponse
-     */
-    private function getShowJson(Schedule $schedule)
+    private function getShowJson(Schedule $schedule): TestResponse
     {
         return $this->getJson(sprintf('/schedules/%d', $schedule->getId()));
     }
@@ -32,10 +30,8 @@ class SchedulesTest extends TestCase
      * - それぞれの値
      *
      * @test
-     *
-     * @return void
      */
-    public function testShow()
+    public function testShow(): void
     {
         /** @var Schedule $schedule */
         $schedule = entity(Schedule::class)
@@ -52,10 +48,8 @@ class SchedulesTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testShowBeforePublicationStart()
+    public function testShowBeforePublicationStart(): void
     {
         /** @var Schedule $schedule */
         $schedule = entity(Schedule::class)
@@ -69,10 +63,8 @@ class SchedulesTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testShowAfterPublicationEnd()
+    public function testShowAfterPublicationEnd(): void
     {
         /** @var Schedule $schedule */
         $schedule = entity(Schedule::class)
@@ -86,10 +78,8 @@ class SchedulesTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testShowDeleted()
+    public function testShowDeleted(): void
     {
         /** @var Schedule $schedule */
         $schedule = entity(Schedule::class)
@@ -103,9 +93,8 @@ class SchedulesTest extends TestCase
 
     /**
      * @param array<string, mixed> $params
-     * @return TestResponse
      */
-    private function getNowShowingJson(array $params = [])
+    private function getNowShowingJson(array $params = []): TestResponse
     {
         $url = '/schedules/now-showing';
 
@@ -118,10 +107,8 @@ class SchedulesTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testListInvalidTheater()
+    public function testListInvalidTheater(): void
     {
         // invalid type
         $this->getNowShowingJson(['theater' => ['001']])
@@ -145,10 +132,8 @@ class SchedulesTest extends TestCase
      * - 並び順
      *
      * @test
-     *
-     * @return void
      */
-    public function testListNowShowing()
+    public function testListNowShowing(): void
     {
         /** @var Collection $schedules */
         $schedules = entity(Schedule::class, 5)
@@ -171,10 +156,8 @@ class SchedulesTest extends TestCase
      * - 並び順
      *
      * @test
-     *
-     * @return void
      */
-    public function testListComingSoon()
+    public function testListComingSoon(): void
     {
         /** @var Collection $schedules */
         $schedules = entity(Schedule::class, 5)->states(['before_start'])->create();

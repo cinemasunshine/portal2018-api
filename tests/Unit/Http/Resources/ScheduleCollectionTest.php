@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Http\Resources;
 
 use App\Http\Resources\ScheduleCollection;
@@ -27,20 +29,15 @@ class ScheduleCollectionTest extends TestCase
         return Mockery::mock(ScheduleCollection::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(ScheduleCollection::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testToArray()
+    public function testToArray(): void
     {
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();

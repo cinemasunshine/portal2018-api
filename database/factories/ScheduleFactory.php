@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Doctrine\Entities\Schedule;
 use App\Doctrine\Entities\ShowingFormat;
 use App\Doctrine\Entities\ShowingTheater;
@@ -118,7 +120,7 @@ $factory->state(Schedule::class, 'after_start', static function (Faker $faker) {
     ];
 });
 
-$factory->afterCreating(Schedule::class, static function (Schedule $schedule, Faker $faker) {
+$factory->afterCreating(Schedule::class, static function (Schedule $schedule, Faker $faker): void {
     $createShowingFormats = static function (Schedule $schedule, $count) {
         $entities = entity(ShowingFormat::class, $count)->create(['schedule' => $schedule]);
 

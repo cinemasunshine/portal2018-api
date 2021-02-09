@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources;
 
 use App\Doctrine\Entities\ShowingFormat as ShowingFormatEntity;
@@ -25,8 +27,10 @@ class ShowingFormat extends JsonResource
      *     voice_id: int,
      *     voice_name: string,
      * }
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         /** @var ShowingFormatEntity $showingFormat */
         $showingFormat = $this->resource;

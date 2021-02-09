@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Http\Resources;
 
 use App\Doctrine\Entities\ShowingTheater as ShowingTheaterEntity;
@@ -25,10 +27,7 @@ class ShowingTheaterTest extends TestCase
         return Mockery::mock(ShowingTheater::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(ShowingTheater::class);
     }
@@ -51,10 +50,8 @@ class ShowingTheaterTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testToArray()
+    public function testToArray(): void
     {
         $id      = 6;
         $name    = 'example_name';

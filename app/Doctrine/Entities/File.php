@@ -20,21 +20,11 @@ class File extends BaseFile
     /** @var string */
     protected static $blobContainer = 'file';
 
-    /**
-     * get blob container
-     *
-     * @return string
-     */
     public static function getBlobContainer(): string
     {
         return self::$blobContainer;
     }
 
-    /**
-     * Return URL
-     *
-     * @return string
-     */
     public function getUrl(): string
     {
         return Storage::disk('azure-blob-file')->url($this->getName());

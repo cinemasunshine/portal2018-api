@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Logging\Handler;
 
 use App\Logging\Handler\AzureBlobStorageHandler;
@@ -26,10 +28,7 @@ class AzureBlobStorageHandlerTest extends TestCase
         return Mockery::mock(AzureBlobStorageHandler::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(AzureBlobStorageHandler::class);
     }
@@ -46,10 +45,8 @@ class AzureBlobStorageHandlerTest extends TestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @test
-     *
-     * @return void
      */
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $secure    = true;
         $name      = 'storage';
@@ -97,10 +94,8 @@ class AzureBlobStorageHandlerTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testCreateConnectionString()
+    public function testCreateConnectionString(): void
     {
         $targetRef                 = $this->createTargetReflection();
         $createConnectionStringRef = $targetRef->getMethod('createConnectionString');
@@ -142,10 +137,8 @@ class AzureBlobStorageHandlerTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testWrite()
+    public function testWrite(): void
     {
         $isBlobCreated = false;
         $record        = ['formatted' => 'test'];
@@ -176,13 +169,10 @@ class AzureBlobStorageHandlerTest extends TestCase
     }
 
     /**
-     * @test
-     *
-     * @return void
-     *
      * @doesNotPerformAssertions
+     * @test
      */
-    public function testWriteIsBlobCreated()
+    public function testWriteIsBlobCreated(): void
     {
         $isBlobCreated = true;
         $record        = ['formatted' => 'test'];
@@ -223,13 +213,10 @@ class AzureBlobStorageHandlerTest extends TestCase
     }
 
     /**
-     * @test
-     *
-     * @return void
-     *
      * @doesNotPerformAssertions
+     * @test
      */
-    public function testCreateBlobExisting()
+    public function testCreateBlobExisting(): void
     {
         $container = 'example';
         $blob      = 'test.log';
@@ -265,13 +252,10 @@ class AzureBlobStorageHandlerTest extends TestCase
     }
 
     /**
-     * @test
-     *
-     * @return void
-     *
      * @doesNotPerformAssertions
+     * @test
      */
-    public function testCreateBlobNotFound()
+    public function testCreateBlobNotFound(): void
     {
         $container = 'example';
         $blob      = 'test.log';
@@ -311,10 +295,8 @@ class AzureBlobStorageHandlerTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testCreateBlobServiceError()
+    public function testCreateBlobServiceError(): void
     {
         $container = 'example';
         $blob      = 'test.log';
@@ -354,11 +336,7 @@ class AzureBlobStorageHandlerTest extends TestCase
         $createBlobRef->invoke($targetMock);
     }
 
-    /**
-     * @param integer $status
-     * @return ServiceException
-     */
-    protected function createServiceException(int $status)
+    protected function createServiceException(int $status): ServiceException
     {
         $responceMock = $this->createResponceMock();
         $responceMock

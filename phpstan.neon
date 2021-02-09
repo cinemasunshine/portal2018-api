@@ -103,18 +103,3 @@ parameters:
 			message: "#^Property App\\\\Providers\\\\EventServiceProvider\\:\\:\\$listen type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Providers/EventServiceProvider.php
-
-		-
-			message: "#^Property App\\\\User\\:\\:\\$fillable type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/User.php
-
-		-
-			message: "#^Property App\\\\User\\:\\:\\$hidden type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/User.php
-
-		-
-			message: "#^Property App\\\\User\\:\\:\\$casts type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/User.php

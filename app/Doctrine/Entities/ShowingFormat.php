@@ -45,31 +45,16 @@ class ShowingFormat extends BaseShowingFormat
         self::VOICE_NONE     => 'なし', // SASAKI-297
     ];
 
-    /**
-     * Return system text
-     *
-     * @return string
-     */
     public function getSystemText(): string
     {
         return self::$systemLables[$this->getSystem()];
     }
 
-    /**
-     * Return sound text
-     *
-     * @return string
-     */
     public function getSoundText(): string
     {
         return self::$soundLabels[$this->getSound()];
     }
 
-    /**
-     * Return voice text
-     *
-     * @return string
-     */
     public function getVoiceText(): string
     {
         return self::$voiceLabels[$this->getVoice()];

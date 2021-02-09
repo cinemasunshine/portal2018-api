@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Http\Controllers\Api;
 
 use App\Doctrine\Entities\Schedule as ScheduleEntity;
@@ -34,10 +36,8 @@ class ScheduleControllerTest extends TestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @test
-     *
-     * @return void
      */
-    public function testIndexNowShowing()
+    public function testIndexNowShowing(): void
     {
         $schedules = [
             new ScheduleEntity(),
@@ -66,10 +66,8 @@ class ScheduleControllerTest extends TestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @test
-     *
-     * @return void
      */
-    public function testIndexComingSoon()
+    public function testIndexComingSoon(): void
     {
         $schedules = [
             new ScheduleEntity(),
@@ -139,10 +137,8 @@ class ScheduleControllerTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testShow()
+    public function testShow(): void
     {
         $targetMoc = $this->createTargetMock();
         $targetMoc->makePartial();

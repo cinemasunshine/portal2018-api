@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Http\Resources;
 
 use App\Doctrine\Entities\Schedule as ScheduleEntity;
@@ -34,10 +36,7 @@ class ScheduleTest extends TestCase
         return Mockery::mock(Schedule::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(Schedule::class);
     }
@@ -54,10 +53,8 @@ class ScheduleTest extends TestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      * @test
-     *
-     * @return void
      */
-    public function testToArray()
+    public function testToArray(): void
     {
         $id              = 5;
         $startDate       = '2020-07-10';

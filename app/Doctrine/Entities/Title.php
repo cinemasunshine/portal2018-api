@@ -32,19 +32,12 @@ class Title extends BaseTitle
         2 => '字幕上映',
     ];
 
-    /**
-     * Return rating text
-     *
-     * @return string|null
-     */
     public function getRatingText(): ?string
     {
         return self::$ratingLabels[$this->getRating()] ?? null;
     }
 
     /**
-     * Return univarsal texts
-     *
      * @return string[]
      */
     public function getUniversalTexts(): array

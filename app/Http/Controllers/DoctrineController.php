@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Doctrine\Common\Cache\Cache;
@@ -11,11 +13,7 @@ use RuntimeException;
 
 class DoctrineController extends Controller
 {
-    /**
-     * @param EntityManagerInterface $em
-     * @return void
-     */
-    public function cacheStats(EntityManagerInterface $em)
+    public function cacheStats(EntityManagerInterface $em): void
     {
         $queryCacheDriver = $em->getConfiguration()->getQueryCacheImpl();
 
@@ -32,12 +30,7 @@ class DoctrineController extends Controller
         $this->dumpCacheStats($metadataCacheDriver, 'Metadata');
     }
 
-    /**
-     * @param Cache  $cacheDriver
-     * @param string $target
-     * @return void
-     */
-    protected function dumpCacheStats(Cache $cacheDriver, string $target)
+    protected function dumpCacheStats(Cache $cacheDriver, string $target): void
     {
         echo sprintf('%s cache', $target);
         echo '<br>';
@@ -51,13 +44,8 @@ class DoctrineController extends Controller
      * Webからキャッシュをクリアする機能を提供する。
      * Azure(Windows)で使用するWinCacheはWebとCLIが別になっていて、コンソールからはクリアできないらしい。
      * よってその代替として実装。
-     *
-     * @param Request                $request
-     * @param string                 $target
-     * @param EntityManagerInterface $em
-     * @return string
      */
-    public function cacheClear(Request $request, string $target, EntityManagerInterface $em)
+    public function cacheClear(Request $request, string $target, EntityManagerInterface $em): string
     {
         if ($target === 'query') {
             $cacheDriver = $em->getConfiguration()->getQueryCacheImpl();
@@ -83,10 +71,6 @@ class DoctrineController extends Controller
     /**
      * @see \Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand::execute()
      * @see \Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand::execute()
-     *
-     * @param CacheProvider $cacheDriver
-     * @param boolean       $flush
-     * @return string
      *
      * @throws InvalidArgumentException
      * @throws RuntimeException

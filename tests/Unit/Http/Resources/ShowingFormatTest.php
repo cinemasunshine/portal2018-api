@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Http\Resources;
 
 use App\Doctrine\Entities\ShowingFormat as ShowingFormatEntity;
@@ -27,10 +29,7 @@ class ShowingFormatTest extends TestCase
         return Mockery::mock(ShowingFormat::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(ShowingFormat::class);
     }
@@ -45,10 +44,8 @@ class ShowingFormatTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testToArray()
+    public function testToArray(): void
     {
         $systemId   = 2;
         $systemName = 'example system';

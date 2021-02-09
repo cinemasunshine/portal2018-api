@@ -19,12 +19,10 @@ class ScheduleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request                $request
-     * @param string                 $type    route parameter
-     * @param EntityManagerInterface $em
+     * @param string $type route parameter
      * @return ScheduleCollectionResource<ScheduleResource>
      */
-    public function index(Request $request, string $type, EntityManagerInterface $em)
+    public function index(Request $request, string $type, EntityManagerInterface $em): ScheduleCollectionResource
     {
         $request->validate([
             'theater' => ['string', 'size:3'],
@@ -63,11 +61,8 @@ class ScheduleController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  Schedule $schedule
-     * @return JsonResource
      */
-    public function show(Schedule $schedule)
+    public function show(Schedule $schedule): JsonResource
     {
         return new ScheduleResource($schedule);
     }

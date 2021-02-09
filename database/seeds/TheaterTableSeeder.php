@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Doctrine\Entities\Theater;
 use Illuminate\Database\Seeder;
 
@@ -11,10 +13,8 @@ class TheaterTableSeeder extends Seeder
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $this->insertIkebukuro(1);
         $this->insertHeiwajima(2);
@@ -35,11 +35,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertLalaportnumazu(21);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertIkebukuro(int $id)
+    protected function insertIkebukuro(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -59,11 +55,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertHeiwajima(int $id)
+    protected function insertHeiwajima(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -83,11 +75,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertNumazu(int $id)
+    protected function insertNumazu(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -107,11 +95,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertKitajima(int $id)
+    protected function insertKitajima(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -131,11 +115,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertKinuyama(int $id)
+    protected function insertKinuyama(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -155,11 +135,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertOkaido(int $id)
+    protected function insertOkaido(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -179,11 +155,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertOzu(int $id)
+    protected function insertOzu(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -203,11 +175,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertShigenobu(int $id)
+    protected function insertShigenobu(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -227,11 +195,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertTsuchiura(int $id)
+    protected function insertTsuchiura(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -251,11 +215,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertKahoku(int $id)
+    protected function insertKahoku(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -275,11 +235,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertMasaki(int $id)
+    protected function insertMasaki(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -299,11 +255,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertYamatokoriyama(int $id)
+    protected function insertYamatokoriyama(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -323,11 +275,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertShimonoseki(int $id)
+    protected function insertShimonoseki(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -347,11 +295,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertAira(int $id)
+    protected function insertAira(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -371,11 +315,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertYukarigaoka(int $id)
+    protected function insertYukarigaoka(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -395,11 +335,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertGdcs(int $id)
+    protected function insertGdcs(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -419,11 +355,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @return void
-     */
-    protected function insertLalaportnumazu(int $id)
+    protected function insertLalaportnumazu(int $id): void
     {
         DB::table(self::TABLE)->insert([
             'id' => $id,
@@ -443,12 +375,7 @@ class TheaterTableSeeder extends Seeder
         $this->insertTheaterMeta($metaId, $id);
     }
 
-    /**
-     * @param integer $id
-     * @param integer $theaterId
-     * @return void
-     */
-    protected function insertTheaterMeta(int $id, int $theaterId)
+    protected function insertTheaterMeta(int $id, int $theaterId): void
     {
         DB::table(self::TABLE_META)->insert([
             'id' => $id,

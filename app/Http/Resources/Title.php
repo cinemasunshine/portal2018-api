@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources;
 
 use App\Doctrine\Entities\Title as TitleEntity;
@@ -30,8 +32,10 @@ class Title extends JsonResource
      *     rating: string|null,
      *     universal: string[],
      * }
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         /** @var TitleEntity $title */
         $title = $this->resource;

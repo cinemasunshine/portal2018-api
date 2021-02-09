@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Doctrine\Entities;
 
 use App\Doctrine\Entities\File;
@@ -27,20 +29,15 @@ class FileTest extends TestCase
         return Mockery::mock(File::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(File::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testGetBlobContainer()
+    public function testGetBlobContainer(): void
     {
         $targetRef        = $this->createTargetReflection();
         $blobContainerRef = $targetRef->getProperty('blobContainer');
@@ -52,10 +49,8 @@ class FileTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testGetUrl()
+    public function testGetUrl(): void
     {
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources;
 
 use App\Doctrine\Entities\Schedule as ScheduleEntity;
@@ -27,8 +29,10 @@ class Schedule extends JsonResource
      *     formats: AnonymousResourceCollection,
      *     theaters: AnonymousResourceCollection,
      * }
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         /** @var ScheduleEntity $schedule */
         $schedule = $this->resource;
