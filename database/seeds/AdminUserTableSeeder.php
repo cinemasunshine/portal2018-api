@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Doctrine\Entities\AdminUser;
 use Illuminate\Database\Seeder;
 
@@ -9,10 +11,8 @@ class AdminUserTableSeeder extends Seeder
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         DB::table(self::TABLE)->insert([
             'id' => 1,

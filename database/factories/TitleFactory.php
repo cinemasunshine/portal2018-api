@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Doctrine\Entities\File;
 use App\Doctrine\Entities\Title;
 use Faker\Generator as Faker;

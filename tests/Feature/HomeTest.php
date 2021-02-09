@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use Tests\TestCase;
@@ -11,10 +13,8 @@ class HomeTest extends TestCase
 {
     /**
      * @test
-     *
-     * @return void
      */
-    public function testHome()
+    public function testHome(): void
     {
         $response = $this->get('/');
 

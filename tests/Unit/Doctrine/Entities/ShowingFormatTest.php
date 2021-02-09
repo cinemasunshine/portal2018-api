@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Doctrine\Entities;
 
 use App\Doctrine\Entities\ShowingFormat;
@@ -25,20 +27,15 @@ class ShowingFormatTest extends TestCase
         return Mockery::mock(ShowingFormat::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(ShowingFormat::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testGetSystemText()
+    public function testGetSystemText(): void
     {
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();
@@ -59,10 +56,8 @@ class ShowingFormatTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testGetSoundText()
+    public function testGetSoundText(): void
     {
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();
@@ -83,10 +78,8 @@ class ShowingFormatTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testGetVoiceText()
+    public function testGetVoiceText(): void
     {
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();

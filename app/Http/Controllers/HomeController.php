@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\View\View;
@@ -8,10 +10,8 @@ class HomeController extends Controller
 {
     /**
      * Handle the incoming request.
-     *
-     * @return View
      */
-    public function __invoke()
+    public function __invoke(): View
     {
         return view('home');
     }

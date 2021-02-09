@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Doctrine\Entities;
 
 use App\Doctrine\Entities\Title;
@@ -25,20 +27,15 @@ class TitleTest extends TestCase
         return Mockery::mock(Title::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(Title::class);
     }
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testGetRatingText()
+    public function testGetRatingText(): void
     {
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();
@@ -60,10 +57,8 @@ class TitleTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testGetUniversalTexts()
+    public function testGetUniversalTexts(): void
     {
         $targetMock = $this->createTargetMock();
         $targetMock->makePartial();

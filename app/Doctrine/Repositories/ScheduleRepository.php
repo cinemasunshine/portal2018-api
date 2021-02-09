@@ -15,13 +15,7 @@ class ScheduleRepository extends BaseRepository
     public const PUBLIC_TYPE_NOW_SHOWING = 'now-showing';
     public const PUBLIC_TYPE_COMING_SOON = 'coming-soon';
 
-    /**
-     * Find one active schedule
-     *
-     * @param integer $id
-     * @return Schedule
-     */
-    public function findOneActive($id)
+    public function findOneActive(int $id): Schedule
     {
         $alias = 's';
         $qb    = $this->createQueryBuilder($alias);
@@ -57,8 +51,6 @@ class ScheduleRepository extends BaseRepository
     }
 
     /**
-     * @param string      $type
-     * @param string|null $theater
      * @return Schedule[]
      */
     public function findPublic(string $type, ?string $theater = null): array

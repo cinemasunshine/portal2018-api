@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Http\Resources;
 
 use App\Doctrine\Entities\File as FileEntity;
@@ -28,10 +30,7 @@ class TitleTest extends TestCase
         return Mockery::mock(Title::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(Title::class);
     }
@@ -46,10 +45,8 @@ class TitleTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testToArray()
+    public function testToArray(): void
     {
         $id   = 7;
         $name = 'example name';

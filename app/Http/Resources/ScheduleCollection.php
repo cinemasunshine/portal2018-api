@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
@@ -13,8 +15,10 @@ class ScheduleCollection extends ResourceCollection
      *
      * @param Request $request
      * @return array{schedules: Collection}
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'schedules' => $this->collection,

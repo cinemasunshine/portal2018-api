@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Doctrine\Repositories;
 
 use App\Doctrine\Entities\Schedule;
@@ -30,10 +32,7 @@ class ScheduleRepositoryTest extends TestCase
         return Mockery::mock(ScheduleRepository::class);
     }
 
-    /**
-     * @return ReflectionClass
-     */
-    protected function createTargetReflection()
+    protected function createTargetReflection(): ReflectionClass
     {
         return new ReflectionClass(ScheduleRepository::class);
     }
@@ -56,10 +55,8 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testFindOneActive()
+    public function testFindOneActive(): void
     {
         $id    = 12;
         $alias = 's';
@@ -98,8 +95,7 @@ class ScheduleRepositoryTest extends TestCase
     }
 
     /**
-     * @param string $alias
-     * @param mixed  $id
+     * @param mixed $id
      * @return MockInterface&LegacyMockInterface&QueryBuilder
      */
     protected function createQueryBuilderMockForFindOneActive(string $alias, $id)
@@ -159,10 +155,8 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testFindPublicNowShowing()
+    public function testFindPublicNowShowing(): void
     {
         $alias     = 's';
         $type      = ScheduleRepository::PUBLIC_TYPE_NOW_SHOWING;
@@ -181,10 +175,8 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testFindPublicCommingSoon()
+    public function testFindPublicCommingSoon(): void
     {
         $alias     = 's';
         $type      = ScheduleRepository::PUBLIC_TYPE_COMING_SOON;
@@ -203,10 +195,8 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testFindPublicWithTheater()
+    public function testFindPublicWithTheater(): void
     {
         $alias     = 's';
         $type      = ScheduleRepository::PUBLIC_TYPE_NOW_SHOWING;
@@ -225,10 +215,8 @@ class ScheduleRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @return void
      */
-    public function testFindPublicInvalidType()
+    public function testFindPublicInvalidType(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $type = 'invalid';
@@ -239,9 +227,7 @@ class ScheduleRepositoryTest extends TestCase
     }
 
     /**
-     * @param string $alias
-     * @param mixed  $queryBuilder
-     * @param string $type
+     * @param mixed $queryBuilder
      * @return MockInterface&LegacyMockInterface&ScheduleRepository
      */
     protected function createTargetMockForFindPublic(string $alias, $queryBuilder, string $type)
@@ -287,9 +273,7 @@ class ScheduleRepositoryTest extends TestCase
     }
 
     /**
-     * @param string      $alias
-     * @param string|null $theater
-     * @param mixed       $query
+     * @param mixed $query
      * @return MockInterface&LegacyMockInterface&QueryBuilder
      */
     protected function createQueryBuilderMockForFindPublic(string $alias, ?string $theater, $query)
