@@ -145,8 +145,8 @@ class TheaterTableSeeder extends Seeder
             'master_version' => Theater::MASTER_VERSION_V2,
             'master_code' => '107',
             'display_order' => 11,
-            'status' => Theater::STATUS_OPEN,
-            'is_deleted' => 0,
+            'status' => Theater::STATUS_CLOSED,
+            'is_deleted' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
