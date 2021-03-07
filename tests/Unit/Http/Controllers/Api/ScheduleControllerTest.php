@@ -33,8 +33,8 @@ class ScheduleControllerTest extends TestCase
     }
 
     /**
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @runInSeparateProcess
      * @test
      */
     public function testIndexNowShowing(): void
@@ -63,8 +63,8 @@ class ScheduleControllerTest extends TestCase
     }
 
     /**
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @runInSeparateProcess
      * @test
      */
     public function testIndexComingSoon(): void

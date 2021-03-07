@@ -51,11 +51,36 @@
 
                 <!-- PHPUnit annotations -->
                 <element value="
+                    @after,
+                    @afterClass,
+                    @backupGlobals,
+                    @backupStaticAttributes,
+                    @before,
+                    @beforeClass,
+                    @codeCoverageIgnore,
+                    @covers,
+                    @coversDefaultClass,
+                    @coversNothing,
+                    @dataProvider,
+                    @depends,
                     @doesNotPerformAssertions,
+                    @expectedException,
+                    @expectedExceptionCode,
+                    @expectedExceptionMessage,
+                    @expectedExceptionMessageRegExp,
                     @group,
-                    @runInSeparateProcess,
+                    @large,
+                    @medium,
                     @preserveGlobalState,
+                    @requires
+                    @runTestsInSeparateProcesses,
+                    @runInSeparateProcess,
+                    @small,
                     @test,
+                    @testdox,
+                    @testWith,
+                    @ticket,
+                    @uses,
                 "/>
 
                 <element value="
@@ -110,8 +135,4 @@
         <exclude-pattern>app/Http/Middleware/*.php</exclude-pattern>
         <exclude-pattern>app/Providers/*.php</exclude-pattern>
     </rule>
-    <!-- Forbid duplicated variables assignments -->
-    <rule ref="SlevomatCodingStandard.Variables.DuplicateAssignmentToVariable"/>
-    <!-- Forbid useless variables -->
-    <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
 </ruleset>

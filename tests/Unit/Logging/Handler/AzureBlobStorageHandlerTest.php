@@ -42,8 +42,8 @@ class AzureBlobStorageHandlerTest extends TestCase
     }
 
     /**
-     * @runInSeparateProcess
      * @preserveGlobalState disabled
+     * @runInSeparateProcess
      * @test
      */
     public function testConstruct(): void
