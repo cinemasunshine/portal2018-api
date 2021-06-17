@@ -15,6 +15,6 @@ RUN docker-php-ext-install \
         pdo_mysql
 
 # https://hub.docker.com/_/composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.1 /usr/bin/composer /usr/bin/composer
 
 COPY php.ini /usr/local/etc/php
