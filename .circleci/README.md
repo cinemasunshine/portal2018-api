@@ -13,7 +13,7 @@ cinemasunshine (Organizations) > portal2018-api (Projects) > Project Settings > 
 | Name | Value |
 |:---|:---|
 |DOCKERHUB_ID |Docker Hub ユーザ |
-|DOCKERHUB_PASSWORD |Docker Hub ユーザのパスワード |
+|DOCKERHUB_ACCESS_TOKEN |Docker Hub アクセストークン |
 
 ### デプロイ
 
