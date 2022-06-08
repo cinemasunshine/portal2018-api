@@ -11,8 +11,7 @@ use Monolog\Logger;
 
 class AzureBlobStorageHandler extends BaseHelper
 {
-    /** @var bool */
-    protected $isBlobCreated = false;
+    protected bool $isBlobCreated = false;
 
     /**
      * @param int|string $level

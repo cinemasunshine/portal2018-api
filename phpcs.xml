@@ -109,6 +109,21 @@
         <exclude-pattern>app/Http/Middleware/*.php</exclude-pattern>
         <exclude-pattern>app/Providers/*.php</exclude-pattern>
     </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint">
+        <!-- Follow Laravel rules -->
+        <exclude-pattern>app/Console/Kernel.php</exclude-pattern>
+        <exclude-pattern>app/Exceptions/Handler.php</exclude-pattern>
+        <exclude-pattern>app/Http/Kernel.php</exclude-pattern>
+        <exclude-pattern>app/Http/Middleware/CheckForMaintenanceMode.php</exclude-pattern>
+        <exclude-pattern>app/Http/Middleware/EncryptCookies.php</exclude-pattern>
+        <exclude-pattern>app/Http/Middleware/TrimStrings.php</exclude-pattern>
+        <exclude-pattern>app/Http/Middleware/TrustProxies.php</exclude-pattern>
+        <exclude-pattern>app/Http/Middleware/VerifyCsrfToken.php</exclude-pattern>
+        <exclude-pattern>app/Providers/AuthServiceProvider.php</exclude-pattern>
+        <exclude-pattern>app/Providers/EventServiceProvider.php</exclude-pattern>
+        <exclude-pattern>app/Providers/RouteServiceProvider.php</exclude-pattern>
+        <exclude-pattern>app/User.php</exclude-pattern>
+    </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
         <!-- Follow Laravel rules -->
         <exclude-pattern>app/Console/Kernel.php</exclude-pattern>

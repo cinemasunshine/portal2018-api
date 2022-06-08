@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\Storage;
  */
 class File extends BaseFile
 {
-    /** @var string */
-    protected static $blobContainer = 'file';
+    protected static string $blobContainer = 'file';
 
     public static function getBlobContainer(): string
     {
