@@ -47,12 +47,12 @@ orbs:
 executors:
   build:
     docker:
-      - image: circleci/php:7.3
+      - image: circleci/php:7.4
         <<: *docker_hub_authentication
 
   test:
     docker:
-      - image: circleci/php:7.3
+      - image: circleci/php:7.4
         <<: *docker_hub_authentication
 
         # 基本は.env.testingなどで設定する
