@@ -1,0 +1,22 @@
+runtime: php74
+
+runtime_config:
+  document_root: ./public
+
+handlers:
+  - url: /favicon.ico
+    static_files: public/favicon.ico
+    upload: public/favicon\.ico
+
+  - url: /robots.txt
+    static_files: public/robots.txt
+    upload: public/robots\.txt
+
+  - url: .*
+    script: auto
+
+env_variables:
+  APP_NAME: "CS Portal API"
+  APP_ENV: development
+  APP_KEY: base64:YspA1kwMbOm8ssBgkd5vymX1SurT5DEcjfcGbNRjVMo=
+  APP_DEBUG: true
