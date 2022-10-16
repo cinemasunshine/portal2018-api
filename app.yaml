@@ -23,3 +23,5 @@ env_variables:
 
   LOG_CHANNEL: development_stack
   LOG_FILE_PATH: /tmp/logs/laravel.log
+
+  SESSION_DRIVER: array
