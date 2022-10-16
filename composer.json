@@ -12,12 +12,12 @@
     "require": {
         "php": "^7.4",
         "blue32a/laravel-azure-blob-storage": "^0.3",
-        "blue32a/monolog-azure-blob": "^0.2.0",
         "cinemasunshine/portal2018-orm": "^2.0",
         "doctrine/inflector": "^1.4",
         "doctrine/orm": "~2.7.4",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
+        "google/cloud-logging": "^1.24",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
         "laravel-doctrine/orm": "^1.6",
         "laravel/framework": "^7.30.3",
