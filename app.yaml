@@ -25,3 +25,5 @@ env_variables:
   LOG_FILE_PATH: /tmp/logs/laravel.log
 
   SESSION_DRIVER: array
+
+  VIEW_COMPILED_PATH: /tmp
