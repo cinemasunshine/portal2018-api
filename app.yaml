@@ -19,13 +19,12 @@ handlers:
   - url: .*
     script: auto
 
+includes:
+- .gcp/env.yaml
+
 env_variables:
   APP_NAME: "CS Portal API"
-  APP_ENV: development
-  APP_KEY: base64:YspA1kwMbOm8ssBgkd5vymX1SurT5DEcjfcGbNRjVMo=
-  APP_DEBUG: true
 
-  LOG_CHANNEL: development_stack
   LOG_FILE_PATH: /tmp/logs/laravel.log
 
   SESSION_DRIVER: array
