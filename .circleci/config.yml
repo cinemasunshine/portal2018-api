@@ -120,6 +120,10 @@ jobs:
           paths:
             - ./vendor
 
+      - run:
+          name: Generate Doctrine Proxies
+          command: php artisan doctrine:generate:proxies
+
       - persist_to_workspace:
           root: .
           paths:
