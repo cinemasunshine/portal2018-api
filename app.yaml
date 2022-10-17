@@ -27,3 +27,5 @@ env_variables:
   SESSION_DRIVER: array
 
   VIEW_COMPILED_PATH: /tmp
+
+  CACHE_FILE_PATH: /tmp/framework/cache/data
