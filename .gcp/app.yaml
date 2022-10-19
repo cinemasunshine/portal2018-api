@@ -2,8 +2,9 @@ runtime: php74
 
 instance_class: F1
 
+# includesに分離できないのでCIで書き換える
 vpc_access_connector:
-  name: projects/cs-portal-api-development/locations/asia-northeast1/connectors/connector01
+  name: projects/:PROJECT_ID:/locations/asia-northeast1/connectors/connector01
   egress_setting: all-traffic
 
 runtime_config:

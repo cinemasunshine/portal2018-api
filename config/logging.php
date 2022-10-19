@@ -55,7 +55,7 @@ return [
 
         'production_stack' => [
             'driver' => 'stack',
-            'channels' => ['gcp'],
+            'channels' => ['gcp', 'stderr'],
             'ignore_exceptions' => true,
         ],
 

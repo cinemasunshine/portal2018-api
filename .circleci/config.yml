@@ -24,6 +24,29 @@ commands:
           name: Using Composer version 2
           command: sudo composer self-update --2
 
+  deployment_pre_build:
+    description: "デプロイ前のビルド"
+    steps:
+      - restore_cache:
+          keys:
+            - composer-{{ checksum "composer.lock" }}
+            - composer-
+
+      - fix_composer_version
+
+      - run:
+          name: Composer install
+          command: composer install --no-dev -n --prefer-dist
+
+      - save_cache:
+          key: composer-{{ checksum "composer.lock" }}
+          paths:
+            - ./vendor
+
+      - run:
+          name: Generate Doctrine Proxies
+          command: php artisan doctrine:generate:proxies
+
 orbs:
   gcp-cli: circleci/gcp-cli@2.4.1
 
@@ -98,43 +121,24 @@ jobs:
           name: PHPUnit
           command: composer test
 
-  deployment_pre_build:
-    working_directory: ~/deployment
-    executor: build
+  deploy_to_development:
+    working_directory: ~/deployment-dev
+    executor: gcp-cli/default
     steps:
       - checkout
 
-      - restore_cache:
-          keys:
-            - composer-{{ checksum "composer.lock" }}
-            - composer-
-
-      - fix_composer_version
+      - deployment_pre_build
 
       - run:
-          name: Composer install
-          command: composer install --no-dev -n --prefer-dist
+          name: Create app.yaml
+          command: sed s/:PROJECT_ID:/$GOOGLE_PROJECT_ID_DEVELOPMENT/ ./.gcp/app.yaml > app.yaml
 
-      - save_cache:
-          key: composer-{{ checksum "composer.lock" }}
-          paths:
-            - ./vendor
+      - store_artifacts:
+          path: ./app.yaml
 
       - run:
-          name: Generate Doctrine Proxies
-          command: php artisan doctrine:generate:proxies
-
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  deploy_to_development:
-    working_directory: ~/deployment
-    executor: gcp-cli/default
-    steps:
-      - attach_workspace:
-          at: .
+          name: Copy php.ini
+          command: cp ./.gcp/php.development.ini php.ini
 
       - run:
           name: Create includes env yaml
@@ -153,6 +157,42 @@ jobs:
       # composerのコマンドイベントを使いたいのでキャッシュを無効にする
       - run: gcloud --quiet app deploy --no-cache
 
+  deploy_to_production:
+    working_directory: ~/deployment-prod
+    executor: gcp-cli/default
+    steps:
+      - checkout
+
+      - deployment_pre_build
+
+      - run:
+          name: Create app.yaml
+          command: sed s/:PROJECT_ID:/$GOOGLE_PROJECT_ID_PRODUCTION/ ./.gcp/app.yaml > app.yaml
+
+      - store_artifacts:
+          path: ./app.yaml
+
+      - run:
+          name: Copy php.ini
+          command: cp ./.gcp/php.production.ini php.ini
+
+      - run:
+          name: Create includes env yaml
+          command: echo $ENV_VARIABLES_PRODUCTION | base64 --decode > ./.gcp/env.yaml
+
+      - store_artifacts:
+          path: ./.gcp/env.yaml
+
+      - gcp-cli/install
+
+      - gcp-cli/initialize:
+          gcloud-service-key: GCLOUD_SERVICE_KEY_PRODUCTION
+          google-compute-region: GOOGLE_COMPUTE_REGION_PRODUCTION
+          google-project-id: GOOGLE_PROJECT_ID_PRODUCTION
+
+      # composerのコマンドイベントを使いたいのでキャッシュを無効にする
+      - run: gcloud --quiet app deploy --no-cache
+
 workflows:
   version: 2
 
@@ -164,13 +204,13 @@ workflows:
             branches:
               only: feature/SASAKI-647
 
-      - deployment_pre_build:
+      - deploy_to_development:
           <<: *job_setup
           filters:
             branches:
               only: feature/SASAKI-647
 
-      - deploy_to_development:
+      - deploy_to_production:
           <<: *job_setup
           requires:
-            - deployment_pre_build
+            - test
