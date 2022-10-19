@@ -121,13 +121,25 @@ jobs:
           name: PHPUnit
           command: composer test
 
-  deploy_to_development:
+  deployment_pre_build_dev:
     working_directory: ~/deployment-dev
-    executor: gcp-cli/default
+    executor: build
     steps:
       - checkout
 
       - deployment_pre_build
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  deploy_to_development:
+    working_directory: ~/deployment-dev
+    executor: gcp-cli/default
+    steps:
+      - attach_workspace:
+          at: .
 
       - run:
           name: Create app.yaml
@@ -157,13 +169,25 @@ jobs:
       # composerのコマンドイベントを使いたいのでキャッシュを無効にする
       - run: gcloud --quiet app deploy --no-cache
 
-  deploy_to_production:
+  deployment_pre_build_prod:
     working_directory: ~/deployment-prod
-    executor: gcp-cli/default
+    executor: build
     steps:
       - checkout
 
       - deployment_pre_build
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  deploy_to_production:
+    working_directory: ~/deployment-prod
+    executor: gcp-cli/default
+    steps:
+      - attach_workspace:
+          at: .
 
       - run:
           name: Create app.yaml
@@ -204,13 +228,23 @@ workflows:
             branches:
               only: feature/SASAKI-647
 
-      - deploy_to_development:
+      - deployment_pre_build_dev:
           <<: *job_setup
           filters:
             branches:
               only: feature/SASAKI-647
 
-      - deploy_to_production:
+      - deploy_to_development:
+          <<: *job_setup
+          requires:
+            - deployment_pre_build_dev
+
+      - deployment_pre_build_prod:
           <<: *job_setup
           requires:
             - test
+
+      - deploy_to_production:
+          <<: *job_setup
+          requires:
+            - deployment_pre_build_prod
