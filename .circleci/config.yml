@@ -106,17 +106,17 @@ jobs:
 
       - restore_cache:
           keys:
-            - composer-dev-{{ checksum "composer.lock" }}
+            - composer-{{ checksum "composer.lock" }}
             - composer-
 
       - fix_composer_version
 
       - run:
-          name: Composer install (with require-dev)
+          name: Composer install
           command: composer install --no-dev -n --prefer-dist
 
       - save_cache:
-          key: composer-dev-{{ checksum "composer.lock" }}
+          key: composer-{{ checksum "composer.lock" }}
           paths:
             - ./vendor
 
