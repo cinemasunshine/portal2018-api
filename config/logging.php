@@ -129,7 +129,7 @@ return [
                 'name' => 'app',
                 'client_class' => Google\Cloud\Logging\LoggingClient::class,
                 'client_options' => [
-                    'projectId' => getenv('GOOGLE_CLOUD_PROJECT'),
+                    'projectId' => env('GOOGLE_CLOUD_PROJECT'),
                 ],
             ],
         ],
