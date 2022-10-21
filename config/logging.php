@@ -127,8 +127,7 @@ return [
             'level' => 'debug',
             'with' => [
                 'name' => 'app',
-                'clientClass' => Google\Cloud\Logging\LoggingClient::class,
-                'clientOptions' => [
+                'clientConfig' => [
                     'projectId' => env('GOOGLE_CLOUD_PROJECT'),
                 ],
             ],

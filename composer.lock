@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "32978c95ffcb4831a1dbfb9e0ae61f2a",
+    "content-hash": "7e32a83bbc4346e3a9efaf1c6aa4f669",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -161,6 +161,53 @@
                 "source": "https://github.com/blue32a/laravel-azure-blob-storage/tree/0.3.1"
             },
             "time": "2020-10-03T09:35:37+00:00"
+        },
+        {
+            "name": "blue32a/monolog-google-cloud-logging",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/blue32a/monolog-google-cloud-logging.git",
+                "reference": "4713e60175f22ca7ef5d3afbaef641957c244ccd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/blue32a/monolog-google-cloud-logging/zipball/4713e60175f22ca7ef5d3afbaef641957c244ccd",
+                "reference": "4713e60175f22ca7ef5d3afbaef641957c244ccd",
+                "shasum": ""
+            },
+            "require": {
+                "google/cloud-logging": "^1.24",
+                "monolog/monolog": "^2.0",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "blue32a/php-coding-standard": "^1.0",
+                "php-parallel-lint/php-parallel-lint": "^1.3",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Blue32a\\MonologGoogleCloudLoggingHandler\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "blue32a",
+                    "email": "blue32a.jp@gmail.com"
+                }
+            ],
+            "description": "Google Cloud Logging handler for Monolog.",
+            "support": {
+                "issues": "https://github.com/blue32a/monolog-google-cloud-logging/issues",
+                "source": "https://github.com/blue32a/monolog-google-cloud-logging/tree/v1.0.0"
+            },
+            "time": "2022-10-21T09:40:06+00:00"
         },
         {
             "name": "brick/math",
@@ -2091,16 +2138,16 @@
         },
         {
             "name": "google/protobuf",
-            "version": "v3.21.7",
+            "version": "v3.21.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/protocolbuffers/protobuf-php.git",
-                "reference": "56505903b395c5d38cbf4c8575bfef4f4c9d4c30"
+                "reference": "6377c52338fd18634dddf6becfde94b8b16cd9f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/56505903b395c5d38cbf4c8575bfef4f4c9d4c30",
-                "reference": "56505903b395c5d38cbf4c8575bfef4f4c9d4c30",
+                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/6377c52338fd18634dddf6becfde94b8b16cd9f5",
+                "reference": "6377c52338fd18634dddf6becfde94b8b16cd9f5",
                 "shasum": ""
             },
             "require": {
@@ -2129,9 +2176,9 @@
                 "proto"
             ],
             "support": {
-                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.21.7"
+                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.21.8"
             },
-            "time": "2022-09-29T21:58:56+00:00"
+            "time": "2022-10-18T18:22:00+00:00"
         },
         {
             "name": "grpc/grpc",

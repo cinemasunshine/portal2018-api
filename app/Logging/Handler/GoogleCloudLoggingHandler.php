@@ -4,42 +4,25 @@ declare(strict_types=1);
 
 namespace App\Logging\Handler;
 
+use Blue32a\MonologGoogleCloudLoggingHandler\GoogleCloudLoggingHandler as BaseHandler;
 use Google\Cloud\Logging\PsrLogger;
-use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
-class GoogleCloudLoggingHandler extends AbstractProcessingHandler
+class GoogleCloudLoggingHandler extends BaseHandler
 {
     protected PsrLogger $logger;
 
     /**
-     * @param array<string, mixed> $clientOptions
+     * @param array<string, mixed> $clientConfig
      */
     public function __construct(
         string $name,
-        string $clientClass,
-        array $clientOptions = [],
+        array $clientConfig = [],
         int $level = Logger::DEBUG,
         bool $bubble = true
     ) {
-        parent::__construct($level, $bubble);
+        $client = BaseHandler::factoryLoggingClient($clientConfig);
 
-        $client = new $clientClass($clientOptions);
-
-        $this->logger = $client->psrLogger($name);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @param array<string, mixed> $record
-     */
-    protected function write(array $record): void
-    {
-        $this->logger->log(
-            $record['level_name'],
-            $record['formatted'],
-            $record['context']
-        );
+        parent::__construct($name, $client, [], $level, $bubble);
     }
 }
