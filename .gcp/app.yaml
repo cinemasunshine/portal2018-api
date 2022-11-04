@@ -11,6 +11,10 @@ runtime_config:
   document_root: ./public
 
 handlers:
+  - url: /dev/(.*)
+    script: auto
+    login: admin
+
   - url: /favicon.ico
     static_files: public/favicon.ico
     upload: public/favicon\.ico
