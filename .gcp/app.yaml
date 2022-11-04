@@ -19,9 +19,6 @@ handlers:
     static_files: public/robots.txt
     upload: public/robots\.txt
 
-  - url: .*
-    script: auto
-
 includes:
 - .gcp/env.yaml
 
