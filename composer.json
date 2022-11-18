@@ -12,7 +12,7 @@
     "require": {
         "php": "^7.4",
         "blue32a/laravel-azure-blob-storage": "^0.3",
-        "blue32a/monolog-azure-blob": "^0.2.0",
+        "blue32a/monolog-google-cloud-logging": "^1.0",
         "cinemasunshine/portal2018-orm": "^2.0",
         "doctrine/inflector": "^1.4",
         "doctrine/orm": "~2.7.4",

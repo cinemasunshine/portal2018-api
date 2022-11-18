@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 use InvalidArgumentException;
 use RuntimeException;
 
+/**
+ * Doctrine controller
+ *
+ * 主にWebからキャッシュ操作する機能を提供する。
+ * 元々はAzure (Windows)＋スワップ運用のための機能。
+ * GCP環境で必要なのかは不明。
+ */
 class DoctrineController extends Controller
 {
     public function cacheStats(EntityManagerInterface $em): void
@@ -38,13 +45,6 @@ class DoctrineController extends Controller
         dump($cacheDriver->getStats());
     }
 
-    /**
-     * Cache clear
-     *
-     * Webからキャッシュをクリアする機能を提供する。
-     * Azure(Windows)で使用するWinCacheはWebとCLIが別になっていて、コンソールからはクリアできないらしい。
-     * よってその代替として実装。
-     */
     public function cacheClear(Request $request, string $target, EntityManagerInterface $em): string
     {
         if ($target === 'query') {

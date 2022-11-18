@@ -4,6 +4,12 @@ use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 
+/**
+ * 例外発生時にemergency loggerが使用され、
+ * GAE環境では一時ファイルでないとエラーになってしまう。
+ */
+$logFilePath = env('LOG_FILE_PATH', storage_path('logs/laravel.log'));
+
 return [
 
     /*
@@ -37,38 +43,38 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single', 'azure'],
+            'channels' => ['single'],
             'ignore_exceptions' => false,
         ],
 
         'development_stack' => [
             'driver' => 'stack',
-            'channels' => ['daily', 'azure'],
-            'ignore_exceptions' => false,
+            'channels' => ['gcp', 'stderr'],
+            'ignore_exceptions' => true,
         ],
 
         'production_stack' => [
             'driver' => 'stack',
-            'channels' => ['daily_error', 'azure'],
+            'channels' => ['gcp', 'stderr'],
             'ignore_exceptions' => true,
         ],
 
         'single' => [
             'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => $logFilePath,
             'level' => 'debug',
         ],
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => $logFilePath,
             'level' => 'debug',
             'days' => 14,
         ],
 
         'daily_error' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => $logFilePath,
             'level' => 'error',
             'days' => 14,
         ],
@@ -115,22 +121,20 @@ return [
             'handler' => NullHandler::class,
         ],
 
-        'azure' => [
+        'gcp' => [
             'driver' => 'monolog',
-            'handler' => App\Logging\Handler\AzureBlobStorageHandler::class,
-            'level' => 'error',
+            'handler' => App\Logging\Handler\GoogleCloudLoggingHandler::class,
+            'level' => 'debug',
             'with' => [
-                'secure' => env('AZULE_STORAGE_SECURE', true),
-                'name' => env('AZULE_STORAGE_NAME'),
-                'key' => env('AZULE_STORAGE_KEY'),
-                'endpoint' => env('AZULE_STORAGE_BLOB_ENDPOINT'),
-                'container' => 'api-log',
-                'blob' => date('Ymd') . '.log',
+                'name' => 'app',
+                'clientConfig' => [
+                    'projectId' => env('GOOGLE_CLOUD_PROJECT'),
+                ],
             ],
         ],
 
         'emergency' => [
-            'path' => storage_path('logs/laravel.log'),
+            'path' => $logFilePath,
         ],
     ],
 

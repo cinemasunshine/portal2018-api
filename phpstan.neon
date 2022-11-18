@@ -14,10 +14,6 @@ parameters:
 	ignoreErrors:
 		# other ignore errors
 
-		-
-			message: "#\\:\\:write\\(\\) has parameter \\$record with no value type specified in iterable type array\\.$#"
-			path: app/Logging/Handler/AzureBlobStorageHandler.php
-
 		# https://github.com/phpstan/phpstan/issues/1881#issuecomment-704883275
 		-
 			message: "#^Function entity invoked with [0-9]+ parameters?, 0 required\\.$#"
