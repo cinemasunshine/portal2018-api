@@ -226,23 +226,36 @@ workflows:
           <<: *job_setup
           filters:
             branches:
-              only: feature/SASAKI-647
+              ignore: master
 
       - deployment_pre_build_dev:
           <<: *job_setup
           filters:
             branches:
-              only: feature/SASAKI-647
+              ignore: master
 
       - deploy_to_development:
           <<: *job_setup
           requires:
             - deployment_pre_build_dev
 
+  deploy_production:
+    jobs:
+      - test:
+          <<: *job_setup
+          filters:
+            branches:
+              only: master
+
+      - deploy_approval:
+          type: approval
+          requires:
+            - test
+
       - deployment_pre_build_prod:
           <<: *job_setup
           requires:
-            - test
+            - deploy_approval
 
       - deploy_to_production:
           <<: *job_setup
