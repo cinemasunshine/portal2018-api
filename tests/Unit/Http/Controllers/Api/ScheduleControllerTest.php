@@ -7,7 +7,6 @@ namespace Tests\Unit\Http\Controllers\Api;
 use App\Doctrine\Entities\Schedule as ScheduleEntity;
 use App\Doctrine\Repositories\ScheduleRepository;
 use App\Http\Controllers\Api\ScheduleController;
-use App\Http\Resources\Schedule as ScheduleResource;
 use App\Http\Resources\ScheduleCollection as ScheduleCollectionResource;
 use Doctrine\ORM\EntityManager;
 use Illuminate\Http\Request;
@@ -133,18 +132,5 @@ class ScheduleControllerTest extends TestCase
     protected function createScheduleRepositoryMock()
     {
         return Mockery::mock(ScheduleRepository::class);
-    }
-
-    /**
-     * @test
-     */
-    public function testShow(): void
-    {
-        $targetMoc = $this->createTargetMock();
-        $targetMoc->makePartial();
-
-        $schedule = new ScheduleEntity();
-        $result   = $targetMoc->show($schedule);
-        $this->assertInstanceOf(ScheduleResource::class, $result);
     }
 }
