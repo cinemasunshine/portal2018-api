@@ -12,7 +12,6 @@ use App\Http\Resources\ScheduleCollection as ScheduleCollectionResource;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Response;
 
 class ScheduleController extends Controller
 {
@@ -39,65 +38,10 @@ class ScheduleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    // public function create()
-    // {
-    //     //
-    // }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
-
-    /**
      * Display the specified resource.
      */
     public function show(Schedule $schedule): JsonResource
     {
         return new ScheduleResource($schedule);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Schedule  $schedule
-     * @return Response
-     */
-    // public function edit(Schedule $schedule)
-    // {
-    //     //
-    // }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param  Schedule  $schedule
-     * @return Response
-     */
-    // public function update(Request $request, Schedule $schedule)
-    // {
-    //     //
-    // }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  Schedule  $schedule
-     * @return Response
-     */
-    // public function destroy(Schedule $schedule)
-    // {
-    //     //
-    // }
 }
