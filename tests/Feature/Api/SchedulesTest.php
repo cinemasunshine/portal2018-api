@@ -23,30 +23,6 @@ class SchedulesTest extends TestCase
     }
 
     /**
-     * Test GET /schedules/show
-     *
-     * まだ実装していないテスト
-     * - jsonフォーマット
-     * - それぞれの値
-     *
-     * @test
-     */
-    public function testShow(): void
-    {
-        /** @var Schedule $schedule */
-        $schedule = entity(Schedule::class)
-            ->states(['before_start'])
-            ->create();
-
-        $response = $this->getShowJson($schedule);
-
-        $response->assertOk();
-        $response->assertJson([
-            'id' => $schedule->getId(),
-        ]);
-    }
-
-    /**
      * @test
      */
     public function testShowBeforePublicationStart(): void

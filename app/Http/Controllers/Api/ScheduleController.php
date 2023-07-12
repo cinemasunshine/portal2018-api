@@ -11,7 +11,6 @@ use App\Http\Resources\Schedule as ScheduleResource;
 use App\Http\Resources\ScheduleCollection as ScheduleCollectionResource;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class ScheduleController extends Controller
 {
@@ -35,13 +34,5 @@ class ScheduleController extends Controller
         $schedules  = $repository->findPublic($type, $theater);
 
         return new ScheduleCollectionResource($schedules);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Schedule $schedule): JsonResource
-    {
-        return new ScheduleResource($schedule);
     }
 }

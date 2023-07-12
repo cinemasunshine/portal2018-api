@@ -15,41 +15,6 @@ class ScheduleRepository extends BaseRepository
     public const PUBLIC_TYPE_NOW_SHOWING = 'now-showing';
     public const PUBLIC_TYPE_COMING_SOON = 'coming-soon';
 
-    public function findOneActive(int $id): Schedule
-    {
-        $alias = 's';
-        $qb    = $this->createQueryBuilder($alias);
-
-        $aliasTitle      = 't';
-        $aliasTitleImage = 'ti';
-        $qb
-            ->addSelect($aliasTitle)
-            ->innerJoin(sprintf('%s.title', $alias), $aliasTitle)
-            ->addSelect($aliasTitleImage)
-            ->leftJoin(sprintf('%s.image', $aliasTitle), $aliasTitleImage);
-
-        $aliasShowingFormats = 'sf';
-        $qb
-            ->addSelect($aliasShowingFormats)
-            ->innerJoin(sprintf('%s.showingFormats', $alias), $aliasShowingFormats);
-
-        $aliasShowingTheaters = 'st';
-        $qb
-            ->addSelect($aliasShowingTheaters)
-            ->innerJoin(sprintf('%s.showingTheaters', $alias), $aliasShowingTheaters);
-
-        $qb
-            ->where(sprintf('%s.id = :id', $alias))
-            ->setParameter('id', $id);
-
-        $this->addPublicQuery($qb, $alias);
-
-        $query = $qb->getQuery();
-        $query->setFetchMode(ShowingTheater::class, 'theater', ClassMetadata::FETCH_EAGER);
-
-        return $query->getSingleResult();
-    }
-
     /**
      * @return Schedule[]
      */

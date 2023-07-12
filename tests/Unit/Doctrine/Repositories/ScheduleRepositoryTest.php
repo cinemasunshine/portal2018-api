@@ -54,47 +54,6 @@ class ScheduleRepositoryTest extends TestCase
     }
 
     /**
-     * @test
-     */
-    public function testFindOneActive(): void
-    {
-        $id    = 12;
-        $alias = 's';
-
-        $queryBuilderMock = $this->createQueryBuilderMockForFindOneActive($alias, $id);
-
-        $schedule  = new Schedule();
-        $queryMock = $this->createQueryMock();
-        $queryMock
-            ->shouldReceive('setFetchMode')
-            ->with(ShowingTheater::class, 'theater', ClassMetadata::FETCH_EAGER);
-        $queryMock
-            ->shouldReceive('getSingleResult')
-            ->andReturn($schedule);
-
-        $queryBuilderMock
-            ->shouldReceive('getQuery')
-            ->with()
-            ->andReturn($queryMock);
-
-        $targetMock = $this->createTargetMock();
-        $targetMock
-            ->shouldAllowMockingProtectedMethods()
-            ->makePartial();
-
-        $targetMock
-            ->shouldReceive('createQueryBuilder')
-            ->with(Mockery::type('string'))
-            ->andReturn($queryBuilderMock);
-        $targetMock
-            ->shouldReceive('addPublicQuery')
-            ->with($queryBuilderMock, $alias);
-
-        $result = $targetMock->findOneActive($id);
-        $this->assertEquals($schedule, $result);
-    }
-
-    /**
      * @param mixed $id
      * @return MockInterface&LegacyMockInterface&QueryBuilder
      */

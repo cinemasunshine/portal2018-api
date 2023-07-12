@@ -15,6 +15,3 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('schedules/{type}', 'Api\ScheduleController@index')
     ->where('type', 'now-showing|coming-soon');
-Route::resource('schedules', 'Api\ScheduleController')->only([
-    'show',
-]);
