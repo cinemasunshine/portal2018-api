@@ -23,11 +23,11 @@ class ScheduleController extends Controller
     public function index(Request $request, string $type, EntityManagerInterface $em): ScheduleCollectionResource
     {
         $request->validate([
-            'theater' => ['string', 'size:3'],
+            'theater' => ['required', 'string', 'size:3'],
         ]);
 
-        /** @var string|null $theater */
-        $theater = $request->query('theater');
+        /** @var string $theater */
+        $theater = $request->query('theater', '');
 
         /** @var ScheduleRepository $repository */
         $repository = $em->getRepository(Schedule::class);
