@@ -18,7 +18,7 @@ class ScheduleRepository extends BaseRepository
     /**
      * @return Schedule[]
      */
-    public function findPublic(string $type, ?string $theater = null): array
+    public function findPublic(string $type, string $theater): array
     {
         if (
             ! in_array($type, [

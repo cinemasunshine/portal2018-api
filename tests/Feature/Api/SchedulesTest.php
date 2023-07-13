@@ -82,19 +82,28 @@ class SchedulesTest extends TestCase
     }
 
     /**
+     * @dataProvider listInvalidTheaterDataProvider
      * @test
+     *
+     * @param mixed $theater
      */
-    public function testListInvalidTheater(): void
+    public function testListInvalidTheater($theater, string $error): void
     {
-        // invalid type
-        $this->getNowShowingJson(['theater' => ['001']])
+        $this->getNowShowingJson(['theater' => $theater])
             ->assertStatus(422)
-            ->assertJsonValidationErrors(['theater' => 'The theater must be a string.']);
+            ->assertJsonValidationErrors(['theater' => $error]);
+    }
 
-        // invalid size
-        $this->getNowShowingJson(['theater' => '01'])
-            ->assertStatus(422)
-            ->assertJsonValidationErrors(['theater' => 'The theater must be 3 characters.']);
+    /**
+     * @return array<string,array{mixed,string}>
+     */
+    public function listInvalidTheaterDataProvider(): array
+    {
+        return [
+            'invalid type' => [['001'], 'The theater must be a string.'],
+            'invalid size' => ['01', 'The theater must be 3 characters.'],
+            'require' => [null, 'The theater field is required.'],
+        ];
     }
 
     /**
@@ -116,9 +125,19 @@ class SchedulesTest extends TestCase
             ->states(['after_start'])
             ->create();
 
-        $response = $this->getNowShowingJson();
+        $gdcsSchedules = $schedules->filter(static function ($schedule) {
+            foreach ($schedule->getShowingTheaters() as $showingTheater) {
+                if ($showingTheater->getTheater()->getMasterCode() === '120') {
+                    return true;
+                }
+            }
+
+            return false;
+        });
+
+        $response = $this->getNowShowingJson(['theater' => '120']);
         $response->assertOk();
-        $response->assertJsonCount($schedules->count(), 'schedules');
+        $response->assertJsonCount($gdcsSchedules->count(), 'schedules');
     }
 
     /**
@@ -138,8 +157,18 @@ class SchedulesTest extends TestCase
         /** @var Collection $schedules */
         $schedules = entity(Schedule::class, 5)->states(['before_start'])->create();
 
-        $response = $this->getJson('/schedules/coming-soon');
+        $gdcsSchedules = $schedules->filter(static function ($schedule) {
+            foreach ($schedule->getShowingTheaters() as $showingTheater) {
+                if ($showingTheater->getTheater()->getMasterCode() === '120') {
+                    return true;
+                }
+            }
+
+            return false;
+        });
+
+        $response = $this->getJson('/schedules/coming-soon?theater=120');
         $response->assertOk();
-        $response->assertJsonCount($schedules->count(), 'schedules');
+        $response->assertJsonCount($gdcsSchedules->count(), 'schedules');
     }
 }
