@@ -6,7 +6,6 @@ namespace App\Http\Resources;
 
 use App\Doctrine\Entities\Schedule as ScheduleEntity;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Schedule extends JsonResource
@@ -26,8 +25,6 @@ class Schedule extends JsonResource
      *     end_date: string,
      *     remark: ?string,
      *     title: Title,
-     *     formats: AnonymousResourceCollection,
-     *     theaters: AnonymousResourceCollection,
      * }
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
@@ -43,8 +40,6 @@ class Schedule extends JsonResource
             'end_date' => $schedule->getEndDate()->format('Y-m-d'),
             'remark' => $schedule->getRemark(),
             'title' => new Title($schedule->getTitle()),
-            'formats' => ShowingFormat::collection($schedule->getShowingFormats()->toArray()),
-            'theaters' => ShowingTheater::collection($schedule->getShowingTheaters()->toArray()),
         ];
     }
 }
