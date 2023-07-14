@@ -207,6 +207,17 @@ jobs:
       - store_artifacts:
           path: ./.gcp/env.yaml
 
+      - run:
+          name: Set version
+          command: echo 'export VERSION="${CIRCLE_SHA1:0:8}-${CIRCLE_BUILD_NUM}"' >> "$BASH_ENV"
+
+      - run: echo $VERSION > version.txt
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - version.txt
+
       - gcp-cli/install
 
       - gcp-cli/initialize:
@@ -215,7 +226,27 @@ jobs:
           google-project-id: GOOGLE_PROJECT_ID_PRODUCTION
 
       # composerのコマンドイベントを使いたいのでキャッシュを無効にする
-      - run: gcloud --quiet app deploy --no-cache
+      - run: gcloud --quiet app deploy --version=$VERSION --no-cache --no-promote
+
+  publish_deployed_version_production:
+    working_directory: ~/deployment-prod
+    executor: gcp-cli/default
+    steps:
+      - gcp-cli/install
+
+      - gcp-cli/initialize:
+          gcloud-service-key: GCLOUD_SERVICE_KEY_PRODUCTION
+          google-compute-region: GOOGLE_COMPUTE_REGION_PRODUCTION
+          google-project-id: GOOGLE_PROJECT_ID_PRODUCTION
+
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: Migrating traffic
+          command: |
+            version=$(cat version.txt)
+            gcloud app services set-traffic default --splits=$version=1 --quiet
 
 workflows:
   version: 2
@@ -261,3 +292,13 @@ workflows:
           <<: *job_setup
           requires:
             - deployment_pre_build_prod
+
+      - publish_approval:
+          type: approval
+          requires:
+            - deploy_to_production
+
+      - publish_deployed_version_production:
+          <<: *job_setup
+          requires:
+            - publish_approval
