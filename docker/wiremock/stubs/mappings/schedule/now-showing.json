@@ -1,13 +1,26 @@
 {
-  "request": {
-    "method": "GET",
-    "urlPathPattern": "/schedule/now-showing/[0-9]{3}.json"
-  },
-  "response": {
-    "status": 200,
-    "bodyFileName": "now-showing.json",
-    "headers": {
-      "Content-Type": "application/json"
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/schedule/now-showing/120.json"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "now-showing.json",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/schedule/now-showing/404.json"
+      },
+      "response": {
+        "status": 404
+      }
     }
-  }
+  ]
 }

@@ -108,4 +108,17 @@ class SchedulesTest extends TestCase
         $response->assertOk();
         $response->assertJsonCount(1, 'schedules');
     }
+
+    /**
+     * @test
+     */
+    public function testListError(): void
+    {
+        $this->skipTestOnCI();
+
+        $response = $this->getJson('/schedules/now-showing?theater=404');
+
+        $response->assertNotFound();
+        $response->assertJsonFragment(['message' => 'Not Found']);
+    }
 }

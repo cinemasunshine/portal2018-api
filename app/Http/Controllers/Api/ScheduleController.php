@@ -32,6 +32,9 @@ class ScheduleController extends Controller
         $response = $client->sendRequest(
             new Http7Request('GET', $this->getRequestUrl($type, $theaterCode))
         );
+
+        abort_if($response->getStatusCode() !== 200, $response->getStatusCode(), $response->getReasonPhrase());
+
         $contents = $response->getBody()->getContents();
 
         return ['schedules' => json_decode($contents)->schedules];
