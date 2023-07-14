@@ -11,7 +11,6 @@
     },
     "require": {
         "php": "^7.4",
-        "blue32a/laravel-azure-blob-storage": "^0.3",
         "blue32a/monolog-google-cloud-logging": "^1.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",

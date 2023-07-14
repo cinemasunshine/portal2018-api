@@ -55,16 +55,6 @@ return [
             'visibility' => 'public',
         ],
 
-        'azure-blob-file' => [
-            'driver' => 'azure-blob',
-            'secure' => env('AZULE_STORAGE_SECURE', true),
-            'name' => env('AZULE_STORAGE_NAME'),
-            'key' => env('AZULE_STORAGE_KEY'),
-            'container' => 'file',
-            'blob_endpoint' => env('AZULE_STORAGE_BLOB_ENDPOINT'),
-            'public_endpoint' => env('AZULE_STORAGE_PUBLIC_ENDPOINT'),
-        ],
-
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

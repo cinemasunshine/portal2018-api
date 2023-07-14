@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c99720351521e9531823d7b3c4fc9d09",
+    "content-hash": "bb223710029b5b54db668dc173c2ea2b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -61,106 +61,6 @@
                 "source": "https://github.com/asm89/stack-cors/tree/v2.1.1"
             },
             "time": "2022-01-18T09:12:03+00:00"
-        },
-        {
-            "name": "blue32a/flysystem-azure-blob-storage",
-            "version": "0.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/blue32a/flysystem-azure-blob-storage.git",
-                "reference": "83ee833febba865c2be31a39fed6329735284db4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/blue32a/flysystem-azure-blob-storage/zipball/83ee833febba865c2be31a39fed6329735284db4",
-                "reference": "83ee833febba865c2be31a39fed6329735284db4",
-                "shasum": ""
-            },
-            "require": {
-                "league/flysystem-azure-blob-storage": "^0.1.6",
-                "php": "^7.2"
-            },
-            "require-dev": {
-                "blue32a/php-coding-standard": "v0.1.0-alpha",
-                "mockery/mockery": "^1.3",
-                "phpunit/phpunit": "^8.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Blue32a\\Flysystem\\AzureBlobStorage\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "blue32a",
-                    "email": "blue32a.jp@gmail.com"
-                }
-            ],
-            "description": "Extend league/flysystem-azure-blob-storage.",
-            "support": {
-                "issues": "https://github.com/blue32a/flysystem-azure-blob-storage/issues",
-                "source": "https://github.com/blue32a/flysystem-azure-blob-storage/tree/0.2.1"
-            },
-            "time": "2020-10-03T09:14:55+00:00"
-        },
-        {
-            "name": "blue32a/laravel-azure-blob-storage",
-            "version": "0.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/blue32a/laravel-azure-blob-storage.git",
-                "reference": "904af223a7f63cfbe3016eb16dde0f3a8c6b0661"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/blue32a/laravel-azure-blob-storage/zipball/904af223a7f63cfbe3016eb16dde0f3a8c6b0661",
-                "reference": "904af223a7f63cfbe3016eb16dde0f3a8c6b0661",
-                "shasum": ""
-            },
-            "require": {
-                "blue32a/flysystem-azure-blob-storage": "^0.2",
-                "illuminate/support": "^6.0|^7.0",
-                "php": "^7.2"
-            },
-            "require-dev": {
-                "blue32a/php-coding-standard": "v0.1.0-alpha",
-                "mockery/mockery": "^1.3",
-                "phpunit/phpunit": "^8.5"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Blue32a\\Laravel\\Filesystem\\AzureBlobStorage\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Blue32a\\Laravel\\Filesystem\\AzureBlobStorage\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "blue32a",
-                    "email": "blue32a.jp@gmail.com"
-                }
-            ],
-            "description": "Laravel Filesystem using Azure Blob Storage.",
-            "support": {
-                "issues": "https://github.com/blue32a/laravel-azure-blob-storage/issues",
-                "source": "https://github.com/blue32a/laravel-azure-blob-storage/tree/0.3.1"
-            },
-            "time": "2020-10-03T09:35:37+00:00"
         },
         {
             "name": "blue32a/monolog-google-cloud-logging",
@@ -1973,51 +1873,6 @@
             "time": "2021-12-09T09:40:50+00:00"
         },
         {
-            "name": "league/flysystem-azure-blob-storage",
-            "version": "0.1.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/flysystem-azure-blob-storage.git",
-                "reference": "97215345f3c42679299ba556a4d16d4847ee7f6d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem-azure-blob-storage/zipball/97215345f3c42679299ba556a4d16d4847ee7f6d",
-                "reference": "97215345f3c42679299ba556a4d16d4847ee7f6d",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/psr7": "^1.5",
-                "league/flysystem": "^1.0",
-                "microsoft/azure-storage-blob": "^1.1",
-                "php": ">=5.6"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "League\\Flysystem\\AzureBlobStorage\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Frank de Jonge",
-                    "email": "info@frenky.net"
-                }
-            ],
-            "support": {
-                "issues": "https://github.com/thephpleague/flysystem-azure-blob-storage/issues",
-                "source": "https://github.com/thephpleague/flysystem-azure-blob-storage/tree/0.1.6"
-            },
-            "time": "2019-06-07T20:42:16+00:00"
-        },
-        {
             "name": "league/mime-type-detection",
             "version": "1.11.0",
             "source": {
@@ -2072,102 +1927,6 @@
                 }
             ],
             "time": "2022-04-17T13:12:02+00:00"
-        },
-        {
-            "name": "microsoft/azure-storage-blob",
-            "version": "1.5.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Azure/azure-storage-blob-php.git",
-                "reference": "9aec3e152dab8cd9ec64fd89ed71129a0402c4be"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Azure/azure-storage-blob-php/zipball/9aec3e152dab8cd9ec64fd89ed71129a0402c4be",
-                "reference": "9aec3e152dab8cd9ec64fd89ed71129a0402c4be",
-                "shasum": ""
-            },
-            "require": {
-                "microsoft/azure-storage-common": "~1.5",
-                "php": ">=5.6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MicrosoftAzure\\Storage\\Blob\\": "src/Blob"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Azure Storage PHP Client Library",
-                    "email": "dmsh@microsoft.com"
-                }
-            ],
-            "description": "This project provides a set of PHP client libraries that make it easy to access Microsoft Azure Storage Blob APIs.",
-            "keywords": [
-                "azure",
-                "blob",
-                "php",
-                "sdk",
-                "storage"
-            ],
-            "support": {
-                "issues": "https://github.com/Azure/azure-storage-blob-php/issues",
-                "source": "https://github.com/Azure/azure-storage-blob-php/tree/v1.5.3"
-            },
-            "time": "2021-10-09T03:13:46+00:00"
-        },
-        {
-            "name": "microsoft/azure-storage-common",
-            "version": "1.5.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Azure/azure-storage-common-php.git",
-                "reference": "8ca7b1bf4c9ca7c663e75a02a0035b05b37196a0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Azure/azure-storage-common-php/zipball/8ca7b1bf4c9ca7c663e75a02a0035b05b37196a0",
-                "reference": "8ca7b1bf4c9ca7c663e75a02a0035b05b37196a0",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "~6.0|^7.0",
-                "php": ">=5.6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MicrosoftAzure\\Storage\\Common\\": "src/Common"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Azure Storage PHP Client Library",
-                    "email": "dmsh@microsoft.com"
-                }
-            ],
-            "description": "This project provides a set of common code shared by Azure Storage Blob, Table, Queue and File PHP client libraries.",
-            "keywords": [
-                "azure",
-                "common",
-                "php",
-                "sdk",
-                "storage"
-            ],
-            "support": {
-                "issues": "https://github.com/Azure/azure-storage-common-php/issues",
-                "source": "https://github.com/Azure/azure-storage-common-php/tree/v1.5.2"
-            },
-            "time": "2021-10-09T03:03:47+00:00"
         },
         {
             "name": "monolog/monolog",
