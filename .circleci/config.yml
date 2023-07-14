@@ -119,7 +119,7 @@ jobs:
 
       - run:
           name: PHPUnit
-          command: composer test
+          command: composer test:ci
 
   deployment_pre_build_dev:
     working_directory: ~/deployment-dev

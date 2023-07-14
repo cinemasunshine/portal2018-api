@@ -75,6 +75,7 @@
         "test": "php artisan test",
         "test:unit": "@test --group=unit",
         "test:feature": "@test --group=feature",
+        "test:ci": "@test",
         "schema-create:testing": "php artisan doctrine:schema:create --env=testing --ansi",
         "schema-drop:testing": "php artisan doctrine:schema:drop --env=testing --force --ansi",
         "db-seed:testing": "php artisan db:seed --env=testing --ansi",

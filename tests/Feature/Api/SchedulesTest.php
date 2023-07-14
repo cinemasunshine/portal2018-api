@@ -12,6 +12,13 @@ use Tests\TestCase;
  */
 class SchedulesTest extends TestCase
 {
+    private function skipTestOnCI(): void
+    {
+        if (env('CI')) {
+            $this->markTestSkipped('API Mock is not yet supported.');
+        }
+    }
+
     /**
      * @param mixed $theater
      */
@@ -61,6 +68,8 @@ class SchedulesTest extends TestCase
      */
     public function testListNowShowing(): void
     {
+        $this->skipTestOnCI();
+
         $response = $this->getJson('/schedules/now-showing?theater=120');
 
         $response->assertOk();
@@ -77,6 +86,8 @@ class SchedulesTest extends TestCase
      */
     public function testListCommingSoon(): void
     {
+        $this->skipTestOnCI();
+
         $response = $this->getJson('/schedules/comming-soon?theater=120');
 
         $response->assertOk();
@@ -90,6 +101,8 @@ class SchedulesTest extends TestCase
      */
     public function testListComingSoon(): void
     {
+        $this->skipTestOnCI();
+
         $response = $this->getJson('/schedules/coming-soon?theater=120');
 
         $response->assertOk();
