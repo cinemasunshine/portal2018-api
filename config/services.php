@@ -30,4 +30,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'schedule' => [
+        'base_url' => env('SCHEDULE_BASE_URL'),
+    ],
 ];

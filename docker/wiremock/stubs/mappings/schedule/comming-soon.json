@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/schedule/comming-soon/[0-9]{3}.json"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "comming-soon.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

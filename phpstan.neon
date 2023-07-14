@@ -12,18 +12,7 @@ parameters:
 		- %currentWorkingDirectory%/tests
 
 	ignoreErrors:
-		# other ignore errors
-
-		# https://github.com/phpstan/phpstan/issues/1881#issuecomment-704883275
-		-
-			message: "#^Function entity invoked with [0-9]+ parameters?, 0 required\\.$#"
-			path: tests/Feature/Api/SchedulesTest.php
-
 		# baseline
-		-
-			message: "#^Cannot access offset 'Illuminate\\\\\\\\Contracts\\\\\\\\Console\\\\\\\\Kernel' on Illuminate\\\\Contracts\\\\Foundation\\\\Application\\.$#"
-			count: 1
-			path: tests/Feature/Api/SchedulesTest.php
 		-
 			message: "#^Property App\\\\Console\\\\Kernel\\:\\:\\$commands type has no value type specified in iterable type array\\.$#"
 			count: 1

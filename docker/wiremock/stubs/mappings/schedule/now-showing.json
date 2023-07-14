@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/schedule/now-showing/[0-9]{3}.json"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "now-showing.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

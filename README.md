@@ -10,3 +10,7 @@
 - MySQL: 5.7
 - Google App Engine
 - Azure Blob Storage
+
+## WireMock
+
+http://localhost:8090/__admin/docs
