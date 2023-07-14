@@ -16,31 +16,6 @@ services:
     volumes:
       - .:/var/www/html
 
-  # mysql:
-  #   build: ./docker/mysql
-  #   ports:
-  #     - "3306:3306"
-  #   environment:
-  #     MYSQL_DATABASE: test_db
-  #     MYSQL_ROOT_PASSWORD: qwer4321
-  #     TZ: "Asia/Tokyo"
-  #   volumes:
-  #     # - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf # Dockerfileで対応
-  #     - ./docker/mysql/data:/var/lib/mysql
-
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin
-  #   ports:
-  #     - "8080:80"
-  #   depends_on:
-  #     - mysql
-  #   environment:
-  #     PMA_HOST: mysql
-  #     PMA_USER: root
-  #     PMA_PASSWORD: qwer4321
-  #   volumes:
-  #     - ./docker/phpmyadmin/sessions:/sessions
-
   wiremock:
     image: wiremock/wiremock:2.35.0
     ports:

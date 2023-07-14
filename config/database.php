@@ -57,13 +57,10 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
-            'engine' => 'InnoDB',
+            'engine' => null,
             'driverOptions' => extension_loaded('pdo_mysql') ? array_filter([
                 \PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
-
-            //  https://m-p.backlog.jp/view/SASAKI-246
-            'serverVersion' => '5.7',
         ],
 
         'pgsql' => [

@@ -2,12 +2,10 @@
 
 namespace App\Exceptions;
 
-use Doctrine\ORM\NoResultException;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -17,9 +15,7 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
-    protected $dontReport = [
-        NoResultException::class,
-    ];
+    protected $dontReport = [];
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
@@ -42,20 +38,6 @@ class Handler extends ExceptionHandler
     public function report(Throwable $exception)
     {
         parent::report($exception);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function prepareException(Throwable $e)
-    {
-        $e = parent::prepareException($e);
-
-        if ($e instanceof NoResultException) {
-            $e = new NotFoundHttpException($e->getMessage(), $e);
-        }
-
-        return $e;
     }
 
     /**

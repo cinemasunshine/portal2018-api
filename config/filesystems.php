@@ -1,7 +1,5 @@
 <?php
 
-use App\Doctrine\Entities\File;
-
 return [
 
     /*
@@ -62,7 +60,7 @@ return [
             'secure' => env('AZULE_STORAGE_SECURE', true),
             'name' => env('AZULE_STORAGE_NAME'),
             'key' => env('AZULE_STORAGE_KEY'),
-            'container' => File::getBlobContainer(),
+            'container' => 'file',
             'blob_endpoint' => env('AZULE_STORAGE_BLOB_ENDPOINT'),
             'public_endpoint' => env('AZULE_STORAGE_PUBLIC_ENDPOINT'),
         ],

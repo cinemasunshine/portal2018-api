@@ -43,10 +43,6 @@ commands:
           paths:
             - ./vendor
 
-      - run:
-          name: Generate Doctrine Proxies
-          command: php artisan doctrine:generate:proxies
-
 orbs:
   gcp-cli: circleci/gcp-cli@2.4.1
 
@@ -60,18 +56,6 @@ executors:
     docker:
       - image: circleci/php:7.4
         <<: *docker_hub_authentication
-
-        # 基本は.env.testingなどで設定する
-        # 差分が大きくなるようなら専用の.envファイルを作成するなど
-        environment:
-          DB_HOST: "127.0.0.1"
-
-      - image: circleci/mysql:5.7
-        <<: *docker_hub_authentication
-        environment:
-          MYSQL_DATABASE: test_db
-          MYSQL_ROOT_PASSWORD: qwer4321
-          TZ: "Asia/Tokyo"
 
 jobs:
   test:
@@ -100,10 +84,6 @@ jobs:
           key: composer-dev-{{ checksum "composer.lock" }}
           paths:
             - ./vendor
-
-      - run:
-          name: Generate Doctrine Proxies
-          command: php artisan doctrine:generate:proxies
 
       - run:
           name: PHP Lint
