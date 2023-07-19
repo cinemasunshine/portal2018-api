@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('schedules/{type}', 'Api\ScheduleController@index')
-    ->where('type', 'now-showing|coming-soon');
+    ->where('type', 'now-showing|coming-soon|comming-soon'); // typo

@@ -1,7 +1,5 @@
 <?php
 
-use App\Doctrine\Entities\File;
-
 return [
 
     /*
@@ -55,16 +53,6 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
-        ],
-
-        'azure-blob-file' => [
-            'driver' => 'azure-blob',
-            'secure' => env('AZULE_STORAGE_SECURE', true),
-            'name' => env('AZULE_STORAGE_NAME'),
-            'key' => env('AZULE_STORAGE_KEY'),
-            'container' => File::getBlobContainer(),
-            'blob_endpoint' => env('AZULE_STORAGE_BLOB_ENDPOINT'),
-            'public_endpoint' => env('AZULE_STORAGE_PUBLIC_ENDPOINT'),
         ],
 
         's3' => [

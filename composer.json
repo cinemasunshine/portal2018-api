@@ -11,15 +11,10 @@
     },
     "require": {
         "php": "^7.4",
-        "blue32a/laravel-azure-blob-storage": "^0.3",
         "blue32a/monolog-google-cloud-logging": "^1.0",
-        "cinemasunshine/portal2018-orm": "^2.0",
-        "doctrine/inflector": "^1.4",
-        "doctrine/orm": "~2.7.4",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
-        "laravel-doctrine/orm": "^1.6",
         "laravel/framework": "^7.30.3",
         "laravel/tinker": "^2.5"
     },
@@ -32,7 +27,6 @@
         "nunomaduro/larastan": "^1.0",
         "php-parallel-lint/php-parallel-lint": "^1.3",
         "phpstan/phpstan": "^1.10",
-        "phpstan/phpstan-doctrine": "^1.3",
         "phpstan/phpstan-mockery": "^1.1",
         "phpstan/phpstan-phpunit": "^1.3",
         "phpunit/phpunit": "^9.5"
@@ -75,9 +69,7 @@
         "test": "php artisan test",
         "test:unit": "@test --group=unit",
         "test:feature": "@test --group=feature",
-        "schema-create:testing": "php artisan doctrine:schema:create --env=testing --ansi",
-        "schema-drop:testing": "php artisan doctrine:schema:drop --env=testing --force --ansi",
-        "db-seed:testing": "php artisan db:seed --env=testing --ansi",
+        "test:ci": "@test",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

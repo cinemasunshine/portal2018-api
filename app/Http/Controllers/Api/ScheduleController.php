@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use App\Doctrine\Entities\Schedule;
-use App\Doctrine\Repositories\ScheduleRepository;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Schedule as ScheduleResource;
-use App\Http\Resources\ScheduleCollection as ScheduleCollectionResource;
-use Doctrine\ORM\EntityManagerInterface;
+use GuzzleHttp\Psr7\Request as Http7Request;
 use Illuminate\Http\Request;
+use Psr\Http\Client\ClientInterface;
 
 class ScheduleController extends Controller
 {
@@ -18,21 +15,33 @@ class ScheduleController extends Controller
      * Display a listing of the resource.
      *
      * @param string $type route parameter
-     * @return ScheduleCollectionResource<ScheduleResource>
+     * @return array{schedules:array<string,mixed>}
      */
-    public function index(Request $request, string $type, EntityManagerInterface $em): ScheduleCollectionResource
+    public function index(Request $request, string $type, ClientInterface $client): array
     {
+        // fix typo
+        $type = $type === 'coming-soon' ? 'comming-soon' : $type;
+
         $request->validate([
             'theater' => ['required', 'string', 'size:3'],
         ]);
 
-        /** @var string $theater */
-        $theater = $request->query('theater', '');
+        /** @var string $theaterCode */
+        $theaterCode = $request->query('theater', '');
 
-        /** @var ScheduleRepository $repository */
-        $repository = $em->getRepository(Schedule::class);
-        $schedules  = $repository->findPublic($type, $theater);
+        $response = $client->sendRequest(
+            new Http7Request('GET', $this->getRequestUrl($type, $theaterCode))
+        );
 
-        return new ScheduleCollectionResource($schedules);
+        abort_if($response->getStatusCode() !== 200, $response->getStatusCode(), $response->getReasonPhrase());
+
+        $contents = $response->getBody()->getContents();
+
+        return ['schedules' => json_decode($contents)->schedules];
+    }
+
+    private function getRequestUrl(string $type, string $theaterCode): string
+    {
+        return sprintf('%s/schedule/%s/%s.json', config('services.schedule.base_url'), $type, $theaterCode);
     }
 }

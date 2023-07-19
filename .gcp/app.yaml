@@ -36,5 +36,3 @@ env_variables:
   VIEW_COMPILED_PATH: /tmp
 
   CACHE_FILE_PATH: /tmp/framework/cache/data
-
-  DOCTRINE_CACHE: file
